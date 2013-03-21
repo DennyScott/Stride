@@ -4,6 +4,7 @@
  */
 package Controllers;
 
+import Beans.SingleTagPage;
 import Beans.TagPage;
 import Models.QModel;
 import java.io.IOException;
@@ -31,11 +32,18 @@ public class Tags extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        TagPage tag = QModel.getTags();
-       request.setAttribute("bean", tag);
-       RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/Tags.jsp");
-       rd.forward(request, response);    
+        if (request.getParameter("id") != null) {
+            SingleTagPage tag = QModel.getTag();
+            request.setAttribute("bean", tag);
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/TagPage.jsp");
+            rd.forward(request, response);
+        } else {
+            TagPage tag = QModel.getTags();
+            request.setAttribute("bean", tag);
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/Tags.jsp");
+            rd.forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

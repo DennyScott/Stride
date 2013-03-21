@@ -20,7 +20,7 @@
         <script type="text/javascript" src="javascript/showdown.js"></script>
 
 
-        <title>Newest ${bean.getTag().getTag()} Questions</title>
+        <title>Newest ${bean.getCourse().getCourse()} Questions</title>
     </head>
     <body>
 
@@ -33,7 +33,7 @@
 
                 <div class="mainHeader">
                     <h1 id="topQuestions">
-                        Tagged Questions
+                        Course Questions
                     </h1>
                     <div id="tabs">
                         <a class="youarehere" href="home" title="You are here!">Newest</a>
@@ -48,7 +48,7 @@
                     <div class="welovestride">
                         <div class="fl">
                             <p>
-                               ${bean.getTag().getTag()} is ${bean.getTag().getDescription()}
+                               ${bean.getCourse().getCourse()} is ${bean.getCourse().getDescription()}
                             </p>
 
                         </div>

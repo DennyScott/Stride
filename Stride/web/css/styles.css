@@ -118,6 +118,121 @@ a.genu{
     margin-bottom:15px;
 }
 
+.user-show-new .user-panel-left{
+    margin-right:30px;
+}
+
+.user-show-new .user-panel{
+    width:465px;
+    float:left;
+    margin-bottom:30px;
+}
+
+.user-show-new .user-panel .subheader{
+    border-bottom: 1px solid #cdcdcd;
+    margin-bottom:5px;
+}
+
+.user-show-new .user-panel .user-panel-content{
+    margin-bottom: 10px;
+}
+
+.votes-cast-stats td{
+    font-weight:bold;
+    color:#666;
+    vertical-align: middle;
+    text-align:right;
+}
+
+.user-show-new .user-panel table{
+    width:100%;
+}
+
+.user-show-new .user-answers{
+    overflow:auto;
+}
+
+.user-show-new .user-panel table td{
+    padding:6px 0;
+    vertical-align: middle;
+}
+
+.user-show-new .user-panel .subheader .count{
+    font-weight:normal;
+    color:#808080;
+}
+
+.votes-cast-stats td.desc{
+    font-size:10px;
+    color:#444;
+    padding-left:6px;
+    text-align:left;
+}
+
+.user-show-new .user-panel .votes-cast-stats td.desc{
+    padding-left:6px;
+}
+
+.user-show-new .user-header .data tr:last-child th, .user-show-new .user-header .data tr:last-child td{
+    padding-bottom:15px;
+}
+
+.user-show-new .user-panel .user-tags td, .user-show-new .user-panel .user-badges td{
+    padding: 3px;
+}
+
+.answer-votes{
+    color:#555;
+    text-align: center;
+    background-color:#eeeeee;
+    float:left;
+    font-weight:bold;
+    padding:4px;
+    padding-bottom:5px;
+    width:22px;
+    height:15px;
+    text-decoration:none;
+    font-size:110%;
+}
+
+.votes-cast-stats{
+    margin-top:10px;
+    font-size:16px;
+    line-height:20px;
+}
+
+.user-page table.votes-cast-stats{
+    margin-top:0!important;
+}
+
+.user-show-new .user-panel .votes-cast-stats{
+    margin-left:10px;
+    width:auto;
+}
+
+.user-show-new .user-panel .votes-cast-stats tr{
+    border-top:none;
+}
+
+.votes-cast-stats th{
+    color:#333;
+    padding-bottom:5px;
+}
+
+.votes-cast-stats th.spacer{
+    width:40px;
+}
+
+.user-show-new .user-tags .answer-votes, .user-show-new .user-badges .answer-votes{
+    margin-right:5px;
+    width:25px;
+    margin-top:2px;
+}
+
+.user-show-new .count-cell, .user-show-new .icon-cell{
+    width:30px;
+}
+
 subheader a{
     color:#000000
 }
@@ -377,7 +492,12 @@ td,th{
     font-weight:normal;
 }
 
+.fontchange{
+    font-size:180%;
+}
+
 .vote-count-post{
+    display:block;
     font-size:24px;
 }
 
@@ -393,6 +513,12 @@ td,th{
     cursor:pointer;
 }
 
+.votes{
+    color :#555555;
+    padding: 0 0 7px 0;
+    text-align: center;
+}
+
 .question-summary .votes{
     background:transparent;
     float:left;
@@ -403,10 +529,23 @@ td,th{
     text-align: center
 }
 
+
+
 .mini-counts{
     height:25px;
     font-size:160%;
     font-weight: normal;
+}
+
+.user-show-new .user-panel .mini-counts{
+    font-size:12px;
+    font-weight:normal;
+    padding:3px 3px 3px 3px;
+    height:15px;
+    line-height: 1.3;
+    margin-right: 10px;
+    text-align: center;
+    min-width: 20px;
 }
 
 .unanswered{
@@ -420,6 +559,16 @@ td,th{
     text-align: center;
 }
 
+.status{
+    margin-top:3px;
+    padding:4px 0 4px;
+    text-align:center;
+}
+
+.center{
+    text-align: center;
+}
+
 .views{
     float:left;
     margin:0 7px 0 0;
@@ -429,19 +578,34 @@ td,th{
     text-align:center;
 }
 
+.views2{
+    padding-top: 4px;
+    color:#999;
+    text-align: center;
+    clear:both;
+}
+
 .summary{
     width:550px;
     float:left;
 }
 
+.tagSummary{
+    width:635px;
+    float:left;
+}
+
 .summary h3{
     font-size:130%;
+    margin-bottom: 5px;
 }
 
 h3{
     font-weight:bold;
     margin-bottom:5px;
     line-height: 1.3;
+    margin-bottom: 5px;
+    font-family:Trebuchet MS, Liberation Sans, DejaVu Sans, sans-serif;
 }
 
 a{
@@ -519,17 +683,157 @@ a:visited{
     height:32px;
 }
 
+.user-info .user-action-time{
+    margin-top:2px;
+    margin-bottom:4px;
+}
+
 gravatar32, .user-info.user-hover .user-gravatar48 {
     -moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    filter: filter: progid:DXImageTransform.Microsoft.Shadow(direction=135,strength=3, color=#808080);
+    filter: progid:DXImageTransform.Microsoft.Shadow(direction=135,strength=3, color=#808080);
     border-collapse: separate;
 }
 
+.users-page .user-info .user-gravatar48 {
+    float:left;
+    width:48px;
+    height:48px;
+}
+
+.users-page .user-info .user-tags{
+    clear:both
+}
+
+.users-page .user-tags{
+    font-family: Arial, Liberation Sans, DejaVu Sans, sans-serif;
+    font-size:13px;
+    margin-left:53px;
+}
+
+.users-page .user-tags, .users-page .user-tags a{
+    color: #888;
+}
+
+.users-page #user-browser table td{
+    vertical-align: top;
+}
+
+.users-page #user-browser{
+    margin-left: 5px !important;
+    margin-top:15px;
+}
+.users-page .user-info{
+    overflow: hidden;
+}
+
+.users-page .user-info{
+    clear:both;
+    height:85px;
+    width:230px;
+    margin:8px 5px;
+}
+
+.user-show-new{
+    margin-bottom:20px;
+}
+
+.user-show-new .user-header .user-header-left{
+    float:left;
+    width:465px;
+    margin-right: 30px;
+}
+
+.user-show-new .user-header .user-header-left .gravatar{
+    float:left;
+    margin-right:15px;
+}
+
+.user-show-new .user-header .user-header-left .gravatar .reputation{
+    margin-top:10px;
+    text-align:center;
+    width:128px;
+}
+
+.user-show-new .user-header .user-header-left .gravatar .reputation span{
+    display:block;
+    font-size:220%;
+    margin-bottom:5px;
+    color: black;
+}
+
+.user-show-new .user-header .data{
+    line-height: 1.3;
+    width: 322px;
+    float: left;
+}
+
+.user-show-new .user-header .data tbody:first-child tr:first-child th, .user-show-new .user-header .data tbody:first-child tr:first-child td{
+    padding-top:0;
+}
+
+.user-show-new .user-header .data th, .user-show-new .user-header .data td{
+    padding: 3px 20px 3px 0;
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+.italic{
+    font-style:italic;
+}
+
+.user-show-new .user-header .data th{
+    font-weight:normal;
+    color: #A0A0A0;
+    font-style: italic;
+}
+
+.user-show-new .user-header .user-about-me{
+    width:445px;
+    height:225px;
+    float:right;
+    overflow-y:auto;
+}
+
+.user-show-new .user-panel .question-hyperlink, .user-show-new .user-panel .answer-hyperlink{
+    width:425px;
+}
+
+.answer-hyperlink{
+    color:#555 !important;
+    font-weight:bold;
+}
+
+.user-show new .user-panel .question-hyperlink, .user-show-new .user-panel .site-hyperlink, .user-show-new .user-panel .answer-hyperlink{
+    font-size:110%;
+    font-weight:normal;
+    line-height:1.3;
+    display:block;
+    max-width:425px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
+.user-about-me{
+    padding:10px;
+    font-size:12px;
+    background-color: #f8f8f8;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #eee;
+    line-height:1.3;
+}
+
+.user-show-new .subheader{
+    margin-bottom: 10px;
+}
+
 .started{
-    width:auto;
-    line-height: inherit;
+    width:auto; /*185*/
+    line-height: inherit; /*18px*/
     padding-top: 4px;
     white-space:nowrap;
     color:#999;
@@ -543,6 +847,20 @@ gravatar32, .user-info.user-hover .user-gravatar48 {
 .relativetime{
     font-weight:normal;
     text-decoration:none;
+}
+
+.relativeTime{
+    font-weight:normal;
+    text-decoration:none;
+}
+
+.gravatar-wrapper-32{
+    padding:0;
+    width:32px;
+    height:32px;
+    text-align: center;
+    overflow:hidden;
+    background-color:#e0eaf1;
 }
 
 .started .reputation-score{
@@ -724,7 +1042,7 @@ ul{
 
 
 #footer{
-    background-color: rgba(255, 100, 0, 0.8);
+    background-color: rgba(255, 75, 0, 0.8);
     border-style:solid;
     width:100%;
     border-width:0;
@@ -781,6 +1099,10 @@ ul{
     width:145px;
     overflow:hidden;
     white-space:nowrap;
+}
+
+.users-page .user-details{
+    width:175px !important;
 }
 
 #mainbar-full{
@@ -936,12 +1258,25 @@ input, select, button{
 .excerpt {
     font-size:12px;
     height:39px;
-    line-height:14px;
+    line-height:14px; /*1.2 -- 0 padding -- 0 margin -- 5px margin bottom -- no height or font*/
     overflow:hidden;
     margin-bottom:4px;
     padding:0;
     margin:0;
     padding-bottom: 5px;
+}
+
+.tagexcerpt{
+    line-height: 1.2;
+    padding:0;
+    margin:0;
+    margin-bottom: 5px;
+    
+}
+
+.tagSummary h3{
+    font-size:150%;
+    margin-bottom: 5px;
 }
 
 .excerpt, .stats-row{
@@ -950,10 +1285,31 @@ input, select, button{
     color: #888;
 }
 
+.statscontainer{
+    width:86px;
+    float:left;
+    margin-right:8px;
+}
+
 #hlogo a, .envelope-on, .envelope-off, .vote-up-off, .vote-up-on, .vote-down-off, .vote-down-on, .star-on, .star-off, .comment-up-off, .comment-up-on, .comment-flag, .edited-yes, a.cc-wiki-link, .feed-icon, .statsarrow, .vote-accepted-off, .vote-accepted-on, .vote-accepted-bounty, .badge-earned-check, .delete-tag, .grippie, .expander-arrow-hide, .expander-arrow-show, .expander-arrow-small-hide, .expander-arrow-small-show, .anonymous-gravatar, .badge1, .badge2, .badge3, .add-interesting-tag-on, .add-interesting-tag-off, .fb-share, .twitter-share, .gp-share {
     background-image: url('../img/sprites.png?v=5');
     background-repeat: no-repeat;
     overflow: hidden;
+}
+
+.stats{
+    background:#eee;
+    margin:0 0 0 7px;
+    padding: 4px 7px 6px 7px;
+    width: 58px;
+}
+
+.statsarrow{
+    float:right;
+    height:13px;
+    width:7px;
+    margin-top:12px;
+    background-position: 0px -435px;
 }
 
 .badges-page .check-cell{
@@ -1411,4 +1767,14 @@ a.post-tag:hover,.post-text a.post-tag:hover,.wmd-preview a.post-tag:hover {
 
 #prefix{
     width: 50px; 
+}
+
+.welovestride{
+    padding:5px;
+    color: #333;
+    line-height: 130%;
+    overflow:hidden;
+    margin-bottom: 8px;
+    border: 3px solid #eee;
+    margin-top: 10px;
 }

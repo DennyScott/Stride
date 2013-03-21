@@ -4,8 +4,11 @@
  */
 package Controllers;
 
+import Beans.SingleUserPage;
+import Beans.UserPage;
+import Models.QModel;
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,20 +32,16 @@ public class Users extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Users</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Users at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+         if (request.getParameter("id") != null) {
+            SingleUserPage user = QModel.getUser();
+            request.setAttribute("bean", user);
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/UserPage.jsp");
+            rd.forward(request, response);
+        } else {
+            UserPage user = QModel.getUsers();
+            request.setAttribute("bean", user);
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/Users.jsp");
+            rd.forward(request, response);
         }
     }
 

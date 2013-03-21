@@ -15,9 +15,18 @@ public class Answers {
     private String answer;
     private String author;
     private String authorID;
+    private String questionID;
     private String submitted;
     private String lastUpdated;
     private int votes;
+
+    public String getQuestionID() {
+        return questionID;
+    }
+
+    public void setQuestionID(String questionID) {
+        this.questionID = questionID;
+    }
 
     public String getAuthorID() {
         return authorID;

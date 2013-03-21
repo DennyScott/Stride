@@ -16,7 +16,7 @@
             <div class="mainNav">
                 <ul>
                     <li>
-                        <a href="home">Questions</a>
+                        <a href="Users">Users</a>
                     </li>
 
                     <li>
