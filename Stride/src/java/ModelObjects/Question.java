@@ -179,6 +179,13 @@ public class Question {
     public void setLastUpdated(String lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" + "questionID=" + questionID + ", userID=" + userID + ", visits=" + visits + ", answers=" + answers + ", title=" + title + ", question=" + question + ", votes=" + votes + ", courseID=" + courseID + ", submitted=" + submitted + ", lastUpdated=" + lastUpdated + '}';
+    }
+    
+    
     
     
     

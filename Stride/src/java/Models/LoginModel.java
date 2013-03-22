@@ -61,7 +61,7 @@ public class LoginModel {
 
                 //Set a name attribute in a session for userName;
                 session.setAttribute("Name", loginUsername);
-                
+                session.setAttribute("id", loginValidation.getString(1));
                 connection.close();
                 
                 return true;

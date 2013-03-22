@@ -5,10 +5,9 @@
 package Controllers;
 
 import Beans.Error;
-import Models.SignUpModel;
 import Models.UserModel;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,75 +35,6 @@ public class SignUp extends HttpServlet {
         
         beanForward(null, "WEB-INF/UserSignUp.jsp", response, request);
         
-        
-        
-        
-        
-       
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        //If this is the first time the user is using the signup page then do the following
-        if (request.getParameter("signUpUsername") == null || request.getParameter("signUpPassword") == null) {
-
-            //Forward user to the signUp page
-            beanForward(null, "WEB-INF/signUp.jsp", response, request);
-
-
-        } //Else if the username or password they entered is blank do the following
-        else if (request.getParameter("signUpUsername").trim().equals("") || request.getParameter("signUpPassword").trim().equals("")) {
-
-
-            //Forward user to the signUp page
-            beanForward("Passwords and usernames cannot be left blank", "WEB-INF/signUp.jsp", response, request);
-
-
-        } //Else if the password and confimartion password are not the same then do the following
-        else if (!request.getParameter("signUpPassword").equals(request.getParameter("signUpPasswordReconfirm"))) {
-
-
-            //Forward user to the signUp page
-            beanForward("Passwords are not the same", "WEB-INF/signUp.jsp", response, request);
-
-
-        } //The user has entered a valid username, password, and password confirmation
-        else {
-
-            String signUpUsername = request.getParameter("signUpUsername");
-            String signUpPassword = request.getParameter("signUpPassword");
-
-            SignUpModel signup = new SignUpModel();
-            try {
-                if (signup.insert(signUpUsername, signUpPassword)) {
-                    //Forward user to the login page
-                    beanForward("Thanks for signing up! <br> Now you can login!", "WEB-INF/login.jsp", response, request);
-
-                } else {
-                    //forward to error page
-                }
-            } catch (ClassNotFoundException cnfe) {
-                //Email technician
-                
-                 beanForward("Error loading driver: " + cnfe, "WEB-INF/signUp.jsp", response, request);
-            } catch (SQLException sqle) {
-
-                //Email Technician
-                
-                 beanForward("Error with connection: " + sqle, "WEB-INF/signUp.jsp", response, request);
-            }
-
-
-        }
-
-
     }
 
     public void beanForward(String message, String destination, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
@@ -171,7 +101,10 @@ public class SignUp extends HttpServlet {
         UserModel um = new UserModel();
         um.addUser(user);
         
-        processRequest(request, response);
+        PrintWriter out = response.getWriter();
+        out.println(user.toString());
+        
+      //  beanForward(null, "WEB-INF/UserSignUp.jsp", response, request);
     }
 
     /**

@@ -4,7 +4,9 @@
  */
 package Controllers;
 
+import Models.QuestionModel;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -62,7 +64,22 @@ public class Ask extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            
+        ModelObjects.Question question = new ModelObjects.Question();
+        question.setAnswers(0);
+        question.setCourseID(4);
+        question.setQuestion(request.getParameter("post-text"));
+        question.setTitle(request.getParameter("title"));
+        question.setVotes(0);
+        question.setVisits(0);
+        question.setUserID(Integer.parseInt((String)request.getSession().getAttribute("id")));
+        
+        
+        QuestionModel qm = new QuestionModel();
+        qm.addQuestion(question);
+        
+        PrintWriter out = response.getWriter();
+        out.print(question.toString());
     }
 
     /**

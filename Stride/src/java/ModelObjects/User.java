@@ -190,6 +190,11 @@ public class User {
     public void setReputation(int reputation) {
         this.reputation = reputation;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "userID=" + userID + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", emailAddress=" + emailAddress + ", numberOfQuestions=" + numberOfQuestions + ", numberOfAnswers=" + numberOfAnswers + ", votes=" + votes + ", created=" + created + ", lastLoggedIn=" + lastLoggedIn + ", profilePictureLink=" + profilePictureLink + ", biography=" + biography + ", rank=" + rank + ", join=" + join + ", bronzeCount=" + bronzeCount + ", silverCount=" + silverCount + ", goldCount=" + goldCount + ", Anonymous=" + Anonymous + ", reputation=" + reputation + '}';
+    }
     
     
 }

@@ -27,7 +27,7 @@
 
 
             <div id="mainContent" class="ask-mainbar">
-
+                <form method="POST" action="Ask" name="question">
                 <div class="form-item ask-title">
                     <table class="ask-title-table">
                         <tbody>
