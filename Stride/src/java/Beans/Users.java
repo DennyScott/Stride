@@ -21,7 +21,6 @@ public class Users {
     private int numberQuestions;
     private int numberAnswers;
     private int votes;
-    private ArrayList<Badges> badges;
     private String rank;
     private String bio;
     private int gold;
@@ -164,14 +163,6 @@ public class Users {
 
     public void setVotes(int votes) {
         this.votes = votes;
-    }
-
-    public ArrayList<Badges> getBadges() {
-        return badges;
-    }
-
-    public void setBadges(ArrayList<Badges> badges) {
-        this.badges = badges;
     }
     
     

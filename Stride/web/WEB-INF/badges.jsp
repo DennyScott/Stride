@@ -47,7 +47,7 @@
                                             
                                         </td>
                                         <td class="badge-cell">
-                                            <a href="Badges?id=${badge.getId()}" title="${badge.getBadge()}" class="badge"><span class="badge${badge.getColor().getColor()}"></span> ${badge.getBadge()}</a>   <span class="item-multiplier">x ${badge.getTotal()}</span>
+                                            <a href="Badges?id=${badge.getId()}" title="${badge.getBadge()}" class="badge"><span class="badge${badge.getColor()}"></span> ${badge.getBadge()}</a>   <span class="item-multiplier">x ${badge.getTotal()}</span>
                                         </td>
                                         
                                         <td>

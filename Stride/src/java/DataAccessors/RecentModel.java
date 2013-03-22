@@ -167,7 +167,7 @@ public class RecentModel {
      */
     public ArrayList<Question> collectQuestions(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "SELECT * FROM Recent";
+        String SQLString = "SELECT * FROM Recent LIMIT " + questionAmount;
         ArrayList<Question> returnList = new ArrayList();
 
         try {
@@ -178,17 +178,24 @@ public class RecentModel {
             ResultSet resultSet = statement.executeQuery(SQLString);
             ResultSetMetaData result = resultSet.getMetaData();
             int cn = result.getColumnCount();
-            int i = startPosition;
-            while (resultSet.next() && i <= questionAmount) {
+            while (resultSet.next()) {
                 Question findQuestion = new Question();
                 findQuestion.setQuestionID(Integer.parseInt(resultSet.getString(1)));
                 returnList.add(findQuestion);
+            }
+
+            for (int i = startPosition - 1; i >= 0; i--) {
+                returnList.remove(i);
             }
 
             QuestionModel findQuestion = new QuestionModel();
             for (int x = 0; x < returnList.size(); x++) {
                 returnList.set(x, findQuestion.query(returnList.get(x).getQuestionID()));
             }
+
+
+
+
 
 
             connection.close();

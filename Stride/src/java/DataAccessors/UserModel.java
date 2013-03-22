@@ -83,7 +83,7 @@ public class UserModel {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
         String sqlString = "INSERT into User VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newUser.getUsername() + seperateValue() + newUser.getPassword() + seperateValue() + newUser.getFirstName() + seperateValue() + newUser.getLastName() + seperateValue() + newUser.getEmailAddress() + seperateValue() + newUser.getNumberOfQuestions() + seperateValue() + newUser.getNumberOfAnswers() + seperateValue() + newUser.getVotes() + seperateValue() + newUser.getCreated() + seperateValue() + subDate + seperateValue() + newUser.getProfilePictureLink() + seperateValue() + newUser.getBiography() + seperateValue() + newUser.getRank() + seperateValue() + subDate + seperateValue() + (newUser.isAnonymous()?1:0) + "\")";
+        String answerString = "(" + "null" + ", " + "\"" + newUser.getUsername() + seperateValue() + newUser.getPassword() + seperateValue() + newUser.getFirstName() + seperateValue() + newUser.getLastName() + seperateValue() + newUser.getEmailAddress() + seperateValue() + newUser.getNumberOfQuestions() + seperateValue() + newUser.getNumberOfAnswers() + seperateValue() + newUser.getVotes() + seperateValue() + newUser.getCreated() + seperateValue() + subDate + seperateValue() + newUser.getProfilePictureLink() + seperateValue() + newUser.getBiography() + seperateValue() + newUser.getRank() + seperateValue() + subDate + seperateValue() + (newUser.isAnonymous() ? 1 : 0) + seperateValue() + newUser.getGoldCount() + seperateValue() + newUser.getSilverCount() + seperateValue() + newUser.getBronzeCount() + seperateValue() + newUser.getReputation() + "\")";
 
         try {
             Connection connection = connectDB();
@@ -118,7 +118,7 @@ public class UserModel {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
-        String sqlString = "Update User set Profile_Picture_Path = \"" + newUser.getProfilePictureLink() + "\", Last_Logged_In = \"" + subDate + "\", Number_Of_Questions = \"" + newUser.getNumberOfQuestions() + "\", Number_Of_Answers = \"" + newUser.getNumberOfAnswers() + "\", Votes = \"" + newUser.getVotes() + "\", Biography = \"" + newUser.getBiography() + "\", Rank = \"" + newUser.getRank() + "\", Is_Anonymous = \"" + (newUser.isAnonymous()?1:0) + "\"  where User_ID = " + newUser.getUserID();
+        String sqlString = "Update User set Profile_Picture_Path = \"" + newUser.getProfilePictureLink() + "\", Last_Logged_In = \"" + subDate + "\", Number_Of_Questions = \"" + newUser.getNumberOfQuestions() + "\", Number_Of_Answers = \"" + newUser.getNumberOfAnswers() + "\", Votes = \"" + newUser.getVotes() + "\", Biography = \"" + newUser.getBiography() + "\", Rank = \"" + newUser.getRank() + "\", Is_Anonymous = \"" + (newUser.isAnonymous() ? 1 : 0) + "\", Gold_Count = \"" + newUser.getGoldCount() + "\", Silver_Count = \"" + newUser.getSilverCount() + "\", Bronze_Count = \"" + newUser.getBronzeCount() + "\", Reputation = \"" + newUser.getReputation() + "\"  where User_ID = " + newUser.getUserID();
 
         try {
             Connection connection = connectDB();
@@ -180,6 +180,12 @@ public class UserModel {
                 returnUser.setSilverCount(Integer.parseInt(resultSet.getString(17)));
                 returnUser.setGoldCount(Integer.parseInt(resultSet.getString(18)));
                 returnUser.setAnonymous(resultSet.getBoolean(19));
+                returnUser.setGoldCount(Integer.parseInt(resultSet.getString(20)));
+                returnUser.setSilverCount(Integer.parseInt(resultSet.getString(21)));
+                returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(22)));
+                returnUser.setReputation(Integer.parseInt(resultSet.getString(23)));
+
+
             }
 
 

@@ -6,6 +6,7 @@ package Controllers;
 
 import Beans.Error;
 import Models.SignUpModel;
+import Models.UserModel;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -32,6 +33,24 @@ public class SignUp extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        beanForward(null, "WEB-INF/UserSignUp.jsp", response, request);
+        
+        
+        
+        
+        
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         //If this is the first time the user is using the signup page then do the following
         if (request.getParameter("signUpUsername") == null || request.getParameter("signUpPassword") == null) {
@@ -129,6 +148,29 @@ public class SignUp extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ModelObjects.User user = new ModelObjects.User();
+        user.setUsername(request.getParameter("username"));
+        user.setPassword(request.getParameter("password"));
+        user.setProfilePictureLink(request.getParameter("image"));
+        user.setReputation(Integer.parseInt(request.getParameter("reputation")));
+        user.setFirstName(request.getParameter("firstName"));
+        user.setLastName(request.getParameter("lastName"));
+        user.setEmailAddress(request.getParameter("email"));
+        user.setNumberOfQuestions(Integer.parseInt(request.getParameter("numQuestions")));
+        user.setNumberOfAnswers(Integer.parseInt(request.getParameter("numAnswers")));
+        user.setVotes(Integer.parseInt(request.getParameter("votes")));
+        user.setRank(request.getParameter("rank"));
+        user.setBiography(request.getParameter("bio"));
+        user.setGoldCount(Integer.parseInt(request.getParameter("gold")));
+        user.setSilverCount(Integer.parseInt(request.getParameter("silver")));
+        user.setBronzeCount(Integer.parseInt(request.getParameter("bronze")));
+        user.setJoin(request.getParameter("join"));
+        user.setLastLoggedIn(request.getParameter("lastOnline"));
+        user.setAnonymous(request.getParameter("isAnon").equals("ON")?true:false);
+        
+        UserModel um = new UserModel();
+        um.addUser(user);
+        
         processRequest(request, response);
     }
 

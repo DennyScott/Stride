@@ -22,6 +22,15 @@ public class SingleUserPage {
     private int votesDown;
     private int questionVotes;
     private int answerVotes;
+    private ArrayList<Badges> userBadges;
+
+    public ArrayList<Badges> getUserBadges() {
+        return userBadges;
+    }
+
+    public void setUserBadges(ArrayList<Badges> userBadges) {
+        this.userBadges = userBadges;
+    }
 
     public int getQuestionVotes() {
         return questionVotes;

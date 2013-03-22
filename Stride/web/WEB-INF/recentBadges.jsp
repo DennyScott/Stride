@@ -14,7 +14,7 @@
                             <c:forEach items="${bean.getBadges()}" var="badge">
                             <tr>
                                 <td>
-                                    <a href="badges?id=${badge.getBadge().getId()}" title="${badge.getBadge().getBadge()}" class="badge"><span class="badge${badge.getBadge().getColor().getColor()}"></span> ${badge.getBadge().getBadge()}</a>
+                                    <a href="badges?id=${badge.getBadge().getId()}" title="${badge.getBadge().getBadge()}" class="badge"><span class="badge${badge.getBadge().getColor()}"></span> ${badge.getBadge().getBadge()}</a>
                                     <a href="users?id=${badge.getUserID()}">${badge.getUserName()}</a>
                                 </td>
 

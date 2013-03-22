@@ -54,7 +54,7 @@ public class QModel {
             
              Badges d = new Badges();
                 d.setBadge("Badge " + i);
-                d.setColor(MedalColor.GOLD);
+                d.setColor(1);
                 d.setDescription("Im a badge");
                 d.setId(i + "");
                 d.setTotal(rand.nextInt());
@@ -99,7 +99,7 @@ public class QModel {
             courses.add(c);
         }
         
-        u.setBadges(badge);
+        user.setUserBadges(badge);
         user.setUser(u);
         user.setAnswers(answers);
         user.setQuestions(questions);
@@ -137,13 +137,12 @@ public class QModel {
             for (int g = 0; g < 3; g++) {
                 Badges c = new Badges();
                 c.setBadge("Badge " + g);
-                c.setColor(MedalColor.GOLD);
+                c.setColor(1);
                 c.setDescription("Im a badge");
                 c.setId(g + "");
                 c.setTotal(rand.nextInt());
                 badge.add(c);
             }
-            t.setBadges(badge);
             badge = new ArrayList<Badges>();
             tags.add(t);
         }
@@ -177,11 +176,11 @@ public class QModel {
                 b.setBadge("Badge " + i);
                 b.setId(i + "");
                 if (i < 2) {
-                    b.setColor(MedalColor.GOLD);
+                    b.setColor(1);
                 } else if (i < 3) {
-                    b.setColor(MedalColor.SILVER);
+                    b.setColor(2);
                 } else {
-                    b.setColor(MedalColor.BRONZE);
+                    b.setColor(1);
                 }
 
 
@@ -265,11 +264,11 @@ public class QModel {
                 b.setBadge("Badge " + i);
                 b.setId(i + "");
                 if (i < 2) {
-                    b.setColor(MedalColor.GOLD);
+                    b.setColor(1);
                 } else if (i < 3) {
-                    b.setColor(MedalColor.SILVER);
+                    b.setColor(2);
                 } else {
-                    b.setColor(MedalColor.BRONZE);
+                    b.setColor(3);
                 }
 
 
@@ -371,11 +370,11 @@ public class QModel {
             b.setTotal(rand.nextInt(100));
 
             if (i < 10) {
-                b.setColor(MedalColor.GOLD);
+                b.setColor(1);
             } else if (i < 15) {
-                b.setColor(MedalColor.SILVER);
+                b.setColor(2);
             } else {
-                b.setColor(MedalColor.BRONZE);
+                b.setColor(3);
             }
 
             bAdd.add(b);
@@ -389,11 +388,11 @@ public class QModel {
                 b.setBadge("Badge " + i);
                 b.setId(i + "");
                 if (i < 2) {
-                    b.setColor(MedalColor.GOLD);
+                    b.setColor(1);
                 } else if (i < 3) {
-                    b.setColor(MedalColor.SILVER);
+                    b.setColor(2);
                 } else {
-                    b.setColor(MedalColor.BRONZE);
+                    b.setColor(3);
                 }
 
 
@@ -440,7 +439,7 @@ public class QModel {
         b.setTotal(rand.nextInt(100));
 
 
-        b.setColor(MedalColor.GOLD);
+        b.setColor(1);
 
 
 
@@ -452,11 +451,11 @@ public class QModel {
                 c.setBadge("Badge " + i);
                 c.setId(i + "");
                 if (i < 2) {
-                    c.setColor(MedalColor.GOLD);
+                    c.setColor(1);
                 } else if (i < 3) {
-                    c.setColor(MedalColor.SILVER);
+                    c.setColor(2);
                 } else {
-                    c.setColor(MedalColor.BRONZE);
+                    c.setColor(3);
                 }
 
 
@@ -529,11 +528,11 @@ public class QModel {
                 b.setBadge("Badge " + i);
                 b.setId(i + "");
                 if (i < 2) {
-                    b.setColor(MedalColor.GOLD);
+                    b.setColor(1);
                 } else if (i < 3) {
-                    b.setColor(MedalColor.SILVER);
+                    b.setColor(2);
                 } else {
-                    b.setColor(MedalColor.BRONZE);
+                    b.setColor(3);
                 }
 
 
@@ -659,11 +658,11 @@ public class QModel {
                 rb.setUserName("Author " + i);
                 badge.add(rb);
                 if (i < 2) {
-                    b.setColor(MedalColor.GOLD);
+                    b.setColor(1);
                 } else if (i < 3) {
-                    b.setColor(MedalColor.SILVER);
+                    b.setColor(2);
                 } else {
-                    b.setColor(MedalColor.BRONZE);
+                    b.setColor(3);
                 }
 
             }
@@ -697,11 +696,11 @@ public class QModel {
                 c.setBadge("Badge " + i);
                 c.setId(i + "");
                 if (i < 2) {
-                    c.setColor(MedalColor.GOLD);
+                    c.setColor(1);
                 } else if (i < 3) {
-                    c.setColor(MedalColor.SILVER);
+                    c.setColor(2);
                 } else {
-                    c.setColor(MedalColor.BRONZE);
+                    c.setColor(3);
                 }
 
 

@@ -11,7 +11,7 @@ package Beans;
 public class Badges {
     private String badge;
     private String id;
-    private MedalColor color;
+    private int color;
     private int total;
     private String description;
 
@@ -31,11 +31,11 @@ public class Badges {
         this.total = total;
     }
 
-    public MedalColor getColor() {
+    public int getColor() {
         return color;
     }
 
-    public void setColor(MedalColor color) {
+    public void setColor(int color) {
         this.color = color;
     }
 

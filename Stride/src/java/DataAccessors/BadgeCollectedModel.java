@@ -6,6 +6,7 @@ package DataAccessors;
 
 import ModelObjects.Badge;
 import ModelObjects.BadgeCollected;
+import ModelObjects.RecentBadge;
 import ModelObjects.User;
 import java.io.IOException;
 import java.sql.Connection;
@@ -25,6 +26,7 @@ import java.util.Date;
  */
 public class BadgeCollectedModel {
 
+    
     /**
      * Will create a basic connection to the local Stride database
      *
@@ -163,6 +165,45 @@ public class BadgeCollectedModel {
         }
 
         return findBadge;
+    }
+    
+        /**
+     * Returns a given amount of recent badges
+     * @param badgeReturned The amount of recent badge wanted
+     * @return The most recent badges in the database
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    public ArrayList<RecentBadge> collectRecentBadges(int badgeReturned) throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM BadgeCollected ORDER BY Submitted DESC LIMIT " + badgeReturned;
+        ArrayList<RecentBadge> returnList = new ArrayList();
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                RecentBadge returnBadge = new RecentBadge();
+                returnBadge.setUserID(Integer.parseInt(resultSet.getString(1)));
+                returnBadge.setBadgeID(Integer.parseInt(resultSet.getString(2)));
+                returnBadge.setSubmission(resultSet.getString(3));
+                returnList.add(returnBadge);
+            }
+
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnList;
     }
 
     /**

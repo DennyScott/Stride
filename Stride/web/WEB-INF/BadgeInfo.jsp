@@ -38,7 +38,7 @@
                                             
                                         </td>
                                         <td class="badge-cell">
-                                            <a href="Badge?id=${bean.getBadgeInfo().getId()}" title="${bean.getBadgeInfo().getBadge()}" class="badge"><span class="badge${bean.getBadgeInfo().getColor().getColor()}"></span> ${bean.getBadgeInfo().getBadge()}</a>
+                                            <a href="Badge?id=${bean.getBadgeInfo().getId()}" title="${bean.getBadgeInfo().getBadge()}" class="badge"><span class="badge${bean.getBadgeInfo().getColor()}"></span> ${bean.getBadgeInfo().getBadge()}</a>
                                         </td>
                                         
                                         <td>

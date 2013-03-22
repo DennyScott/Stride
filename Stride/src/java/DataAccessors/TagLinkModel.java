@@ -13,7 +13,10 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -98,9 +101,11 @@ public class TagLinkModel {
      * @throws SQLException
      */
     public boolean add(int questionID, int tagID) throws IOException, ClassNotFoundException, SQLException {
-
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String subDate = dateFormat.format(date);
         String sqlString = "INSERT into TagLink VALUES ";
-        String answerString = "(\"" + questionID + seperateValue() + tagID + "\")";
+        String answerString = "(\"" + questionID + seperateValue() + tagID + seperateValue() + subDate + "\")";
 
         try {
             if (!exists(questionID, tagID)) {
@@ -194,6 +199,49 @@ public class TagLinkModel {
             QuestionModel findModel = new QuestionModel();
             for (int i = 0; i < returnList.size(); i++) {
                 returnList.set(i, findModel.query(returnList.get(i).getQuestionID()));
+            }
+
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnList;
+    }
+
+    /**
+     * Collects all Questions that contain a given Tag
+     *
+     * @param tagID The ID of the Tag being searched for
+     * @return An ArrayList containing all Questions with a given Tag
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public ArrayList<Tag> collectRecentTags(int tagsReturned) throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM TagLink ORDER BY Submitted DESC LIMIT " + tagsReturned;
+        ArrayList<Tag> returnList = new ArrayList();
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                Tag returnTag = new Tag();
+                returnTag.setTagID(Integer.parseInt(resultSet.getString(2)));
+                returnList.add(returnTag);
+            }
+
+            TagModel findTag = new TagModel();
+            for (int i = 0; i < returnList.size(); i++) {
+                returnList.set(i, findTag.query(returnList.get(i).getTagID()));
             }
 
 

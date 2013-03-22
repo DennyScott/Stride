@@ -29,6 +29,7 @@ public class User {
     private int silverCount;
     private int goldCount;
     private boolean Anonymous;
+    private int reputation;
 
     public int getUserID() {
         return userID;
@@ -181,4 +182,14 @@ public class User {
     public void setAnonymous(boolean Anonymous) {
         this.Anonymous = Anonymous;
     }
+
+    public int getReputation() {
+        return reputation;
+    }
+
+    public void setReputation(int reputation) {
+        this.reputation = reputation;
+    }
+    
+    
 }

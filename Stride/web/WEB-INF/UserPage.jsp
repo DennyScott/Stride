@@ -213,7 +213,7 @@
                     <div id="user-panel-badges" class="user-panel">
                         <div class="subheader">
                             <h1>
-                                <span class="count">${bean.getUser().getBadges().size()}</span>
+                                <span class="count">${bean.getUserBadges().size()}</span>
                                 Badges
                             </h1>
                         </div>
@@ -221,13 +221,13 @@
                         <div class="user-panel-content">
                             <table class="user-badges">
                                 <tbody>
-                                    <c:forEach items="${bean.getUser().getBadges()}" var="badge" varStatus="count">
+                                    <c:forEach items="${bean.getUserBadges()}" var="badge" varStatus="count">
                                         <c:if test="${(count.count-1)%2==0}">
                                             <tr>
                                             </c:if>
                                             <td>
                                                 <a href="Badges?id=${badge.getId()}" title="${badge.getDescription()}"class="badge">
-                                                    <span class="badge${badge.getColor().getColor()}"></span>&nbsp;${badge.getBadge()}
+                                                    <span class="badge${badge.getColor()}"></span>&nbsp;${badge.getBadge()}
                                                 </a>
                                             </td>
                                             <c:if test="${(count.count-1)%2==1}">
