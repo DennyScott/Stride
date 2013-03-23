@@ -21,7 +21,7 @@ import java.util.Date;
  *
  * @author Travis
  */
-public class RecentModel {
+public class RecentDA {
 
     /**
      * Will create a basic connection to the local Stride database
@@ -188,7 +188,7 @@ public class RecentModel {
                 returnList.remove(i);
             }
 
-            QuestionModel findQuestion = new QuestionModel();
+            QuestionDA findQuestion = new QuestionDA();
             for (int x = 0; x < returnList.size(); x++) {
                 returnList.set(x, findQuestion.query(returnList.get(x).getQuestionID()));
             }

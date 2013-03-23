@@ -40,8 +40,10 @@
                                             
                                         </td>
                                         <td class="badge-cell">
+                                            <span id ="badgeTest">
                                             <a href="Courses?id=${course.getId()}" title="${course.getCourse()}" class="badge">${course.getCourse()}</a>   <span class="item-multiplier">x ${course.getTotal()}</span>
-                                        </td>
+                                            </span>
+                                            </td>
                                         
                                         <td>
                                             ${course.getDescription()}

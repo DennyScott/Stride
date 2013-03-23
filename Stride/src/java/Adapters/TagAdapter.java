@@ -4,7 +4,7 @@
  */
 package Adapters;
 
-import DataAccessors.TagLinkModel;
+import DataAccessors.TagLinkDA;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class TagAdapter {
     
     public ArrayList<Beans.Tags> getRecent(int num){
         ArrayList<Beans.Tags> tags = new ArrayList<Beans.Tags>();
-        TagLinkModel tlm = new TagLinkModel();
+        TagLinkDA tlm = new TagLinkDA();
         try {
             ArrayList<ModelObjects.Tag> t = tlm.collectRecentTags(num);
             for(ModelObjects.Tag tag: t){
@@ -38,7 +38,7 @@ public class TagAdapter {
     
     public ArrayList<Beans.Tags> collectQuestionTags(int questionID){
         
-        TagLinkModel tlm = new TagLinkModel();
+        TagLinkDA tlm = new TagLinkDA();
         ArrayList<Beans.Tags> tags = new ArrayList<Beans.Tags>();
         
         try {

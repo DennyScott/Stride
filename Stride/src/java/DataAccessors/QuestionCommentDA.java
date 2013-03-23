@@ -22,7 +22,7 @@ import java.util.Date;
  *
  * @author Travis
  */
-public class QuestionCommentModel {
+public class QuestionCommentDA {
 
     /**
      * Will create a basic connection to the local Stride database

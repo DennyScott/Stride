@@ -47,8 +47,10 @@
                                             
                                         </td>
                                         <td class="badge-cell">
+                                            <span id ="badgeTest">
                                             <a href="Badges?id=${badge.getId()}" title="${badge.getBadge()}" class="badge"><span class="badge${badge.getColor()}"></span> ${badge.getBadge()}</a>   <span class="item-multiplier">x ${badge.getTotal()}</span>
-                                        </td>
+                                            </span>
+                                            </td>
                                         
                                         <td>
                                             ${badge.getDescription()}
@@ -69,19 +71,25 @@
                     <h4 id="h-legend">Legend</h4>
                     <div id="badge-legend">
                         <div class="mb">
+                            <span id ="badgeTest">
                             <a href="/badges?tab=general&filter=gold" title="gold badge: awarded rarely" class="badge"><span class="badge1"></span>&nbsp;Gold Badge</a>
+                            </span>
                         </div>
                         <p>
                             Gold Badges are rare. You will have to actively work toward these. They&rsquo;re something
                             of an accomplishment!</p>
                         <div class="mb">
+                            <span id ="badgeTest">
                             <a href="/badges?tab=general&filter=silver" title="silver badge: awarded occasionally" class="badge"><span class="badge2"></span>&nbsp;Silver Badge</a>
+                            </span>
                         </div>
                         <p>
                             Silver badges are awarded for longer term goals. Silver badges are uncommon, but
                             definitely attainable if you&rsquo;re interested.</p>
                         <div class="mb">
+                            <span id ="badgeTest">
                             <a href="/badges?tab=general&filter=bronze" title="bronze badge: awarded frequently" class="badge"><span class="badge3"></span>&nbsp;Bronze Badge</a>
+                            </span>
                         </div>
                         <p>
                             Bronze badges are awarded for basic use of

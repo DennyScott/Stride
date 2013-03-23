@@ -12,7 +12,7 @@
         <title>User Sign-Up</title>
     </head>
     <body>
-        <form name="SignUp" action="SignUp" method="POST">
+        <form name="SignUp" action="InputUser" method="POST">
            UserName: <input type="text" name="username" id="username"/><br>
            Password: <input type="text" name="password" id="password"/><br>
            Image: <input type="text" name="image" id="image"/><br>

@@ -4,9 +4,9 @@
  */
 package Adapters;
 
-import DataAccessors.CourseModel;
-import DataAccessors.RecentModel;
-import DataAccessors.UserModel;
+import DataAccessors.CourseDA;
+import DataAccessors.RecentDA;
+import DataAccessors.UserDA;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class QuestionAdapter {
 
     public ArrayList<Beans.Question> collectQuestions(int startPosition, int Amount) {
         
-        RecentModel rm = new RecentModel();
+        RecentDA rm = new RecentDA();
         ArrayList<Beans.Question> returnList = new ArrayList<Beans.Question>();
         try {
             ArrayList<ModelObjects.Question> q = rm.collectQuestions(startPosition, Amount);
@@ -53,11 +53,11 @@ public class QuestionAdapter {
         returnQuestion.setVotes(preQuestion.getVotes());
         returnQuestion.setLastUpdated(preQuestion.getLastUpdated());
         
-        UserModel um = new UserModel();
+        UserDA um = new UserDA();
         ModelObjects.User user = um.query(preQuestion.getUserID());
         returnQuestion.setAuthor(user.getUsername());
         
-        CourseModel cm = new CourseModel();
+        CourseDA cm = new CourseDA();
         ModelObjects.Course course = cm.query(preQuestion.getCourseID());
         returnQuestion.setSchool(course.getName());
         

@@ -36,7 +36,7 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Controllers.Login</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>SignUp</servlet-name>
         <servlet-class>Controllers.SignUp</servlet-class>
     </servlet>
@@ -47,6 +47,10 @@
     <servlet>
         <servlet-name>Ask</servlet-name>
         <servlet-class>Controllers.Ask</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InputUser</servlet-name>
+        <servlet-class>Controllers.InputUser</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>mySQLServlet</servlet-name>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>Ask</servlet-name>
         <url-pattern>/Ask</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InputUser</servlet-name>
+        <url-pattern>/InputUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

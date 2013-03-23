@@ -46,14 +46,14 @@ Attacklab.wmdBase = function(){
 	var linkDefaultText = "http://";
 	
 	// The location of your button images relative to the base directory.
-	var imageDirectory = "images/";
+	var imageDirectory = "../img/";
 	
 	// Some intervals in ms.  These can be adjusted to reduce the control's load.
 	var previewPollInterval = 500;
 	var pastePollInterval = 100;
 	
 	// The link and title for the help button
-	var helpLink = "http://wmd-editor.com/";
+	var helpLink = "https://code.google.com/p/wmd/";
 	var helpHoverTitle = "WMD website";
 	var helpTarget = "_blank";
 	

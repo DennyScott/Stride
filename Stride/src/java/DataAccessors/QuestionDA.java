@@ -21,7 +21,7 @@ import java.util.Date;
  *
  * @author Travis
  */
-public class QuestionModel {
+public class QuestionDA {
 
     /**
      * Will create a basic connection to the local Stride database
@@ -84,7 +84,7 @@ public class QuestionModel {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
         String sqlString = "INSERT into Question VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newQuestion.getQuestion() + seperateValue() + newQuestion.getUserID() + seperateValue() + newQuestion.getVotes() + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newQuestion.getTitle() + seperateValue() + newQuestion.getVisits() + seperateValue() + newQuestion.getAnswers() + seperateValue() + newQuestion.getCourseID() + "\")";
+        String answerString = "(" + "null" + ", " + "\"" + newQuestion.getQuestion() + seperateValue() + newQuestion.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newQuestion.getTitle() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + newQuestion.getCourseID() + "\")";
 
         try {
             Connection connection = connectDB();

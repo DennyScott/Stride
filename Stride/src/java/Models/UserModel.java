@@ -15,10 +15,10 @@ import java.util.logging.Logger;
  */
 public class UserModel {
     
-    public void addUser(ModelObjects.User user){
-        DataAccessors.UserModel um = new DataAccessors.UserModel();
+    public boolean addUser(ModelObjects.User user){
+        DataAccessors.UserDA um = new DataAccessors.UserDA();
         try {
-            um.add(user);
+            return um.add(user);
         } catch (IOException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -26,5 +26,6 @@ public class UserModel {
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 }

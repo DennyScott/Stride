@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class QuestionModel {
     
     public void addQuestion(ModelObjects.Question question){
-        DataAccessors.QuestionModel qm = new DataAccessors.QuestionModel();
+        DataAccessors.QuestionDA qm = new DataAccessors.QuestionDA();
         try {
             qm.add(question);
         } catch (IOException ex) {

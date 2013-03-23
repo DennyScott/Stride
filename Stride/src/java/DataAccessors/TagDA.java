@@ -4,7 +4,7 @@
  */
 package DataAccessors;
 
-import ModelObjects.Badge;
+import ModelObjects.Tag;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +17,7 @@ import java.sql.Statement;
  *
  * @author Travis
  */
-public class BadgeModel {
+public class TagDA {
 
     /**
      * Will create a basic connection to the local Stride database
@@ -44,13 +44,13 @@ public class BadgeModel {
     }
 
     /**
-     * Check to see if the given Badge is empty
+     * Check to see if the given Tag is empty
      *
-     * @param newAV the Badge to check
-     * @return true if the given Badge is empty
+     * @param newAV the Tag to check
+     * @return true if the given Tag is empty
      */
-    private static boolean isEmpty(Badge newBadge) {
-        if (newBadge == null) {
+    private static boolean isEmpty(Tag newTag) {
+        if (newTag == null) {
             return true;
         }
         return false;
@@ -66,25 +66,25 @@ public class BadgeModel {
     }
 
     /**
-     * Adds a new Badge to the database
+     * Adds a new Tag Link to the database
      *
-     * @param newBadge New Badge to be added to the database
-     * @return True if the Badge was successfully added
+     * @param newTag New Tag to be added to the database
+     * @return True if the Tag was successfully added
      * @throws IOException
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public boolean add(Badge newBadge) throws IOException, ClassNotFoundException, SQLException {
+    public boolean add(Tag newTag) throws IOException, ClassNotFoundException, SQLException {
 
-        String sqlString = "INSERT into Badge VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newBadge.getColor() + seperateValue() + newBadge.getName() + seperateValue() + newBadge.getCount() + seperateValue() + newBadge.getDescription() + "\")";
+        String sqlString = "INSERT into Tag VALUES ";
+        String answerString = "(" + "null" + ", " + "\"" + newTag.getTitle() + seperateValue() + newTag.getDescription() + "\")";
 
         try {
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
 
-            if (isEmpty(newBadge)) {
+            if (isEmpty(newTag)) {
                 return false;
             }
 
@@ -99,23 +99,23 @@ public class BadgeModel {
     }
 
     /**
-     * Updates the Badge object found in the database
+     * Updates the Tag object found in the database
      *
-     * @param newBadge The Badge to update in the database
-     * @return True if the Badge was updated correctly
+     * @param newTag The Tag to update in the database
+     * @return True if the Tag was updated correctly
      * @throws IOException
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public boolean update(Badge newBadge) throws IOException, ClassNotFoundException, SQLException {
+    public boolean update(Tag newTag) throws IOException, ClassNotFoundException, SQLException {
 
-        String sqlString = "Update Badge set Color = \"" + newBadge.getColor() + "\", Name = \"" + newBadge.getName() + "\", Count = \"" + newBadge.getCount() + "\", Description = \"" + newBadge.getDescription() + "\" where Badge_ID = " + newBadge.getBadgeID();
+        String sqlString = "Update Tag set Title = \"" + newTag.getTitle() + "\", Description = \"" + newTag.getDescription() + "\" where Tag_ID = " + newTag.getTagID();
         try {
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
 
-            if (isEmpty(newBadge)) {
+            if (isEmpty(newTag)) {
                 return false;
             }
 
@@ -130,33 +130,30 @@ public class BadgeModel {
     }
 
     /**
-     * Queries the Database for the given Badge
+     * Queries the Database for the given Tag
      *
-     * @param badgeID The Badge_ID being searched for
-     * @return The found Badge
+     * @param tagID The Tag_ID being searched for
+     * @return The found Tag
      * @throws IOException
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public Badge query(int badgeID) throws IOException, ClassNotFoundException, SQLException {
+    public Tag query(int tagID) throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "SELECT * FROM Badge WHERE Badge_ID = ";
-        Badge findBadge = new Badge();
+        String SQLString = "SELECT * FROM Tag WHERE Tag_ID = ";
+        Tag returnTag = new Tag();
         try {
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery(SQLString + badgeID);
+            ResultSet resultSet = statement.executeQuery(SQLString + tagID);
             ResultSetMetaData result = resultSet.getMetaData();
             int cn = result.getColumnCount();
             while (resultSet.next()) {
-                findBadge.setBadgeID(Integer.parseInt(resultSet.getString(1)));
-                findBadge.setColor(Integer.parseInt(resultSet.getString(2)));
-                findBadge.setName(resultSet.getString(3));
-                findBadge.setCount(Integer.parseInt(resultSet.getString(4)));
-                findBadge.setDescription(resultSet.getString(5));
-
+                returnTag.setTagID(Integer.parseInt(resultSet.getString(1)));
+                returnTag.setTitle(resultSet.getString(2));
+                returnTag.setDescription(resultSet.getString(3));
             }
 
 
@@ -166,28 +163,28 @@ public class BadgeModel {
             return null;
         }
 
-        return findBadge;
+        return returnTag;
     }
 
     /**
-     * Deletes the given Badge from the Database
+     * Deletes the given Tag from the Database
      *
-     * @param badgeID The badgeID of the Badge to delete
+     * @param tagID The Tag_ID of the Tag to delete
      * @return true if the entry was deleted
      * @throws IOException
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public boolean delete(int badgeID) throws IOException, ClassNotFoundException, SQLException {
+    public boolean delete(int tagID) throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "DELETE FROM Badge WHERE Badge_ID = ";
+        String SQLString = "DELETE FROM Tag WHERE Tag_ID = ";
 
         try {
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
 
-            statement.executeUpdate(SQLString + badgeID);
+            statement.executeUpdate(SQLString + tagID);
 
             connection.close();
 

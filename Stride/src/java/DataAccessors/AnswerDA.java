@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Travis
  */
-public class AnswerModel {
+public class AnswerDA {
 
     /**
      * Will create a basic connection to the local Stride database
@@ -78,7 +78,7 @@ public class AnswerModel {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
         String sqlString = "INSERT into Answer VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newAnswer.getAnswer() + seperateValue() + newAnswer.getQuestionID() + seperateValue() + newAnswer.getUserID() + seperateValue() + newAnswer.getVotes() + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + (newAnswer.isChosen()?1:0) + "\")";
+        String answerString = "(" + "null" + ", " + "\"" + newAnswer.getAnswer() + seperateValue() + newAnswer.getQuestionID() + seperateValue() + newAnswer.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + (newAnswer.isChosen()?1:0) + "\")";
 
         try {
             Connection connection = connectDB();

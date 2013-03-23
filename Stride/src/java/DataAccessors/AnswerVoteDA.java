@@ -21,7 +21,7 @@ import java.util.Date;
  *
  * @author Travis
  */
-public class AnswerVoteModel {
+public class AnswerVoteDA {
 
     /**
      * Will create a basic connection to the local Stride database

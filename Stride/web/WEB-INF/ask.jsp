@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
+        <link href="css/wmd.css" rel="Stylesheet" type="text/css" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="javascript/1.2.6.js"></script>
 
@@ -27,6 +28,9 @@
 
 
             <div id="mainContent" class="ask-mainbar">
+                <div class="subheader">
+                    <h1 id="user-displayname">Ask a Question</h1>
+                </div>
                 <form method="POST" action="Ask" name="question">
                 <div class="form-item ask-title">
                     <table class="ask-title-table">
@@ -45,92 +49,47 @@
                             </tr>
                         </tbody>
                     </table>
+                    <br><br>
                     <div id="question-suggestions"></div>
                 </div>
 
-                <div id="post-editor" class="post-editor">
-                    <div class="wmd-container">
-                        <div id="wmd-button-bar" class="wmd-button-bar">
-                            <ul id="wmd-button-row" class="wmd-button-row">
-                                <li id="wmd-bold-button" class="wmd-button" title="bold" style="left:0px;">
-                                    <span style="background-position: 0px -20px;"></span>
-                                </li>
+                <%--    StackExchange.ready(function() {
+                                initTagRenderer("".split(" "), "".split(" "));
 
-                                <li id="wmd-italic-button" class="wmd-button" style="left:25px;">
-                                    <span style="background-position: -20px -20px;"></span>
-                                </li>
-
-                                <li id="wmd-spacer1" class="wmd-spacer" style="left:50px;">
-                                    <span style="background-position: -40px -20px;"></span>
-                                </li>
-
-                                <li id="wmd-link-button" class="wmd-button" style="left:75px;">
-                                    <span style="background-position: -40px -20px"></span>
-                                </li>
-
-                                <li id="wmd-quote-button" class="wmd-button" style="left:100px;">
-                                    <span style="background-position: -60px -20px"></span>
-                                </li>
-
-                                <li id="wmd-code-button" class="wmd-button" style="left:125px;">
-                                    <span style="background-position: -80px -20px;"
-                            </li>
-
-                            <li id="wmd-image-button" class="wmd-button" style="left:150px;">
-                                <span style="background-position: -100px -20px;"></span>
-                            </li>
-
-                            <li id="wmd-spacer2" class="wmd-spacer" style="left:175px;">
-                                <span style="background-position: -120px -20px;"></span>
-                            </li>
-
-                            <li id="wmd-olist-button" class="wmd-button" style="left:200px;">
-                                <span style="background-position: -120px -20px"></span>
-                            </li>
-
-                            <li id="wmd-ulist-button" class="wmd-button" style="left:225px;">
-                                <span style="background-position: -140px -20px;"></span>
-                            </li>
-
-                            <li id="wmd-heading-button" class="wmd-button" style="left: 250px;">
-                                <span style="background-position: -160px -20px"></span>
-                            </li>
-
-                            <li id="wmd-hr-button" class="wmd-button" style="left: 275px;">
-                                <span style="background-position: -180px -20px"></span>
-                            </li>
-
-                            <li id="wmd-spacer3" class="wmd-spacer" style="left: 300px;">
-                                <span style ="background-position: -200px -20px"></span>
-                            </li>
-
-                            <li id="wmd-undo-button" class="wmd-button" style="left:325px;">
-                                <span style="background-position: -200px -20px;"
-                        </li>
-
-                        <li id="wmd-redo-button" class="wmd-button" style="left:350px;">
-                            <span style="background-position: -220px -20px"></span>
-                        </li>
-                    </ul>
-                </div>
+                            prepareEditor({
+                                heartbeatType: 'answer',
+                                bindNavPrevention: true,
+                                postfix: "",
+                                onDemand: true,
+                                discardSelector: ".discard-answer"
+                                ,immediatelyShowMarkdownHelp:true
+                            });
 
 
-                <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" style="opacity:1; height:213px;"></textarea>
-            </div>
-
-            <div class="fl" style="margin-top: 8px; height: 24px;">&nbsp;</div>  
-            <div id="draft-saved" class="draft-saved-community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
-            <div id="draft-discarded" class="draft-discarded-community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
-            <div id="wmd-preview" class="wmd-preview"></div>
-            <div></div>
-
-            <div class="edit-block">
-                <input id="fkey" name="fkey" type="hidden" value="dflakdfj9879asf986a8">
-                <input id="author" name="author" type="text">
-            </div>
+                        });  --%>
+                        <div id="post-editor" class="post-editor">
+                            <div class="wmd-container">
+                                <div id="wmd-button-bar" class="wmd-button-bar">
+                                   
+                            </div>
 
 
-        </div>
+                            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" style="opacity:1; height:213px;"></textarea>
+                        </div>
+
+                        <div class="fl" style="margin-top: 8px; height: 24px;">&nbsp;</div>  
+                        <div id="draft-saved" class="draft-saved-community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+                        <div id="draft-discarded" class="draft-discarded-community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+                        <div id="wmd-preview" class="wmd-preview"></div>
+                        <div></div>
+
+                        <div class="edit-block">
+                            <input id="fkey" name="fkey" type="hidden" value="dflakdfj9879asf986a8">
+                            <input id="author" name="author" type="text">
+                        </div>
+
+
+                    </div>
 
         <div class="form-item">
             <label>Tags</label>

@@ -4,7 +4,7 @@
  */
 package Adapters;
 
-import DataAccessors.BadgeModel;
+import DataAccessors.BadgeDA;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class BadgeAdapter {
     
     public Beans.Badges getBadge(int id){
-        BadgeModel bm = new BadgeModel();
+        BadgeDA bm = new BadgeDA();
         Beans.Badges badge = new Beans.Badges();
         try {
             badge = adaptBadge(bm.query(id));

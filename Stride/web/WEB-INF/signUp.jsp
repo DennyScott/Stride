@@ -19,6 +19,12 @@
 
         <div id="content">
             <div id="mainContent">
+
+                <div class="mainHeader">
+                    <h1 id="topQuestions">
+                        Create Account
+                    </h1>
+                </div>
                 <h1><span style="color:red;">${error.getErrorMessage()}</span></h1>
                 <p>
                     function signUpPage()<br>
@@ -33,6 +39,7 @@
                 <br>
 
                 <form id="new" action="SignUp" method="post" autocomplete="on">
+                    <&shy;input type="text" name="<span style="color:orangered; font-weight: bold;">Email</span>" value="<input type="text" name="email">"> <br>
                     <&shy;input type="text" name="<span style="color:orangered; font-weight: bold;">UserName</span>" value="<input type="text" name="signUpUsername">"> <br>
                     <&shy;input type="password" name="<span style="color:orangered; font-weight: bold;">Password</span>" value="<input type="password" name="signUpPassword" maxlength="15">"><br>
                     <&shy;input type="password" name="<span style="color:orangered; font-weight: bold;">Re-Enter Password</span>" value="<input type="password" name="signUpPasswordReconfirm" maxlength="15">"><br>

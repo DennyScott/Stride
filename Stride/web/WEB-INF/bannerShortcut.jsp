@@ -21,7 +21,7 @@ the top of the page, if attribute is null the document places a link so a new me
             </a>
             <%            } else if (session.getAttribute("Name") != null) {
             %> 
-            <p id="welcome">Welcome <%= session.getAttribute("Name")%></p>
+            <p id="welcome">Welcome <a href="Users?id=${id}">${Name}</a>!</p>
             <%
                 }
             %>

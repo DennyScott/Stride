@@ -10,6 +10,27 @@ body{
     font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
 }
 
+#welcome{
+    font-size:140%;
+    color: white;
+    padding:6px 10px 0px 10px;
+}
+
+#badgeTest a{
+
+    background: #333 right center repeat-x;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition-duration: 160ms;
+    -moz-transition-duration: 160ms;
+    -o-transition-duration: 160ms;
+    -webkit-transition-duration: 160ms;
+}
+
+#badgeTest a:hover{
+    background: grey right top repeat-x;
+}
+
 #banner{
     height:35px;
     width:100%;

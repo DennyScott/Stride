@@ -20,6 +20,12 @@
 
         <div id="content">
             <div id="mainContent">
+                
+                <div class="mainHeader">
+                    <h1 id="topQuestions">
+                        Login
+                    </h1>
+                </div>
 
                 <h1><span style="color:red;">${error.getErrorMessage()}</span></h1>
                 <p>
@@ -45,7 +51,8 @@
                 <p><&shy;/form>; <br>
                     }
                 </p>
-
+                <br>
+                <a href="SignUp">Not Yet a User?</a>
             </div>
         </div>
 

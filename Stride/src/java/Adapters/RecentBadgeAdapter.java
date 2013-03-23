@@ -4,7 +4,7 @@
  */
 package Adapters;
 
-import DataAccessors.BadgeCollectedModel;
+import DataAccessors.BadgeCollectedDA;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class RecentBadgeAdapter {
     
     public ArrayList<Beans.RecentBadges> getRecent(int num){
         ArrayList<Beans.RecentBadges> recent = new ArrayList<Beans.RecentBadges>();
-        BadgeCollectedModel bcm = new BadgeCollectedModel();
+        BadgeCollectedDA bcm = new BadgeCollectedDA();
         try {
             ArrayList<ModelObjects.RecentBadge> rb = bcm.collectRecentBadges(num);
             for(ModelObjects.RecentBadge badge : rb){

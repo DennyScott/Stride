@@ -4,7 +4,7 @@
  */
 package Adapters;
 
-import DataAccessors.UserModel;
+import DataAccessors.UserDA;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class UserAdapter {
     
     public Beans.Users getUser(int id){
-        UserModel um = new UserModel();
+        UserDA um = new UserDA();
         ModelObjects.User user = new ModelObjects.User();
         try {
             user = um.query(id);

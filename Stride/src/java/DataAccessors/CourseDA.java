@@ -14,10 +14,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
+ * The Data Accessor For the Course Table
  * @author Travis
  */
-public class CourseModel {
+public class CourseDA {
 
     /**
      * Will create a basic connection to the local Stride database
@@ -76,7 +76,7 @@ public class CourseModel {
      */
     public boolean add(Course newCourse) throws IOException, ClassNotFoundException, SQLException {
         String sqlString = "INSERT into Course VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newCourse.getName() + seperateValue() + newCourse.getQuestionsTotal() + seperateValue() + newCourse.getDescription() + "\")";
+        String answerString = "(" + "null" + ", " + "\"" + newCourse.getName() + seperateValue() + "0" + seperateValue() + newCourse.getDescription() + "\")";
 
         try {
             Connection connection = connectDB();

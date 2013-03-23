@@ -4,11 +4,9 @@
  */
 package Controllers;
 
-import Beans.SingleUserPage;
-import Beans.UserPage;
-import Models.QModel;
+import Models.UserModel;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Denny
  */
-public class Users extends HttpServlet {
+public class InputUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -32,28 +30,33 @@ public class Users extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-
-        if (request.getParameter("edit") != null) {
-            Boolean edit = request.getParameter("edit").equals("true") ? true : false;
-
-            if (edit) {
-                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/login.jsp");
-                rd.forward(request, response);
-            }
-        } else {
-            if (request.getParameter("id") != null) {
-                SingleUserPage user = QModel.getUser();
-                request.setAttribute("bean", user);
-                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/UserPage.jsp");
-                rd.forward(request, response);
-            } else {
-                UserPage user = QModel.getUsers();
-                request.setAttribute("bean", user);
-                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/Users.jsp");
-                rd.forward(request, response);
-            }
-        }
+        
+        ModelObjects.User user = new ModelObjects.User();
+        user.setUsername(request.getParameter("username"));
+        user.setPassword(request.getParameter("password"));
+        user.setProfilePictureLink(request.getParameter("image"));
+        user.setReputation(Integer.parseInt(request.getParameter("reputation")));
+        user.setFirstName(request.getParameter("firstName"));
+        user.setLastName(request.getParameter("lastName"));
+        user.setEmailAddress(request.getParameter("email"));
+        user.setNumberOfQuestions(Integer.parseInt(request.getParameter("numQuestions")));
+        user.setNumberOfAnswers(Integer.parseInt(request.getParameter("numAnswers")));
+        user.setVotes(Integer.parseInt(request.getParameter("votes")));
+        user.setRank(request.getParameter("rank"));
+        user.setBiography(request.getParameter("bio"));
+        user.setGoldCount(Integer.parseInt(request.getParameter("gold")));
+        user.setSilverCount(Integer.parseInt(request.getParameter("silver")));
+        user.setBronzeCount(Integer.parseInt(request.getParameter("bronze")));
+        user.setJoin(request.getParameter("join"));
+        user.setLastLoggedIn(request.getParameter("lastOnline"));
+        user.setAnonymous(request.getParameter("isAnon").equals("ON")?true:false);
+        
+        UserModel um = new UserModel();
+        um.addUser(user);
+        
+        PrintWriter out = response.getWriter();
+        out.println(user.toString());
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

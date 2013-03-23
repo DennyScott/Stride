@@ -22,7 +22,7 @@ import java.util.Date;
  *
  * @author Travis
  */
-public class TagLinkModel {
+public class TagLinkDA {
 
     /**
      * Will create a basic connection to the local Stride database
@@ -154,7 +154,7 @@ public class TagLinkModel {
                 returnTag.setTagID(Integer.parseInt(resultSet.getString(2)));
                 returnList.add(returnTag);
             }
-            TagModel findTag = new TagModel();
+            TagDA findTag = new TagDA();
             for (int i = 0; i < returnList.size(); i++) {
                 returnList.set(i, findTag.query(returnList.get(i).getTagID()));
             }
@@ -196,7 +196,7 @@ public class TagLinkModel {
                 returnList.add(returnQuestion);
             }
 
-            QuestionModel findModel = new QuestionModel();
+            QuestionDA findModel = new QuestionDA();
             for (int i = 0; i < returnList.size(); i++) {
                 returnList.set(i, findModel.query(returnList.get(i).getQuestionID()));
             }
@@ -212,15 +212,14 @@ public class TagLinkModel {
         return returnList;
     }
 
-    /**
-     * Collects all Questions that contain a given Tag
-     *
-     * @param tagID The ID of the Tag being searched for
-     * @return An ArrayList containing all Questions with a given Tag
-     * @throws IOException
-     * @throws ClassNotFoundException
-     * @throws SQLException
-     */
+/**
+ * Collect recent tags that have been submitted
+ * @param tagsReturned The amount of tags to be returned
+ * @return An array list of recent tags
+ * @throws IOException
+ * @throws ClassNotFoundException
+ * @throws SQLException 
+ */
     public ArrayList<Tag> collectRecentTags(int tagsReturned) throws IOException, ClassNotFoundException, SQLException {
 
         String SQLString = "SELECT * FROM TagLink ORDER BY Submitted DESC LIMIT " + tagsReturned;
@@ -239,7 +238,7 @@ public class TagLinkModel {
                 returnList.add(returnTag);
             }
 
-            TagModel findTag = new TagModel();
+            TagDA findTag = new TagDA();
             for (int i = 0; i < returnList.size(); i++) {
                 returnList.set(i, findTag.query(returnList.get(i).getTagID()));
             }

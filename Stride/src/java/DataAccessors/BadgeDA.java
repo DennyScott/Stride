@@ -4,7 +4,7 @@
  */
 package DataAccessors;
 
-import ModelObjects.QuestionVote;
+import ModelObjects.Badge;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,15 +12,12 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  *
  * @author Travis
  */
-public class QuestionVoteModel {
+public class BadgeDA {
 
     /**
      * Will create a basic connection to the local Stride database
@@ -47,13 +44,13 @@ public class QuestionVoteModel {
     }
 
     /**
-     * Check to see if the given QuestionVote is empty
+     * Check to see if the given Badge is empty
      *
-     * @param newAV the QuestionVote to check
-     * @return true if the given QuestionVote is empty
+     * @param newAV the Badge to check
+     * @return true if the given Badge is empty
      */
-    private static boolean isEmpty(QuestionVote newQV) {
-        if (newQV == null) {
+    private static boolean isEmpty(Badge newBadge) {
+        if (newBadge == null) {
             return true;
         }
         return false;
@@ -69,28 +66,25 @@ public class QuestionVoteModel {
     }
 
     /**
-     * Adds a new QuestionVote to the database
+     * Adds a new Badge to the database
      *
-     * @param newQV New QuestionVote to be added to the database
-     * @return True if the QuestionVote was successfully added
+     * @param newBadge New Badge to be added to the database
+     * @return True if the Badge was successfully added
      * @throws IOException
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public boolean add(QuestionVote newQV) throws IOException, ClassNotFoundException, SQLException {
+    public boolean add(Badge newBadge) throws IOException, ClassNotFoundException, SQLException {
 
-        Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String subDate = dateFormat.format(date);
-        String sqlString = "INSERT into QuestionVote VALUES ";
-        String answerString = "(\"" + newQV.getUserID() + seperateValue() + newQV.getQuestionID() + seperateValue() + (newQV.isUp()?1:0) + seperateValue() + subDate + "\")";
+        String sqlString = "INSERT into Badge VALUES ";
+        String answerString = "(" + "null" + ", " + "\"" + newBadge.getColor() + seperateValue() + newBadge.getName() + seperateValue() + newBadge.getCount() + seperateValue() + newBadge.getDescription() + "\")";
 
         try {
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
 
-            if (isEmpty(newQV)) {
+            if (isEmpty(newBadge)) {
                 return false;
             }
 
@@ -105,26 +99,23 @@ public class QuestionVoteModel {
     }
 
     /**
-     * Updates the QuestionVote object found in the database
+     * Updates the Badge object found in the database
      *
-     * @param newQV The QuestionVote to update in the database
-     * @return True if the QuestionVote was updated correctly
+     * @param newBadge The Badge to update in the database
+     * @return True if the Badge was updated correctly
      * @throws IOException
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public boolean update(QuestionVote newQV) throws IOException, ClassNotFoundException, SQLException {
+    public boolean update(Badge newBadge) throws IOException, ClassNotFoundException, SQLException {
 
-        Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String subDate = dateFormat.format(date);
-        String sqlString = "Update QuestionVote set Vote_Up = \"" + (newQV.isUp()?1:0) + "\", Submitted = \"" + subDate + "\" where User_ID = " + newQV.getUserID() + "AND Question_ID = " + newQV.getQuestionID();
+        String sqlString = "Update Badge set Color = \"" + newBadge.getColor() + "\", Name = \"" + newBadge.getName() + "\", Count = \"" + newBadge.getCount() + "\", Description = \"" + newBadge.getDescription() + "\" where Badge_ID = " + newBadge.getBadgeID();
         try {
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
 
-            if (isEmpty(newQV)) {
+            if (isEmpty(newBadge)) {
                 return false;
             }
 
@@ -139,36 +130,32 @@ public class QuestionVoteModel {
     }
 
     /**
-     * Queries the Database for the given QuestionVote
+     * Queries the Database for the given Badge
      *
-     * @param userID The User_ID being searched for
-     * @param questionID The Question_ID being searched for
-     * @return The found QuestionVote
+     * @param badgeID The Badge_ID being searched for
+     * @return The found Badge
      * @throws IOException
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public QuestionVote query(int userID, int questionID) throws IOException, ClassNotFoundException, SQLException {
+    public Badge query(int badgeID) throws IOException, ClassNotFoundException, SQLException {
 
-        QuestionVote findQV = new QuestionVote();
-        String SQLString = "SELECT * FROM QuestionVote WHERE User_ID = " + userID + " AND Question_ID" + questionID;
+        String SQLString = "SELECT * FROM Badge WHERE Badge_ID = ";
+        Badge findBadge = new Badge();
         try {
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSet resultSet = statement.executeQuery(SQLString + badgeID);
             ResultSetMetaData result = resultSet.getMetaData();
             int cn = result.getColumnCount();
             while (resultSet.next()) {
-                findQV.setUserID(Integer.parseInt(resultSet.getString(1)));
-                findQV.setQuestionID(Integer.parseInt(resultSet.getString(2)));
-                if (Integer.parseInt(resultSet.getString(3)) != 0) {
-                    findQV.setUp(true);
-                } else {
-                    findQV.setUp(false);
-                }
-                findQV.setSubmitted(resultSet.getString(4));
+                findBadge.setBadgeID(Integer.parseInt(resultSet.getString(1)));
+                findBadge.setColor(Integer.parseInt(resultSet.getString(2)));
+                findBadge.setName(resultSet.getString(3));
+                findBadge.setCount(Integer.parseInt(resultSet.getString(4)));
+                findBadge.setDescription(resultSet.getString(5));
 
             }
 
@@ -179,29 +166,28 @@ public class QuestionVoteModel {
             return null;
         }
 
-        return findQV;
+        return findBadge;
     }
 
     /**
-     * Deletes the given QuestionVote from the Database
+     * Deletes the given Badge from the Database
      *
-     * @param userID The UserID of the QuestionVote to delete
-     * @param questionID The quetionID of the QuestionVote to delete
+     * @param badgeID The badgeID of the Badge to delete
      * @return true if the entry was deleted
      * @throws IOException
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public boolean delete(int userID, int questionID) throws IOException, ClassNotFoundException, SQLException {
+    public boolean delete(int badgeID) throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "DELETE FROM QuestionVote WHERE User_ID = " + userID + "AND Question_ID = " + questionID;
+        String SQLString = "DELETE FROM Badge WHERE Badge_ID = ";
 
         try {
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
 
-            statement.executeUpdate(SQLString);
+            statement.executeUpdate(SQLString + badgeID);
 
             connection.close();
 

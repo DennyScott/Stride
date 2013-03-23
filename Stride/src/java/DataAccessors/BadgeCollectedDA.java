@@ -24,7 +24,7 @@ import java.util.Date;
  *
  * @author Travis
  */
-public class BadgeCollectedModel {
+public class BadgeCollectedDA {
 
     
     /**
@@ -243,7 +243,7 @@ public class BadgeCollectedModel {
 
             connection.close();
 
-            BadgeModel findBadges = new BadgeModel();
+            BadgeDA findBadges = new BadgeDA();
             for (int i = 0; i < returnList.size(); i++) {
                 returnList.set(i, findBadges.query(returnList.get(i).getBadgeID()));
             }
@@ -285,7 +285,7 @@ public class BadgeCollectedModel {
             connection.close();
 
             //Replaces the User with only an ID with an entire User object
-            UserModel findUsers = new UserModel();
+            UserDA findUsers = new UserDA();
             for (int i = 0; i < returnList.size(); i++) {
                 returnList.set(i, findUsers.query(returnList.get(i).getUserID()));
             }
