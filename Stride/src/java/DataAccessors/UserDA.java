@@ -175,15 +175,11 @@ public class UserDA {
                 returnUser.setProfilePictureLink(resultSet.getString(12));
                 returnUser.setBiography(resultSet.getString(13));
                 returnUser.setRank(resultSet.getString(14));
-                returnUser.setJoin(resultSet.getString(15));
-                returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(16)));
+                returnUser.setAnonymous(resultSet.getBoolean(15));                
+                returnUser.setGoldCount(Integer.parseInt(resultSet.getString(16)));
                 returnUser.setSilverCount(Integer.parseInt(resultSet.getString(17)));
-                returnUser.setGoldCount(Integer.parseInt(resultSet.getString(18)));
-                returnUser.setAnonymous(resultSet.getBoolean(19));
-                returnUser.setGoldCount(Integer.parseInt(resultSet.getString(20)));
-                returnUser.setSilverCount(Integer.parseInt(resultSet.getString(21)));
-                returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(22)));
-                returnUser.setReputation(Integer.parseInt(resultSet.getString(23)));
+                returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(18)));
+                returnUser.setReputation(Integer.parseInt(resultSet.getString(19)));
 
 
             }

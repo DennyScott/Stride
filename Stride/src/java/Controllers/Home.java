@@ -6,6 +6,7 @@ package Controllers;
 
 import Beans.QuestionPage;
 import Beans.Front;
+import Models.AnswerModel;
 import Models.QModel;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -32,21 +33,46 @@ public class Home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-       if(request.getParameter("id")!=null){ 
-       QuestionPage question = QModel.getQuestion(Integer.parseInt(request.getParameter("id")));
-       request.setAttribute("bean", question);
-       RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/question.jsp");
-       rd.forward(request, response);
-       }
-       else{
-       Front front = QModel.getFront();
-       request.setAttribute("bean", front);
-       RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/index.jsp");
-       rd.forward(request, response);    
-       
-       }
-       
+
+        if (request.getParameter("id") != null) {
+
+            if (request.getParameter("submit") != null) {
+                boolean submit = request.getParameter("submit").equals("true") ? true : false;
+                if (submit) {
+                    if (request.getParameter("post-text") != null) {
+                        ModelObjects.Answer answer = new ModelObjects.Answer();
+                        answer.setAnswer(request.getParameter("post-text"));
+                        answer.setQuestionID(Integer.parseInt((String)request.getParameter("id")));
+                        answer.setUserID(Integer.parseInt((String)request.getSession().getAttribute("id")));
+                        
+                        AnswerModel ua = new AnswerModel();
+                        ua.addAnswer(answer);
+                    } else {
+                        getQuestion(request,response);
+                    }
+                }
+            } else {
+                getQuestion(request,response);
+            }
+        } else {
+            Front front = QModel.getFront();
+            request.setAttribute("bean", front);
+            forwardBean(request, response, "WEB-INF/index.jsp");
+
+        }
+
+    }
+
+    public void getQuestion(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        QuestionPage question = QModel.getQuestion(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("bean", question);
+        forwardBean(request,response,"WEB-INF/question.jsp");
+
+    }
+
+    public void forwardBean(HttpServletRequest request, HttpServletResponse response, String target) throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher(target);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

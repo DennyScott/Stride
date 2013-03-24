@@ -282,7 +282,7 @@
                     <!--End of Answer -->
 
                     <a name="new-answer"></a>
-                    <form id="post-form" action="/questions/00005/answer/submit" method="post" class="post-form">
+                    <form id="post-form" action="home?id=${bean.getQuestionID()}&submit=true" method="post" class="post-form">
                         <h2 class="space">Your Answer</h2>
 
                        <%--    StackExchange.ready(function() {

@@ -7,7 +7,9 @@ package Controllers;
 import Beans.SingleUserPage;
 import Beans.UserPage;
 import Models.QModel;
+import Models.UserModel;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,22 +40,70 @@ public class Users extends HttpServlet {
             Boolean edit = request.getParameter("edit").equals("true") ? true : false;
 
             if (edit) {
-                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/login.jsp");
-                rd.forward(request, response);
+                if (request.getSession().getAttribute("id") != null) {
+                    if (request.getSession().getAttribute("id").equals(request.getParameter("id"))) {
+                        if (request.getParameter("submit") != null) {
+                            
+                            Boolean submit = request.getParameter("submit").equals("true")?true:false;
+                            
+                            //Succesful Edit
+                            if(submit){
+                                ModelObjects.User user = new ModelObjects.User();
+                                user.setBiography(request.getParameter("bio"));
+                                user.setFirstName(request.getParameter("firstName"));
+                                user.setProfilePictureLink("img/kip.jpg");
+                                user.setLastName(request.getParameter("lastName"));
+                                user.setUserID(Integer.parseInt((String)request.getSession().getAttribute("id")));
+                                Boolean anon = request.getParameter("isAnon").equals("ON")?true:false;
+                                user.setAnonymous(anon);
+                                
+                                UserModel um = new UserModel();
+                                
+                               um.editUser(user);
+                                
+                                getUserPage(request,response);
+                            }
+                            else{
+                                getUserPage(request,response);
+                            }
+                            
+                        } else {
+                            getEditUserPage(request, response);
+                        }
+                    } else {
+                        getUserPage(request,response);
+                    }
+                } else {
+                    getUserPage(request,response);
+                }
             }
         } else {
             if (request.getParameter("id") != null) {
-                SingleUserPage user = QModel.getUser();
-                request.setAttribute("bean", user);
-                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/UserPage.jsp");
-                rd.forward(request, response);
+                getUserPage(request, response);
             } else {
                 UserPage user = QModel.getUsers();
                 request.setAttribute("bean", user);
-                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/Users.jsp");
-                rd.forward(request, response);
+                forwardBean(request, response, "WEB-INF/Users.jsp");
             }
         }
+    }
+
+    private void getUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        SingleUserPage user = QModel.getUser();
+        request.setAttribute("bean", user);
+        forwardBean(request, response, "WEB-INF/UserPage.jsp");
+    }
+
+    private void getEditUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        SingleUserPage user = QModel.getUser();
+        request.setAttribute("bean", user);
+        forwardBean(request, response, "WEB-INF/EditUserPage.jsp");
+    }
+
+    public void forwardBean(HttpServletRequest request, HttpServletResponse response, String target) throws ServletException, IOException {
+
+        RequestDispatcher rd = request.getRequestDispatcher(target);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -31,7 +31,7 @@
                     %>
                     <div id="tabs">
                         <a class="youarehere" href="home" title="View">View</a>
-                        <a href="Users?edit=true" class="otherTab">Edit</a>
+                        <a href="Users?edit=true&id=11" class="otherTab">Edit</a>
                     </div>
                     <%}%>
                 </div>

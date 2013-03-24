@@ -557,7 +557,7 @@ public class QModel {
         QuestionPage test = new QuestionPage();
         test.setQuestionSlot(new Question());
 
-        if (id == 1) {
+        if (id >0) {
 
             test.setTitle("I'm a Test");
             test.setQuestion("Am I really a test, I'm not really sure, but I sure do know that I'm something that can fill alot of space by rambling. This extra text here is to check if we wrap for words.                                        <pre class=\"lang-cs prettyprint prettyprinted\" style>\n"
@@ -570,7 +570,7 @@ public class QModel {
                     + "</code>\n"
                     + "                                            </pre>");
             test.setSubmitted("Jan 31, 1943");
-            test.setQuestionID("1");
+            test.setQuestionID("3");
             test.setAuthor("Denny Scott");
             test.setAuthorID("1");
             test.setVotes(10);
