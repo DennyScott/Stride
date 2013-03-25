@@ -79,7 +79,7 @@ public class Download {
             for (Iterator i = feed.getEntries().iterator(); i.hasNext();) {
                 KijAd ad = new KijAd();
                 SyndEntry entry = (SyndEntry) i.next();
-                ad.setTitle(entry.getTitle());
+                ad.setTitle(entry.getTitle().split("\\( Winnipeg \\)")[0]);
 
                 String link = entry.getLink();
                 ad.setUrl(link);

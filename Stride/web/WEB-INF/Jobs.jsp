@@ -16,8 +16,7 @@
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
         <script type="text/javascript" src="fancybox/jquery.fancybox.pack.js"></script>
-        <script type="text/javascript" src="javascript/showdown.js"></script>
-        <link rel="stylesheet" href="fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+        <script type="text/javascript" src="javascript/sonic.js"></script>
         <script type="text/javascript"
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW6_9Jrezyd36n1VGcWHHK9JGHr67aITs&sensor=false">
         </script>
@@ -64,7 +63,8 @@
         <title>Jobs</title>
     </head>
     <body>
-
+        <div id="in"></div>
+        <div id="wholePage">
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />
 
@@ -91,7 +91,7 @@
                                 If no jobs are displayed, click the button below for up-to-date jobs.
                             </p>
                             <br>
-                            <a href="./Jobs?search=true">Find Jobs</a>
+                            <a href="" onclick="load()">Find Jobs</a>
 
                         </div>
                     </div>
@@ -129,7 +129,7 @@
 
             </div>
 
-            <div id="sideContent">
+            <div id="mapSideContent">
 
                 <%@include file="recentTags.jsp" %>
 
@@ -148,5 +148,6 @@
     <script type="text/javascript" src="javascript/wmd.js"></script>
 
     <jsp:include page = "footerShortcut.jsp" />
+</div>
 </body>
 </html>

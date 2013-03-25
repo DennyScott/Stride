@@ -13,11 +13,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
         <script type="text/javascript" src="javascript/yaphet.js"></script>
+        <script type="text/javascript" src="javascript/Stride.js"></script>
+        <script type="text/javascript" src="javascript/sonic.js"></script>
 
         <title>Stride</title>
     </head>
     <body>
-
+        <div id="in"></div>
+        <div id ="wholePage">
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />
 
@@ -103,6 +106,6 @@
         </div>
 
         <jsp:include page = "footerShortcut.jsp" />
-
+        </div>
     </body>
 </html>

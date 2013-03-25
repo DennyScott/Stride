@@ -971,6 +971,32 @@ gravatar32, .user-info.user-hover .user-gravatar48 {
 
 }
 
+#mapSideContent{
+    width:220px;
+    overflow:hidden;
+    margin-bottom: 60px;
+
+}
+
+.l{
+    float: left;
+    position:fixed;
+    z-index: 100;  
+    top:50%;  
+    left:50%;  
+    margin:-100px 0 0 -100px;  
+    width:150px;  
+    height:150px;  
+    border: 2px solid #666;
+    background: #000;
+
+
+}
+
+#wholePage{
+    z-index: 0;
+}
+
 .module{
     color:#444;
     padding: 0 8px 2px 8px;
