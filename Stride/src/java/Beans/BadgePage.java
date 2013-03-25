@@ -4,6 +4,7 @@
  */
 package Beans;
 
+import Jobs.KijAd;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +16,15 @@ public class BadgePage {
     private ArrayList<Tags> recent;
     private ArrayList<RecentBadges> badges;
     private ArrayList<Badges> badgeInfo;
+    private ArrayList<KijAd> ad;
+
+    public ArrayList<KijAd> getAd() {
+        return ad;
+    }
+
+    public void setAd(ArrayList<KijAd> ad) {
+        this.ad = ad;
+    }
 
     public ArrayList<Tags> getRecent() {
         return recent;

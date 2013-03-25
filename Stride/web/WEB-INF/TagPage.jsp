@@ -47,7 +47,7 @@
                 <div class="question">
                     <div class="welovestride">
                         <div class="fl">
-                            <p>
+                            <p class>
                                ${bean.getTag().getTag()} is ${bean.getTag().getDescription()}
                             </p>
 

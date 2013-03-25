@@ -11,19 +11,10 @@ import java.util.ArrayList;
  *
  * @author Denny
  */
-public class CoursePage {
+public class Jobs {
     private ArrayList<Tags> recent;
     private ArrayList<RecentBadges> badges;
-    private ArrayList<Courses> courses;
     private ArrayList<KijAd> ad;
-
-    public ArrayList<KijAd> getAd() {
-        return ad;
-    }
-
-    public void setAd(ArrayList<KijAd> ad) {
-        this.ad = ad;
-    }
 
     public ArrayList<Tags> getRecent() {
         return recent;
@@ -41,14 +32,13 @@ public class CoursePage {
         this.badges = badges;
     }
 
-    public ArrayList<Courses> getCourses() {
-        return courses;
+    public ArrayList<KijAd> getAd() {
+        return ad;
     }
 
-    public void setCourses(ArrayList<Courses> courses) {
-        this.courses = courses;
+    public void setAd(ArrayList<KijAd> ad) {
+        this.ad = ad;
     }
-    
     
     
 }

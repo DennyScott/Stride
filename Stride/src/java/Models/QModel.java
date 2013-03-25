@@ -5,6 +5,8 @@
 package Models;
 
 import Beans.*;
+import Jobs.Download;
+import Jobs.KijAd;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,6 +16,93 @@ import java.util.Random;
  */
 public class QModel {
 
+    public static JobPage getJob(){
+        JobPage job = new JobPage();
+        Random rand = new Random();
+        ArrayList<Tags> tags = new ArrayList<Tags>();
+        ArrayList<RecentBadges> bAdd1 = new ArrayList<RecentBadges>();
+        
+         for (int i = 0; i < 5; i++) {
+            if (i < 5) {
+                Badges b = new Badges();
+                b.setBadge("Badge " + i);
+                b.setId(i + "");
+                if (i < 2) {
+                    b.setColor(1);
+                } else if (i < 3) {
+                    b.setColor(2);
+                } else {
+                    b.setColor(1);
+                }
+
+
+                RecentBadges rb = new RecentBadges();
+                rb.setBadge(b);
+                rb.setUserID(i + "");
+                rb.setUserName("Author " + i);
+                bAdd1.add(rb);
+            }
+
+            if (i < 3) {
+                Tags b = new Tags();
+                b.setCount(rand.nextInt(100));
+                b.setID(i + "");
+                b.setTag("Java " + i);
+
+                tags.add(b);
+
+            }
+        }
+         
+         job.setBadges(bAdd1);
+         job.setRecent(tags);
+         return job;
+    }
+    
+    public static Jobs getJobs(){
+        Jobs job = new Jobs();
+        Random rand = new Random();
+        ArrayList<Tags> tags = new ArrayList<Tags>();
+        ArrayList<RecentBadges> bAdd1 = new ArrayList<RecentBadges>();
+        
+         for (int i = 0; i < 5; i++) {
+            if (i < 5) {
+                Badges b = new Badges();
+                b.setBadge("Badge " + i);
+                b.setId(i + "");
+                if (i < 2) {
+                    b.setColor(1);
+                } else if (i < 3) {
+                    b.setColor(2);
+                } else {
+                    b.setColor(1);
+                }
+
+
+                RecentBadges rb = new RecentBadges();
+                rb.setBadge(b);
+                rb.setUserID(i + "");
+                rb.setUserName("Author " + i);
+                bAdd1.add(rb);
+            }
+
+            if (i < 3) {
+                Tags b = new Tags();
+                b.setCount(rand.nextInt(100));
+                b.setID(i + "");
+                b.setTag("Java " + i);
+
+                tags.add(b);
+
+            }
+        }
+         
+         job.setBadges(bAdd1);
+         job.setRecent(tags);
+         return job;
+    }
+    
+    
     public static SingleUserPage getUser() {
         SingleUserPage user = new SingleUserPage();
         Random rand = new Random();
@@ -536,6 +625,10 @@ public class QModel {
                 }
 
 
+                
+                
+                
+                
                 RecentBadges rb = new RecentBadges();
                 rb.setBadge(b);
                 rb.setUserID(i + "");
@@ -545,6 +638,9 @@ public class QModel {
             blurb.setTags(tag);
             frontPage.setRecent(tag);
         }
+        Download d = new Download();
+                ArrayList<KijAd> ad = d.getAds();
+                frontPage.setAd(ad);
 
         frontPage.setBadges(badge);
         frontPage.setQuestions(Q);

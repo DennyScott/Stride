@@ -39,51 +39,51 @@
                 </div>
 
                 <div id="question-list">
-                    
+
                     <!-- Question -->
                     <c:forEach items="${bean.getQuestions()}" var="question">
-                    <div class="question-summary" id="${question.toString()}">
-                        <div onclick="window.location.href='home?id=${question.getQuestion().getQuestionID()}'" class="cp" >
-                            <div class="votes">
-                                <div class="mini-counts">${question.getQuestion().getVotes()}</div>
-                                <div class="prefix">votes</div>
+                        <div class="question-summary" id="${question.toString()}">
+                            <div onclick="window.location.href='home?id=${question.getQuestion().getQuestionID()}'" class="cp" >
+                                <div class="votes">
+                                    <div class="mini-counts">${question.getQuestion().getVotes()}</div>
+                                    <div class="prefix">votes</div>
+                                </div>
+
+                                <div class="unanswered">
+                                    <div class="mini-counts">${question.getQuestion().getAnswers()}</div>
+                                    <div class="prefix">answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts">${question.getQuestion().getCount()}</div>
+                                    <div class="prefix">views</div>
+                                </div>
                             </div>
 
-                            <div class="unanswered">
-                                <div class="mini-counts">${question.getQuestion().getAnswers()}</div>
-                                <div class="prefix">answers</div>
-                            </div>
+                            <div class="summary">
+                                <h3>
+                                    <a href="home?id=${question.getQuestion().getQuestionID()}" class ="question-hyperlink" title="title here">
+                                        ${question.getQuestion().getTitle()}
+                                    </a>
+                                </h3>
 
-                            <div class="views">
-                                <div class="mini-counts">${question.getQuestion().getCount()}</div>
-                                <div class="prefix">views</div>
+                                <div class="tags">
+                                    <c:forEach items="${question.getTags()}" var="tags">
+                                        <a href="tags?id=${tags.getID()}" class="post-tag" title="Title about ${tags.getTag()}" rel="tag">${tags.getTag()}</a>
+                                    </c:forEach>
+                                </div>
+
+                                <div class="started">
+                                    <a href="" class="started-link">
+                                        <span title="2013-01-25 05:46:00" class="relativetime">${question.getQuestion().getSubmitted()}</span>
+                                    </a>
+                                    <a href="users?id=${question.getQuestion().getAuthorID()}">${question.getQuestion().getAuthor()}</a>
+                                    <span class="reputation-score" title="reputation-score" dir="ltr">500000</span>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="summary">
-                            <h3>
-                                <a href="home?id=${question.getQuestion().getQuestionID()}" class ="question-hyperlink" title="title here">
-                                    ${question.getQuestion().getTitle()}
-                                </a>
-                            </h3>
-
-                            <div class="tags">
-                                <c:forEach items="${question.getTags()}" var="tags">
-                                    <a href="tags?id=${tags.getID()}" class="post-tag" title="Title about ${tags.getTag()}" rel="tag">${tags.getTag()}</a>
-                                </c:forEach>
-                            </div>
-
-                            <div class="started">
-                                <a href="" class="started-link">
-                                    <span title="2013-01-25 05:46:00" class="relativetime">${question.getQuestion().getSubmitted()}</span>
-                                </a>
-                                <a href="users?id=${question.getQuestion().getAuthorID()}">${question.getQuestion().getAuthor()}</a>
-                                <span class="reputation-score" title="reputation-score" dir="ltr">500000</span>
-                            </div>
-                        </div>
-                    </div>
                     </c:forEach>
-                                <!-- End of Question -->
+                    <!-- End of Question -->
                 </div>
             </div>
 
@@ -92,7 +92,10 @@
 
                 <%@include file="recentTags.jsp" %>
 
+                <%@include file="recentJobs.jsp" %>
+
                 <%@include file="recentBadges.jsp" %>
+
             </div>
 
 

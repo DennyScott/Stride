@@ -7,3 +7,9 @@ function setbg(color)
 {
     document.getElementById("styled").style.background=color
 }
+
+$(document).ready(function() {
+$("a#popupmap").fancybox({
+'frameWidth': 600, 'frameHeight': 500,
+});
+});

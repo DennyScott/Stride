@@ -52,6 +52,14 @@
         <servlet-name>InputUser</servlet-name>
         <servlet-class>Controllers.InputUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RSS</servlet-name>
+        <servlet-class>Controllers.RSS</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Jobs</servlet-name>
+        <servlet-class>Controllers.Jobs</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mySQLServlet</servlet-name>
         <url-pattern>/mySQLServlet</url-pattern>
@@ -103,6 +111,14 @@
     <servlet-mapping>
         <servlet-name>InputUser</servlet-name>
         <url-pattern>/InputUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RSS</servlet-name>
+        <url-pattern>/RSS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Jobs</servlet-name>
+        <url-pattern>/Jobs</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

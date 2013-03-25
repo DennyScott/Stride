@@ -4,6 +4,7 @@
  */
 package Beans;
 
+import Jobs.KijAd;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +16,15 @@ public class Front {
     private ArrayList<Blurb> questions;
     private ArrayList<Tags> recent;
     private ArrayList<RecentBadges> badges;
+    private ArrayList<KijAd> ad;
+
+    public ArrayList<KijAd> getAd() {
+        return ad;
+    }
+
+    public void setAd(ArrayList<KijAd> ad) {
+        this.ad = ad;
+    }
 
     public ArrayList<Blurb> getQuestions() {
         return questions;
