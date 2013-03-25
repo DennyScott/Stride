@@ -78,31 +78,34 @@ public class QuestionDA {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public boolean add(Question newQuestion) throws IOException, ClassNotFoundException, SQLException {
+    public int add(Question newQuestion) throws IOException, ClassNotFoundException, SQLException {
 
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
         String sqlString = "INSERT into Question VALUES ";
         String answerString = "(" + "null" + ", " + "\"" + newQuestion.getQuestion() + seperateValue() + newQuestion.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newQuestion.getTitle() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + newQuestion.getCourseID() + "\")";
-
+        int id;
         try {
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
 
             if (isEmpty(newQuestion)) {
-                return false;
+                return 0;
             }
 
-            statement.executeUpdate(sqlString + answerString);
+            statement.executeUpdate(sqlString + answerString,Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.getGeneratedKeys();
+            id = rs.getInt(1);
             connection.close();
 
         } catch (SQLException sqle) {
-            return false;
+            return 0;
         }
 
-        return true;
+        
+        return id;
     }
 
     /**

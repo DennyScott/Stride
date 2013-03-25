@@ -7,8 +7,10 @@ package Controllers;
 import Beans.QuestionPage;
 import Beans.Front;
 import Models.AnswerModel;
+import Models.CommentModel;
 import Models.QModel;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,36 +40,100 @@ public class Home extends HttpServlet {
 
             if (request.getParameter("submit") != null) {
                 boolean submit = request.getParameter("submit").equals("true") ? true : false;
-                if (submit) {
+
+                if (submit && request.getAttribute("submitted") == null) {
                     if (request.getParameter("post-text") != null) {
+                        //Add Answer
                         ModelObjects.Answer answer = new ModelObjects.Answer();
                         answer.setAnswer(request.getParameter("post-text"));
-                        answer.setQuestionID(Integer.parseInt((String)request.getParameter("id")));
-                        answer.setUserID(Integer.parseInt((String)request.getSession().getAttribute("id")));
-                        
+                        answer.setQuestionID(Integer.parseInt((String) request.getParameter("id")));
+                        answer.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
+
                         AnswerModel ua = new AnswerModel();
                         ua.addAnswer(answer);
+                        request.setAttribute("submitted", "true");
+                        forwardBean(request, response, "");
                     } else {
-                        getQuestion(request,response);
+                        getQuestion(request, response);
                     }
+                } else if (request.getParameter("questionComment") != null) {
+                    addQuestionComment(request, response);
+                } else {
+                    getQuestion(request, response);
                 }
+            } else if (request.getParameter("questionComment") != null) {
+                addQuestionComment(request, response);
+            }else if (request.getParameter("answerComment") != null) {
+                addAnswerComment(request, response);
             } else {
-                getQuestion(request,response);
+                getQuestion(request, response);
             }
         } else {
             Front front = QModel.getFront();
             request.setAttribute("bean", front);
+
             forwardBean(request, response, "WEB-INF/index.jsp");
 
         }
 
     }
 
-    public void getQuestion(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    public void getQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         QuestionPage question = QModel.getQuestion(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("bean", question);
-        forwardBean(request,response,"WEB-INF/question.jsp");
 
+        forwardBean(request, response, "WEB-INF/question.jsp");
+
+    }
+
+    public void addQuestionComment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean questionComment = request.getParameter("questionComment").equals("true") ? true : false;
+        if (questionComment && request.getAttribute("qCommentSubmitted") == null) {
+            if (request.getParameter("qComment") != null) {
+
+                ModelObjects.QuestionComment qc = new ModelObjects.QuestionComment();
+                String questionID = request.getParameter("id");
+                String comment = request.getParameter("qComment");
+                qc.setComment(comment);
+                qc.setComponentID(Integer.parseInt(questionID));
+                qc.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
+
+                CommentModel cm = new CommentModel();
+                cm.addQuestionComment(qc);
+                request.setAttribute("qCommentSubmitted", "true");
+                forwardBean(request, response, "");
+
+            } else {
+                getQuestion(request, response);
+            }
+        } else {
+            getQuestion(request, response);
+        }
+    }
+    
+    public void addAnswerComment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean answerComment = request.getParameter("answerComment").equals("true") ? true : false;
+        if (answerComment && request.getAttribute("aCommentSubmitted") == null) {
+            if (request.getParameter("aComment"+request.getParameter("answer")) != null && request.getParameter("answer")!=null) {
+                
+                ModelObjects.AnswerComment qc = new ModelObjects.AnswerComment();
+                String answerID = request.getParameter("answer");
+                String comment = request.getParameter("aComment"+answerID);
+                qc.setComment(comment);
+                qc.setComponentID(Integer.parseInt(answerID));
+                qc.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
+                
+                CommentModel cm = new CommentModel();
+                cm.addAnswerComment(qc);
+                request.setAttribute("aCommentSubmitted", "true");
+                forwardBean(request, response, "");
+
+            } else {
+                getQuestion(request, response);
+            }
+        } else {
+            getQuestion(request, response);
+        }
     }
 
     public void forwardBean(HttpServletRequest request, HttpServletResponse response, String target) throws ServletException, IOException {

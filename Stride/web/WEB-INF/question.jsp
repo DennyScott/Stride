@@ -17,6 +17,7 @@
         <link href="css/wmd.css" rel="Stylesheet" type="text/css" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="javascript/1.2.6.js"></script>
+        <script type="text/javascript" src="javascript/Stride.js"></script>
 
         <script type="text/javascript" src="javascript/showdown.js"></script>
 
@@ -142,11 +143,13 @@
                                                         </td>
                                                     </tr>
                                                 </c:forEach>                    
-
+                                            
                                                 <!-- End of Comments Loop -->
 
                                             </tbody>
                                         </table>
+                                        <br>
+                                        <div id="addQuestionComment" class="addComment" onclick="questionComment(${bean.getQuestionID()})">Add a comment</div>
                                     </div>
                                 </td>
                             </tr>
@@ -259,6 +262,9 @@
                                                     </tbody>
 
                                                 </table>
+                                                <br>
+                                        <div id="answerComment-${answer.getID()}" class="addComment" onclick="answerComment(${bean.getQuestionID()},${answer.getID()})">Add a comment</div>
+                                 
                                             </div>
 
                                             <div class="was-this-useful">

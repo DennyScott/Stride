@@ -77,9 +77,6 @@ public class Ask extends HttpServlet {
         
         QuestionModel qm = new QuestionModel();
         qm.addQuestion(question);
-        
-        PrintWriter out = response.getWriter();
-        out.print(question.toString());
     }
 
     /**

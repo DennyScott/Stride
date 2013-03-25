@@ -73,9 +73,9 @@ public class Login extends HttpServlet {
                     //Set a name attribute in a session for userName;
                     session.setAttribute("Name", loginUsername);
 
-                    PrintWriter out = response.getWriter();
-                    out.println(session.getAttribute("id"));
-                    //beanForward(null, "home", response, request);
+
+                    RequestDispatcher sentToNext = request.getRequestDispatcher("home");
+                    sentToNext.forward(request, response);
 
                 } else {
                     //forward to error page

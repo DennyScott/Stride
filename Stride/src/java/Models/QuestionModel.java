@@ -17,8 +17,10 @@ public class QuestionModel {
     
     public void addQuestion(ModelObjects.Question question){
         DataAccessors.QuestionDA qm = new DataAccessors.QuestionDA();
+        DataAccessors.RecentDA ra = new DataAccessors.RecentDA();
         try {
-            qm.add(question);
+            int id = qm.add(question);
+            ra.add(id);
         } catch (IOException ex) {
             Logger.getLogger(QuestionModel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
