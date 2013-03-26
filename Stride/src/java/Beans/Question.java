@@ -20,6 +20,24 @@ public class Question {
     private int votes;
     private String school;
     private String lastUpdated;
+    private int reputation;
+    private String courseID;
+
+    public String getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
+    }
+
+    public int getReputation() {
+        return reputation;
+    }
+
+    public void setReputation(int reputation) {
+        this.reputation = reputation;
+    }
 
     public String getAuthorID() {
         return authorID;

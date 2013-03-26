@@ -24,6 +24,10 @@ public class QuestionPage {
     public ArrayList<KijAd> getAd() {
         return ad;
     }
+    
+    public String getCourseId(){
+        return question.getCourseID();
+    }
 
     public void setAd(ArrayList<KijAd> ad) {
         this.ad = ad;
@@ -61,7 +65,12 @@ public class QuestionPage {
         this.recent = recent;
     }
 
-    public QuestionPage() {
+    public Question getQuestionObject(){
+        return question;
+    }
+    
+    public void setQuestionObject(Question question){
+        this.question = question;
     }
 
     

@@ -12,9 +12,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * The Data Accessor For the Course Table
+ *
  * @author Travis
  */
 public class CourseDA {
@@ -108,7 +110,7 @@ public class CourseDA {
      */
     public boolean update(Course newCourse) throws IOException, ClassNotFoundException, SQLException {
 
-        String sqlString = "Update Course set Name = \"" + newCourse.getName() + "\", Questions_Total = \"" + newCourse.getQuestionsTotal() + "\", Description = \"" + newCourse.getDescription() + "\" where Course_ID = " + newCourse.getCourseID();
+        String sqlString = "Update Course set Name = \"" + newCourse.getName() + "\", Description = \"" + newCourse.getDescription() + "\" where Course_ID = " + newCourse.getCourseID();
         try {
             Connection connection = connectDB();
 
@@ -167,6 +169,47 @@ public class CourseDA {
     }
 
     /**
+     * Queries the Database for the given Course
+     *
+     * @param courseID The course_ID being searched for
+     * @return The found Course
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public ArrayList<Course> getAllCourses() throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM Course";
+        ArrayList<Course> c = new ArrayList<Course>();
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                Course returnCourse = new Course();
+                returnCourse.setCourseID(Integer.parseInt(resultSet.getString(1)));
+                returnCourse.setName(resultSet.getString(2));
+                returnCourse.setQuestionsTotal(Integer.parseInt(resultSet.getString(3)));
+                returnCourse.setDescription(resultSet.getString(4));
+                c.add(returnCourse);
+            }
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return c;
+    }
+
+    /**
      * Deletes the given Course from the Database
      *
      * @param courseID The courseID of the Course to delete
@@ -186,6 +229,44 @@ public class CourseDA {
 
             statement.executeUpdate(SQLString + courseID);
 
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean incrementQuestions(int id) throws IOException, ClassNotFoundException, SQLException {
+
+        Course found = query(id);
+        String sqlString = "Update Course set Questions_Total = \"" + (found.getQuestionsTotal() + 1) + "\" where Course_ID = " + id;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+    
+     public boolean decrementQuestions(int id) throws IOException, ClassNotFoundException, SQLException {
+
+        Course found = query(id);
+        String sqlString = "Update Course set Questions_Total = \"" + (found.getQuestionsTotal() - 1) + "\" where Course_ID = " + id;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
             connection.close();
 
         } catch (SQLException sqle) {

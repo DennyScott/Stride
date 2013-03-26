@@ -5,6 +5,7 @@
 package Adapters;
 
 import DataAccessors.CourseDA;
+import DataAccessors.QuestionDA;
 import DataAccessors.RecentDA;
 import DataAccessors.UserDA;
 import java.io.IOException;
@@ -41,6 +42,20 @@ public class QuestionAdapter {
         return returnList;
     }
     
+    public Beans.Question query(int id){
+        QuestionDA qda = new QuestionDA();
+        try {
+            return adaptQuestion(qda.query(id));
+        } catch (IOException ex) {
+            Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new Beans.Question();
+    }
+    
     public Beans.Question adaptQuestion(ModelObjects.Question preQuestion) throws ClassNotFoundException, IOException, SQLException{
         Beans.Question returnQuestion = new Beans.Question();
        
@@ -52,10 +67,13 @@ public class QuestionAdapter {
         returnQuestion.setSubmitted(preQuestion.getSubmitted());
         returnQuestion.setVotes(preQuestion.getVotes());
         returnQuestion.setLastUpdated(preQuestion.getLastUpdated());
+        returnQuestion.setAnswers(preQuestion.getAnswers());
+        returnQuestion.setCourseID(preQuestion.getCourseID()+"");
         
         UserDA um = new UserDA();
         ModelObjects.User user = um.query(preQuestion.getUserID());
         returnQuestion.setAuthor(user.getUsername());
+        returnQuestion.setReputation(user.getReputation());
         
         CourseDA cm = new CourseDA();
         ModelObjects.Course course = cm.query(preQuestion.getCourseID());

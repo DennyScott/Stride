@@ -8,12 +8,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
         <link href="css/wmd.css" rel="Stylesheet" type="text/css" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="javascript/1.2.6.js"></script>
-
+        <script type="text/javascript" src="javascript/Stride.js"></script>
+        <script type="text/javascript" src="javascript/sonic.js"></script>
         <script type="text/javascript" src="javascript/showdown.js"></script>
 
 
@@ -32,29 +34,29 @@
                     <h1 id="user-displayname">Ask a Question</h1>
                 </div>
                 <form method="POST" action="Ask" name="question">
-                <div class="form-item ask-title">
-                    <table class="ask-title-table">
-                        <tbody>
-                            <tr>
-                                <td class="ask-title-cell-key">
-                                    <label for="title">Title</label>
-                                </td>
-                                <td class="ask-title-cell-value">
-                                    <input type="text" maxlength="300" tabindex="100" class="actual-edit-overlay" autocomplete="off" 
-                                           style="opacity:1; position: absolute; background-color: white; color:black; -webkit-text-fill-color: black; width:610px;
-                                           height: 16px; line-height: normal; font-family: 'Helvetica Neue';font-size: 13px; text-align:start; border: 1px solid rgb(153,153,153);"
-                                           disabled="disabled">
-                                    <input id="title" name="title" type="text" maxlength="300" tabindex="100" class="ask-title-field edit-field-overlayed" autocomplete="off" style="opacity: 0.4; z-index:1; position:relative;">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br><br>
-                    <div id="question-suggestions"></div>
-                </div>
+                    <div class="form-item ask-title">
+                        <table class="ask-title-table">
+                            <tbody>
+                                <tr>
+                                    <td class="ask-title-cell-key">
+                                        <label for="title">Title</label>
+                                    </td>
+                                    <td class="ask-title-cell-value">
+                                        <input type="text" maxlength="300" tabindex="100" class="actual-edit-overlay" autocomplete="off" 
+                                               style="opacity:1; position: absolute; background-color: white; color:black; -webkit-text-fill-color: black; width:610px;
+                                               height: 16px; line-height: normal; font-family: 'Helvetica Neue';font-size: 13px; text-align:start; border: 1px solid rgb(153,153,153);"
+                                               disabled="disabled">
+                                        <input id="title" name="title" type="text" maxlength="300" tabindex="100" class="ask-title-field edit-field-overlayed" autocomplete="off" style="opacity: 1; z-index:1; position:relative;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br><br>
+                        <div id="question-suggestions"></div>
+                    </div>
 
-                <%--    StackExchange.ready(function() {
-                                initTagRenderer("".split(" "), "".split(" "));
+                    <%--    StackExchange.ready(function() {
+                                    initTagRenderer("".split(" "), "".split(" "));
 
                             prepareEditor({
                                 heartbeatType: 'answer',
@@ -67,10 +69,10 @@
 
 
                         });  --%>
-                        <div id="post-editor" class="post-editor">
-                            <div class="wmd-container">
-                                <div id="wmd-button-bar" class="wmd-button-bar">
-                                   
+                    <div id="post-editor" class="post-editor">
+                        <div class="wmd-container">
+                            <div id="wmd-button-bar" class="wmd-button-bar">
+
                             </div>
 
 
@@ -91,137 +93,71 @@
 
                     </div>
 
-        <div class="form-item">
-            <label>Tags</label>
-            <span class="note">Please separate each tag with a comma. (eg. "Java, 3909, Web-Design")</span>
-            <input id="tagnames" name="tagnames" type="text" size="60" value tabindex="103" style="display:none;">
-            <div class="actual-edit-overlay" style="width: 666px; height:28px; opacity: 1px; position: absolute;
-                 background-color: white; color: black; -webkit-text-fill-color: black; line-height: 28px; font-family: 'Helvetica Neue';
-                 font-size:13px; text-align: start; border: 1px solid rgb (153,153,153);" disabled="disabled">
-            </div>
-            <div class="tag-editor edit-field-overlayed" style="width:666px; height: 28px; opacity: 0.4; z-index: 1; position: relative;">
-                <span style></span>
-                <input type="text" tabindex="103" style="width: 658px;">
-                <span></span>
+                    <div class="form-item">
+                        <label>Tags</label>
+                        <span class="note">Please separate each tag with a comma. (eg. "Java, 3909, Web-Design")</span>
+                        <input id="tagnames" name="tagnames" type="text" size="60" value tabindex="103" style="display:none;">
+
+                        <span style></span>
+                        <div class="courseOverlay">
+                            <input type="text" name="tags"tabindex="103" style="width: 666px;">
+                            <label>Courses</label>
+                            <span class="note">Please select the Course this question is for.</span><br>
+                            <select class="courseSelection" id="courseSelection" name="courseSelection">
+                                <c:forEach items="${bean.getCourses()}" var="course">
+                                    <option value="${course.getId()}">${course.getCourse()}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <span></span>
+
+                    </div>
+
             </div>
 
-        </div>
-
-        <div id="question-only-section">
-            <div class="form-submit cbt">
-                <input id="submit-button" type="submit" value="Post Your Question" tabindex="120">
-                <a href="#" class="discard-question dno">discard</a>
+            <div id="question-only-section" class="postQuestion">
+                <div class="form-submit cbt">
+                    <input id="submit-button" type="submit" value="Post Your Question" tabindex="120">
+                </div>
             </div>
-        </div>
         </form>
 
 
-    </div>
 
 
 
-    <div id="sideContent">
-        <div class="newUser" id="newUserBox">
-            <h4>
-                Welcome!
-            </h4>
-            <div>
-                <p>
-                    Stride is a website where students of Applied Computer Science can help one another by asking and answering questions.
-                </p>
-                <p class="ar">
-                    <a href="aboutus">about >></a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a href="faq">faq >></a>
-                </p>
+
+        <div id="askSideContent">
+            <div class="newUser" id="newUserBox">
+                <h4>
+                    Welcome!
+                </h4>
+                <div>
+                    <p>
+                        Stride is a website where students of Applied Computer Science can help one another by asking and answering questions.
+                    </p>
+                    <p class="ar">
+                        <a href="aboutus">about >></a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="faq">faq >></a>
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <div class="module" id="recent-tags">
-            <h4 id="h-recent-tags">Recent Tags</h4>
-            <div id="recent-tags-list">
-                <a href="someTag" title="Show Questions tagged 'TagName'" class="post-tag" rel="tag">
-                    Cakes
-                </a>
-                &nbsp;
-                <span class="item-multiplier">
-                    <span class="item-multiplier-x">x</span>
-                    &nbsp;
-                    <span class="item-multiplier-count">89</span>
-                </span>
-                <br>
-                <a href="someTag" title="Show Questions tagged 'TagName'" class="post-tag" rel="tag">
-                    3909
-                </a>
-                &nbsp;
-                <span class="item-multiplier">
-                    <span class="item-multiplier-x">x</span>
-                    &nbsp;
-                    <span class="item-multiplier-count">8</span>
-                </span>
-                <br>
-                <a href="someTag" title="Show Questions tagged 'TagName'" class="post-tag" rel="tag">
-                    Java
-                </a>
-                &nbsp;
-                <span class="item-multiplier">
-                    <span class="item-multiplier-x">x</span>
-                    &nbsp;
-                    <span class="item-multiplier-count">60</span>
-                </span>
-                <br>
-            </div>
-        </div>
 
-        <div class="module" id="recent-badges">
-            <h4 id="h-recent-badges">Recent Badges</h4>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="some badge" title="Description of badge" class="badge">Good Answer</a>
-                            <a href="link to some elements">Denny Scott</a>
-                        </td>
+            <%@include file="recentJobs.jsp" %>
+            <%@include file="recentTags.jsp" %>
 
-                    </tr>
 
-                    <tr>
-                        <td>
-                            <a href="some badge" title="Description of badge" class="badge">Civic Duty</a>
-                            <a href="link to some elements">Denny Scott</a>
-                        </td>
 
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <a href="some badge" title="Description of badge" class="badge">Necromancer</a>
-                            <a href="link to some elements">Denny Scott</a>
-                        </td>
-
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <a href="some badge" title="Description of badge" class="badge">Notable Question</a>
-                            <a href="link to some elements">Jim Smith</a>
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table>
         </div>
 
 
 
     </div>
 
+    <script type="text/javascript" src="javascript/wmd.js"></script>
 
-
-</div>
-
-<script type="text/javascript" src="javascript/wmd.js"></script>
-
-        <jsp:include page = "footerShortcut.jsp" />
+    <jsp:include page = "footerShortcut.jsp" />
 </body>
 </html>

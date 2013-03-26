@@ -78,7 +78,7 @@ public class AnswerDA {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
         String sqlString = "INSERT into Answer VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newAnswer.getAnswer() + seperateValue() + newAnswer.getQuestionID() + seperateValue() + newAnswer.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + (newAnswer.isChosen()?1:0) + "\")";
+        String answerString = "(" + "null" + ", " + "\"" + newAnswer.getAnswer() + seperateValue() + newAnswer.getQuestionID() + seperateValue() + newAnswer.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + (newAnswer.isChosen() ? 1 : 0) + "\")";
 
         try {
             Connection connection = connectDB();
@@ -113,7 +113,7 @@ public class AnswerDA {
         java.util.Date date = new java.util.Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
-        String sqlString = "Update Answer set Answer = \"" + newAnswer.getAnswer() + "\", Last_Updated = \"" + subDate + "\", Votes = \"" + newAnswer.getVotes() + "\", Is_Chosen = \"" + (newAnswer.isChosen()?1:0) + "\" where Answer_ID = " + newAnswer.getAnswerID();
+        String sqlString = "Update Answer set Answer = \"" + newAnswer.getAnswer() + "\", Last_Updated = \"" + subDate + "\", Is_Chosen = \"" + (newAnswer.isChosen() ? 1 : 0) + "\" where Answer_ID = " + newAnswer.getAnswerID();
         try {
             Connection connection = connectDB();
 
@@ -289,5 +289,61 @@ public class AnswerDA {
         }
 
         return returnList;
+    }
+
+    /**
+     * Updates the Answer object found in the database
+     *
+     * @param newAnswer The Answer to update in the database
+     * @return True if the Answer was updated correctly
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public boolean incrementVotes(int answerID) throws IOException, ClassNotFoundException, SQLException {
+
+        Answer found = query(answerID);
+        String sqlString = "Update Answer set Votes = \"" + (found.getVotes() + 1) + "\" where Answer_ID = " + answerID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Updates the Answer object found in the database
+     *
+     * @param newAnswer The Answer to update in the database
+     * @return True if the Answer was updated correctly
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public boolean decrementVotes(int answerID) throws IOException, ClassNotFoundException, SQLException {
+
+        Answer found = query(answerID);
+        String sqlString = "Update Answer set Votes = \"" + (found.getVotes() - 1) + "\" where Answer_ID = " + answerID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
     }
 }

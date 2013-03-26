@@ -43,6 +43,32 @@ public class TagDA {
         return connection;
     }
 
+    public boolean exists(String tagName) throws ClassNotFoundException, IOException {
+        String SQLString = "SELECT * FROM Tag WHERE Title = ";
+        Tag returnTag = new Tag();
+        int tagID = 0;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString + "\"" + (tagName.toLowerCase()) + "\"");
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                return true;
+            }
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return false;
+    }
+
     /**
      * Check to see if the given Tag is empty
      *
@@ -74,28 +100,42 @@ public class TagDA {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public boolean add(Tag newTag) throws IOException, ClassNotFoundException, SQLException {
+    public int add(Tag newTag) throws IOException, ClassNotFoundException, SQLException {
+        int id = 0;
+        if (exists(newTag.getTitle())) {
+            Tag foundTag = this.queryTitle(newTag.getTitle());
+            int changeNum = foundTag.getCount();
+            changeNum++;
+            foundTag.setCount(changeNum);
+            update(foundTag);
+            return foundTag.getTagID();
+        } else {
+            String sqlString = "INSERT into Tag VALUES ";
+            String answerString = "(" + "null" + ", " + "\"" + newTag.getTitle() + seperateValue() + newTag.getDescription() + seperateValue() + "1" + "\")";
 
-        String sqlString = "INSERT into Tag VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newTag.getTitle() + seperateValue() + newTag.getDescription() + "\")";
+            try {
+                Connection connection = connectDB();
 
-        try {
-            Connection connection = connectDB();
+                Statement statement = connection.createStatement();
 
-            Statement statement = connection.createStatement();
+                if (isEmpty(newTag)) {
+                    return 0;
+                }
 
-            if (isEmpty(newTag)) {
-                return false;
+                statement.executeUpdate(sqlString + answerString, Statement.RETURN_GENERATED_KEYS);
+                ResultSet rs = statement.getGeneratedKeys();
+
+                while (rs.next()) {
+                    id = rs.getInt(1);
+                }
+                connection.close();
+
+            } catch (SQLException sqle) {
+                return 0;
             }
 
-            statement.executeUpdate(sqlString + answerString);
-            connection.close();
-
-        } catch (SQLException sqle) {
-            return false;
+            return id;
         }
-
-        return true;
     }
 
     /**
@@ -154,6 +194,7 @@ public class TagDA {
                 returnTag.setTagID(Integer.parseInt(resultSet.getString(1)));
                 returnTag.setTitle(resultSet.getString(2));
                 returnTag.setDescription(resultSet.getString(3));
+                returnTag.setCount(Integer.parseInt(resultSet.getString(4)));
             }
 
 
@@ -186,6 +227,91 @@ public class TagDA {
 
             statement.executeUpdate(SQLString + tagID);
 
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Queries the Database for the given Tag
+     *
+     * @param tagID The Tag_ID being searched for
+     * @return The found Tag
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public Tag queryTitle(String title) throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM Tag WHERE Title = ";
+        Tag returnTag = new Tag();
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString + "\"" + title + "\"");
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                returnTag.setTagID(Integer.parseInt(resultSet.getString(1)));
+                returnTag.setTitle(resultSet.getString(2));
+                returnTag.setDescription(resultSet.getString(3));
+                returnTag.setCount(Integer.parseInt(resultSet.getString(4)));
+            }
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnTag;
+    }
+
+    /**
+     * Updates the Tag object found in the database
+     *
+     * @param newTag The Tag to update in the database
+     * @return True if the Tag was updated correctly
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public boolean incrementCount(int tagID) throws IOException, ClassNotFoundException, SQLException {
+
+        Tag found = query(tagID);
+        String sqlString = "Update Tag set Count = \"" + (found.getCount() + 1) + "\" where Tag_ID = " + tagID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean decrementCount(int tagID) throws IOException, ClassNotFoundException, SQLException {
+
+        Tag found = query(tagID);
+        String sqlString = "Update Tag set Count = \"" + (found.getCount() - 1) + "\" where Tag_ID = " + tagID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
             connection.close();
 
         } catch (SQLException sqle) {

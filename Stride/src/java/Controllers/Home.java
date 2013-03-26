@@ -8,9 +8,9 @@ import Beans.QuestionPage;
 import Beans.Front;
 import Models.AnswerModel;
 import Models.CommentModel;
-import Models.QModel;
+import Models.HomeModel;
+import Models.QuestionPageModel;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -69,7 +69,9 @@ public class Home extends HttpServlet {
                 getQuestion(request, response);
             }
         } else {
-            Front front = QModel.getFront();
+            //Get Front Page
+            HomeModel frontPage = new HomeModel();
+            Front front = frontPage.getFront();
             request.setAttribute("bean", front);
 
             forwardBean(request, response, "WEB-INF/index.jsp");
@@ -79,7 +81,7 @@ public class Home extends HttpServlet {
     }
 
     public void getQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        QuestionPage question = QModel.getQuestion(Integer.parseInt(request.getParameter("id")));
+        QuestionPage question = new QuestionPageModel().getQuestion(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("bean", question);
 
         forwardBean(request, response, "WEB-INF/question.jsp");

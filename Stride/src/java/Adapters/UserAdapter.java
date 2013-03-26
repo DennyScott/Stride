@@ -7,6 +7,7 @@ package Adapters;
 import DataAccessors.UserDA;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,11 @@ import java.util.logging.Logger;
  * @author Denny
  */
 public class UserAdapter {
+    
+    public ArrayList<Beans.Users> getAllUsers(){
+        UserDA um = new UserDA();
+        
+    }
     
     public Beans.Users getUser(int id){
         UserDA um = new UserDA();

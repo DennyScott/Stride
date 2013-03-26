@@ -81,8 +81,8 @@
                                                 <tr>
                                                     <td class="vt">
                                                         <div class="post-menu">
-                                                            <a href="School?id=${bean.getSchool()}" title="Go to other questions from ${question.getSchool()}" class="short-link">
-                                                                ${bean.getSchool()}
+                                                            <a href="Courses?id=${bean.getCourseId()}" title="Go to other questions from ${question.getSchool()}" class="short-link">
+                                                                Course: ${bean.getSchool()}
                                                             </a>
                                                         </div>
                                                     </td>
@@ -143,7 +143,7 @@
                                                         </td>
                                                     </tr>
                                                 </c:forEach>                    
-                                            
+
                                                 <!-- End of Comments Loop -->
 
                                             </tbody>
@@ -263,8 +263,8 @@
 
                                                 </table>
                                                 <br>
-                                        <div id="answerComment-${answer.getID()}" class="addComment" onclick="answerComment(${bean.getQuestionID()},${answer.getID()})">Add a comment</div>
-                                 
+                                                <div id="answerComment-${answer.getID()}" class="addComment" onclick="answerComment(${bean.getQuestionID()},${answer.getID()})">Add a comment</div>
+
                                             </div>
 
                                             <div class="was-this-useful">
@@ -291,8 +291,8 @@
                     <form id="post-form" action="home?id=${bean.getQuestionID()}&submit=true" method="post" class="post-form">
                         <h2 class="space">Your Answer</h2>
 
-                       <%--    StackExchange.ready(function() {
-                                initTagRenderer("".split(" "), "".split(" "));
+                        <%--    StackExchange.ready(function() {
+                                 initTagRenderer("".split(" "), "".split(" "));
 
                             prepareEditor({
                                 heartbeatType: 'answer',
@@ -308,116 +308,118 @@
                         <div id="post-editor" class="post-editor">
                             <div class="wmd-container">
                                 <div id="wmd-button-bar" class="wmd-button-bar">
-                                   
+
+                                </div>
+
+
+                                <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" style="opacity:1; height:213px;"></textarea>
+                            </div>
+
+                            <div class="fl" style="margin-top: 8px; height: 24px;">&nbsp;</div>  
+                            <div id="draft-saved" class="draft-saved-community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+                            <div id="draft-discarded" class="draft-discarded-community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+                            <div id="wmd-preview" class="wmd-preview"></div>
+                            <div></div>
+
+                            <div class="edit-block">
+                                <input id="fkey" name="fkey" type="hidden" value="dflakdfj9879asf986a8">
+                                <input id="author" name="author" type="text">
                             </div>
 
 
-                            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" style="opacity:1; height:213px;"></textarea>
                         </div>
 
-                        <div class="fl" style="margin-top: 8px; height: 24px;">&nbsp;</div>  
-                        <div id="draft-saved" class="draft-saved-community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
-                        <div id="draft-discarded" class="draft-discarded-community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
-                        <div id="wmd-preview" class="wmd-preview"></div>
-                        <div></div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="vm">
+                                        <div>
+                                            <label for="display-name">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                            <input type="text" size="30" maxlength="30" value tabindex="105" style="opacity: 1; position:absolute; background-color:white; color:white; -webkit-text-fill-color: black; width: 209px; height:16px; line-height:normal; font-size:13px; text-align:start; border:1px solid rgb(153,153,153);" class="actual-edit-overlay" disabled="disabled">
+                                            <input id="display-name" name="display-name" type="text" size="30" maxlengt="30" value tabindex="105" style="opacity: 0.4; z-index:1; position:relative;" class="edit-field-overlay"> 
+                                        </div>
+                                        <div>
+                                            <label for="password">Password</label>
+                                            <input type="text" size="30" maxlength="30" value tabindex="105" style="opacity: 1; position:absolute; background-color:white; color:white; -webkit-text-fill-color: black; width: 209px; height:16px; line-height:normal; font-size:13px; text-align:start; border:1px solid rgb(153,153,153);" class="actual-edit-overlay" disabled="disabled">
+                                            <input id="password" name="password" type="password" size="30" maxlengt="30" value tabindex="105" style="opacity: 0.4; z-index:1; position:relative;" class="edit-field-overlay"> 
+                                        </div>
 
-                        <div class="edit-block">
-                            <input id="fkey" name="fkey" type="hidden" value="dflakdfj9879asf986a8">
-                            <input id="author" name="author" type="text">
-                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
 
-
-                    </div>
-
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="vm">
-                                <div>
-                                    <label for="display-name">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                    <input type="text" size="30" maxlength="30" value tabindex="105" style="opacity: 1; position:absolute; background-color:white; color:white; -webkit-text-fill-color: black; width: 209px; height:16px; line-height:normal; font-size:13px; text-align:start; border:1px solid rgb(153,153,153);" class="actual-edit-overlay" disabled="disabled">
-                                    <input id="display-name" name="display-name" type="text" size="30" maxlengt="30" value tabindex="105" style="opacity: 0.4; z-index:1; position:relative;" class="edit-field-overlay"> 
-                                </div>
-                                <div>
-                                    <label for="password">Password</label>
-                                    <input type="text" size="30" maxlength="30" value tabindex="105" style="opacity: 1; position:absolute; background-color:white; color:white; -webkit-text-fill-color: black; width: 209px; height:16px; line-height:normal; font-size:13px; text-align:start; border:1px solid rgb(153,153,153);" class="actual-edit-overlay" disabled="disabled">
-                                    <input id="password" name="password" type="password" size="30" maxlengt="30" value tabindex="105" style="opacity: 0.4; z-index:1; position:relative;" class="edit-field-overlay"> 
-                                </div>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-        </div>
-
-        <div class="form-submit cbt">
-            <input id="submit-button" type="submit" value="Post Your Answer!" tabindex="110">
-            <a href="#" class="discarded-answer dno">discard</a>
-            <p class="privacy-policy-agreement">By posting your answer, you agree to the <a href="privacy policy" target="_blank">privacy policy</a> and <a href="terms of use" target="_blank">terms of use</a>.</p>
-            <input type="hidden" name="legalLinksShown" value="1">
-        </div>
-        </form>
+                <div class="form-submit cbt">
+                    <input id="submit-button" type="submit" value="Post Your Answer!" tabindex="110">
+                    <a href="#" class="discarded-answer dno">discard</a>
+                    <p class="privacy-policy-agreement">By posting your answer, you agree to the <a href="privacy policy" target="_blank">privacy policy</a> and <a href="terms of use" target="_blank">terms of use</a>.</p>
+                    <input type="hidden" name="legalLinksShown" value="1">
+                </div>
+                </form>
 
 
-    </div>
-
-    <span class="cbt"></span>
-
-    <div id="sideContent">
-
-        <div class="module question-stats">
-            <p class="label-key">tagged</p>
-
-
-
-            <div class="tagged">
-                <c:forEach items="${bean.getTags()}" var="tag">
-                    <a href="Tags?id=${tag.getID()}" class="post-tag" title="Info on this tag" rel="tag">${tag.getTag()}</a>
-                    &nbsp;
-                    <span class="item-multiplier">
-                        <span class="item-multiplier-x">x</span>
-                        &nbsp;
-                        <span class="item-multiplier-count">${tag.getCount()}</span>
-                    </span>
-                    <br>
-                </c:forEach>
             </div>
 
-            <table id="qinfo">
-                <tbody>
-                    <tr>
-                        <td><p class="label-key">asked</p></td>
-                        <td style="padding-left:10px;">
-                            <p class="label-key" title="2012-03-21 13:16:54">
-                                <b>${bean.getSubmitted()}</b>
-                            </p>
-                        </td>
-                    </tr>
+            <span class="cbt"></span>
 
-                    <tr>
-                        <td><p class="label-key">viewed</p></td>
-                        <td style="padding-left:10px;">
-                            <p class="label-key" title="How many times has this page been viewed">
-                                <b>${bean.getCount()}</b>
-                            </p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="sideContent">
+
+                <div class="module question-stats">
+                    <p class="label-key">tagged</p>
+
+
+
+                    <div class="tagged">
+                        <c:forEach items="${bean.getTags()}" var="tag">
+                            <a href="Tags?id=${tag.getID()}" class="post-tag" title="Info on this tag" rel="tag">${tag.getTag()}</a>
+                            &nbsp;
+                            <span class="item-multiplier">
+                                <span class="item-multiplier-x">x</span>
+                                &nbsp;
+                                <span class="item-multiplier-count">${tag.getCount()}</span>
+                            </span>
+                            <br>
+                        </c:forEach>
+                    </div>
+
+                    <table id="qinfo">
+                        <tbody>
+                            <tr>
+                                <td><p class="label-key">asked</p></td>
+                                <td style="padding-left:10px;">
+                                    <p class="label-key" title="2012-03-21 13:16:54">
+                                        <b>${bean.getSubmitted()}</b>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><p class="label-key">viewed</p></td>
+                                <td style="padding-left:10px;">
+                                    <p class="label-key" title="How many times has this page been viewed">
+                                        <b>${bean.getCount()}</b>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <%@include file="recentJobs.jsp" %>
+                <%@include file="recentTags.jsp" %>
+
+
+                <%@include file="recentBadges.jsp" %>
+            </div>
+
+
 
         </div>
 
-        <%@include file="recentTags.jsp" %>
+        <script type="text/javascript" src="javascript/wmd.js"></script>
 
-        <%@include file="recentBadges.jsp" %>
-    </div>
-
-
-
-</div>
-
-<script type="text/javascript" src="javascript/wmd.js"></script>
-
-<jsp:include page = "footerShortcut.jsp" />
-</body>
+        <jsp:include page = "footerShortcut.jsp" />
+    </body>
 </html>

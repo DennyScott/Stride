@@ -85,7 +85,7 @@ public class QuestionDA {
         String subDate = dateFormat.format(date);
         String sqlString = "INSERT into Question VALUES ";
         String answerString = "(" + "null" + ", " + "\"" + newQuestion.getQuestion() + seperateValue() + newQuestion.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newQuestion.getTitle() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + newQuestion.getCourseID() + "\")";
-        int id;
+        int id = 0;
         try {
             Connection connection = connectDB();
 
@@ -95,16 +95,19 @@ public class QuestionDA {
                 return 0;
             }
 
-            statement.executeUpdate(sqlString + answerString,Statement.RETURN_GENERATED_KEYS);
+            statement.executeUpdate(sqlString + answerString, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = statement.getGeneratedKeys();
-            id = rs.getInt(1);
-            connection.close();
+
+            while (rs.next()) {
+                id = rs.getInt(1);
+            }
 
         } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
             return 0;
         }
 
-        
+
         return id;
     }
 
@@ -121,7 +124,7 @@ public class QuestionDA {
 
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String sqlString = "Update Question set Question = \"" + newQuestion.getQuestion() + "\", Last_Updated = \"" + dateFormat.format(date) + "\", Votes = \"" + newQuestion.getVotes() + "\", Times_Visited = \"" + newQuestion.getVisits() + "\", Number_Of_Answers = \"" + newQuestion.getAnswers() + "\" where Question_ID = " + newQuestion.getQuestionID();
+        String sqlString = "Update Question set Question = \"" + newQuestion.getQuestion() + "\", Last_Updated = \"" + dateFormat.format(date) + "\" where Question_ID = " + newQuestion.getQuestionID();
         try {
             Connection connection = connectDB();
 
@@ -302,5 +305,150 @@ public class QuestionDA {
         }
 
         return returnList;
+    }
+
+    /**
+     * Updates the Question object found in the database
+     *
+     * @param newQuestion The Question to update in the database
+     * @return True if the Question was updated correctly
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public boolean incrementAnswers(int questionID) throws IOException, ClassNotFoundException, SQLException {
+
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Question q = query(questionID);
+        String sqlString = "Update Question set Number_Of_Answers = \"" + (q.getAnswers() + 1) + "\" where Question_ID = " + questionID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Updates the Question object found in the database
+     *
+     * @param newQuestion The Question to update in the database
+     * @return True if the Question was updated correctly
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public boolean decrementAnswers(int questionID) throws IOException, ClassNotFoundException, SQLException {
+
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Question q = query(questionID);
+        String sqlString = "Update Question set Number_Of_Answers = \"" + (q.getAnswers() - 1) + "\" where Question_ID = " + questionID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Updates the Question object found in the database
+     *
+     * @param newQuestion The Question to update in the database
+     * @return True if the Question was updated correctly
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public boolean incrementVote(int questionID) throws IOException, ClassNotFoundException, SQLException {
+
+        Question q = query(questionID);
+        String sqlString = "Update Question set Votes = \"" + (q.getVotes() + 1) + "\" where Question_ID = " + questionID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean decrementVote(int questionID) throws IOException, ClassNotFoundException, SQLException {
+
+        Question q = query(questionID);
+        String sqlString = "Update Question set Votes = \"" + (q.getVotes() - 1) + "\" where Question_ID = " + questionID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean incrementVisit(int questionID) throws IOException, ClassNotFoundException, SQLException {
+
+        Question q = query(questionID);
+        String sqlString = "Update Question set Times_Visited = \"" + (q.getVisits() + 1) + "\" where Question_ID = " + questionID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean decrementVisit(int questionID) throws IOException, ClassNotFoundException, SQLException {
+
+        Question q = query(questionID);
+        String sqlString = "Update Question set Times_Visited = \"" + (q.getVisits() - 1) + "\" where Question_ID = " + questionID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
     }
 }

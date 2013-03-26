@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -175,7 +176,7 @@ public class UserDA {
                 returnUser.setProfilePictureLink(resultSet.getString(12));
                 returnUser.setBiography(resultSet.getString(13));
                 returnUser.setRank(resultSet.getString(14));
-                returnUser.setAnonymous(resultSet.getBoolean(15));                
+                returnUser.setAnonymous(resultSet.getBoolean(15));
                 returnUser.setGoldCount(Integer.parseInt(resultSet.getString(16)));
                 returnUser.setSilverCount(Integer.parseInt(resultSet.getString(17)));
                 returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(18)));
@@ -192,6 +193,55 @@ public class UserDA {
         }
 
         return returnUser;
+    }
+    
+     public ArrayList<User> collectQuestions(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM User ORDER BY Reputation DESC LIMIT " + (questionAmount+startPosition);
+        ArrayList<User> returnList = new ArrayList();
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                User returnUser = new User();
+                returnUser.setUserID(Integer.parseInt(resultSet.getString(1)));
+                returnUser.setUsername(resultSet.getString(2));
+                returnUser.setPassword(resultSet.getString(3));
+                returnUser.setFirstName(resultSet.getString(4));
+                returnUser.setLastName(resultSet.getString(5));
+                returnUser.setEmailAddress(resultSet.getString(6));
+                returnUser.setNumberOfQuestions(Integer.parseInt(resultSet.getString(7)));
+                returnUser.setNumberOfAnswers(Integer.parseInt(resultSet.getString(8)));
+                returnUser.setVotes(Integer.parseInt(resultSet.getString(9)));
+                returnUser.setCreated(resultSet.getString(10));
+                returnUser.setLastLoggedIn(resultSet.getString(11));
+                returnUser.setProfilePictureLink(resultSet.getString(12));
+                returnUser.setBiography(resultSet.getString(13));
+                returnUser.setRank(resultSet.getString(14));
+                returnUser.setAnonymous(resultSet.getBoolean(15));
+                returnUser.setGoldCount(Integer.parseInt(resultSet.getString(16)));
+                returnUser.setSilverCount(Integer.parseInt(resultSet.getString(17)));
+                returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(18)));
+                returnUser.setReputation(Integer.parseInt(resultSet.getString(19)));
+                returnList.add(returnUser);
+            }
+
+            for (int i = startPosition - 1; i >= 0; i--) {
+                returnList.remove(i);
+            }
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnList;
     }
 
     /**
@@ -221,6 +271,244 @@ public class UserDA {
             return false;
         }
 
+        return true;
+    }
+
+    /**
+     * Updates the User object found in the database
+     *
+     * @param newUser The User to update in the database
+     * @return True if the User was updated correctly
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public boolean incrementGold(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Gold_Count = \"" + (me.getGoldCount() + 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean decrementGold(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Gold_Count = \"" + (me.getGoldCount() - 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean incrementSilver(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Silver_Count = \"" + (me.getSilverCount() + 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean decrementSilver(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Silver_Count = \"" + (me.getSilverCount() - 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean incrementBronze(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Bronze_Count = \"" + (me.getBronzeCount() + 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean decrementBronze(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Bronze_Count = \"" + (me.getBronzeCount() - 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean incrementQuestions(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Number_Of_Questions = \"" + (me.getNumberOfQuestions() + 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean decrementQuestions(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Number_Of_Questions = \"" + (me.getNumberOfQuestions() - 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean incrementAnswers(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Number_Of_Answers = \"" + (me.getNumberOfAnswers() + 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean decrementAnswers(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Number_Of_Answers = \"" + (me.getNumberOfAnswers() - 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean incrementVotes(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Votes = \"" + (me.getVotes() + 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean decrementVotes(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Votes = \"" + (me.getVotes() - 1) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
         return true;
     }
 }

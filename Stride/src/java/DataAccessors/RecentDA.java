@@ -167,7 +167,7 @@ public class RecentDA {
      */
     public ArrayList<Question> collectQuestions(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "SELECT * FROM Recent LIMIT " + questionAmount;
+        String SQLString = "SELECT * FROM Recent ORDER BY Last_Updated DESC LIMIT " + questionAmount;
         ArrayList<Question> returnList = new ArrayList();
 
         try {

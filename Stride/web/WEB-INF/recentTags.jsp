@@ -11,7 +11,7 @@
     <div id="recent-tags-list">
         <!--Recent Tags -->
         <c:forEach items="${bean.getRecent()}" var="tag">
-            <a href="tags?id=${tag.getID()}" title="Show Questions tagged ${tag.getTag()}" class="post-tag" rel="tag">
+            <a href="Tags?id=${tag.getID()}" title="Show Questions tagged ${tag.getTag()}" class="post-tag" rel="tag">
                 ${tag.getTag()}
             </a>
             &nbsp;

@@ -26,11 +26,11 @@
                 <div class="subheader">
                     <h1 id="h-tags">Users</h1>
                     <div id="tabs">
-                        <a class="youarehere" href="Tabs" title="You are here!">Reputation (Week)</a>
+                        <a class="youarehere" href="Tabs" title="You are here!">Reputation</a>
                         <a href="Tabs" class="otherTab">
-                            Reputation (Month)
+                            Recently Joined
                         </a>
-                        <a href="Tabs" class="otherTab">Reputation (All)</a>
+                        <a href="Tabs" class="otherTab">Oldest</a>
                     </div>
                 </div>
 
@@ -62,15 +62,15 @@
                                             <div class="user-gravatar48">
                                                 <a href="Users?id=${user.getUserID()}">
                                                     <div class>
-                                                        <img src="img/kip.jpg" alt width="48" height="48" />
+                                                        <img src="${user.getImg()}" alt width="48" height="48" />
                                                     </div>
                                                 </a>
                                             </div>
                                             <div class="user-details">
-                                                <a href="Users?id=">Denny Scott</a>
+                                                <a href="Users?id=${user.getUserID()}">${user.getFirstName()} ${user.getLastName()}</a>
                                                 <br>
                                                 <span class="user-location">${user.getRank()}</span>                                                <br>
-                                                <span class="reputation-score" title="reputation this week: 1500 total reputation: 545308" dir="ltr">1580</span>
+                                                <span class="reputation-score" title="reputation this week: 1500 total reputation: 545308" dir="ltr">${user.getReputation()}</span>
                                             </div>
                                             
                                         </div>

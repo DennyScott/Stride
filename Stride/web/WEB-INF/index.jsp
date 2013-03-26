@@ -77,11 +77,11 @@
                                 </div>
 
                                 <div class="started">
-                                    <a href="" class="started-link">
+                                    <span class="started-link">
                                         <span title="2013-01-25 05:46:00" class="relativetime">${question.getQuestion().getSubmitted()}</span>
-                                    </a>
-                                    <a href="users?id=${question.getQuestion().getAuthorID()}">${question.getQuestion().getAuthor()}</a>
-                                    <span class="reputation-score" title="reputation-score" dir="ltr">500000</span>
+                                    </span>
+                                    <a href="Users?id=${question.getQuestion().getAuthorID()}">${question.getQuestion().getAuthor()}</a>
+                                    <span class="reputation-score" title="reputation-score" dir="ltr">${question.getQuestion().getReputation()}</span>
                                 </div>
                             </div>
                         </div>

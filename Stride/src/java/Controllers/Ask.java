@@ -4,9 +4,11 @@
  */
 package Controllers;
 
+import Beans.AskQuestionPage;
+import Models.AskQuestionModel;
 import Models.QuestionModel;
+import Models.TagModel;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,9 +33,9 @@ public class Ask extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/ask.jsp");
-       rd.forward(request, response);    
+        AskQuestionPage aqp = new AskQuestionModel().getPage();
+        request.setAttribute("bean", aqp);
+        forwardBean(request,response,"WEB-INF/ask.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,19 +66,48 @@ public class Ask extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        if (request.getSession().getAttribute("id") != null) {
+            ModelObjects.Question question = new ModelObjects.Question();
+            question.setAnswers(0);
+           String courseID = request.getParameter("courseSelection");
+            question.setCourseID(Integer.parseInt(courseID));
+            question.setQuestion(request.getParameter("post-text"));
+            question.setTitle(request.getParameter("title"));
+            question.setVotes(0);
+            question.setVisits(0);
+            question.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
+
             
-        ModelObjects.Question question = new ModelObjects.Question();
-        question.setAnswers(0);
-        question.setCourseID(4);
-        question.setQuestion(request.getParameter("post-text"));
-        question.setTitle(request.getParameter("title"));
-        question.setVotes(0);
-        question.setVisits(0);
-        question.setUserID(Integer.parseInt((String)request.getSession().getAttribute("id")));
-        
-        
-        QuestionModel qm = new QuestionModel();
-        qm.addQuestion(question);
+            
+            String tags = request.getParameter("tags");
+            TagModel tm = new TagModel();
+
+
+
+
+            QuestionModel qm = new QuestionModel();
+            int questionId = qm.addQuestion(question);
+            if (tags != null) {
+
+                String[] tokens = tags.split(",");
+                for (String t : tokens) {
+                    ModelObjects.Tag temp = new ModelObjects.Tag();
+                    temp.setDescription("");
+                    temp.setTitle(t.toLowerCase());
+                    if (questionId != 0) {
+                        tm.addTag(temp, questionId);
+                    }
+
+
+                }
+            }
+            forwardBean(request,response,"home?id="+questionId);
+        }
+    }
+    public void forwardBean(HttpServletRequest request, HttpServletResponse response, String target)throws ServletException, IOException{
+    RequestDispatcher rd = request.getRequestDispatcher(target);
+        rd.forward(request, response);
     }
 
     /**

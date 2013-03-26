@@ -113,9 +113,6 @@ public class TagLinkDA {
 
                 Statement statement = connection.createStatement();
 
-
-
-
                 statement.executeUpdate(sqlString + answerString);
                 connection.close();
             }

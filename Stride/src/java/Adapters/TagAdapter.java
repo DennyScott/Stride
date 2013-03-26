@@ -4,6 +4,8 @@
  */
 package Adapters;
 
+import Beans.Tags;
+import DataAccessors.TagDA;
 import DataAccessors.TagLinkDA;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -60,7 +62,7 @@ public class TagAdapter {
     
     public Beans.Tags adaptTag(ModelObjects.Tag t){
         Beans.Tags tag = new Beans.Tags();
-        tag.setCount(0); //Need to add Count to Data Access
+        tag.setCount(t.getCount()); //Need to add Count to Data Access
         tag.setDescription(t.getDescription());
         tag.setID(t.getTagID()+"");
         tag.setTag(t.getTitle());
