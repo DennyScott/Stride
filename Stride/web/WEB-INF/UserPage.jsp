@@ -30,7 +30,7 @@
                         if (session.getAttribute("id").equals(request.getParameter("id"))) {
                     %>
                     <div id="tabs">
-                        <a class="youarehere" href="home" title="View">View</a>
+                        <a class="youarehere" href="User?id=${id}" title="View">View</a>
                         <a href="Users?edit=true&id=${id}" class="otherTab">Edit</a>
                     </div>
                     <%}%>
@@ -40,7 +40,7 @@
                             <div class="user-header-left">
                                 <div class="gravatar">
                                     <div class>
-                                        <img src="${bean.getUser().getImg()}.jpg" alt width="128px" height="128px" class="logo" />
+                                        <img src="ProfilePicture?id=${bean.getUser().getUserID()}" alt width="128px" height="128px" class="logo" />
                                     </div>
                                     <div class="reputation">
                                         <span>

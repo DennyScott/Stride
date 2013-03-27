@@ -70,13 +70,13 @@ public class Users extends HttpServlet {
                                             //Process Regular form fields
                                             String fn = item.getFieldName();
                                             if (fn.equals("bio")) {
-                                                user.setBiography(request.getParameter("bio"));
+                                                user.setBiography(item.getString());
                                             } else if (fn.equals("firstName")) {
-                                                user.setFirstName(request.getParameter("firstName"));
+                                                user.setFirstName(item.getString());
                                             } else if (fn.equals("lastName")) {
-                                                user.setLastName(request.getParameter("lastName"));
+                                                user.setLastName(item.getString());
                                             } else if (fn.equals("isAnon")) {
-                                                Boolean anon = request.getParameter("isAnon").equals("ON") ? true : false;
+                                                Boolean anon = item.getString().equals("ON") ? true : false;
                                                 user.setAnonymous(anon);
                                             }
 
@@ -85,19 +85,29 @@ public class Users extends HttpServlet {
 
                                             String fieldName = item.getFieldName();
                                             String fileName = FilenameUtils.getName(item.getName());
+                                            if(!fileName.equals("")){
                                             InputStream fileContent = item.getInputStream();
-                                            File file = new File("img/" + fileName);
+                                            String path = getServletContext().getRealPath("/");
+  
+                                            String temp = path+"/img/" + request.getSession().getAttribute("id") + "/" + fileName;
+                                            user.setProfilePictureLink(fileName);
+                                            File file = new File(temp);
+                                            if(!file.exists()){
+                                                file.getParentFile().mkdirs();
+                                                file.createNewFile();
+                                                
+                                            }
+                                            System.out.println(file.getAbsolutePath());
                                             BufferedImage image = ImageIO.read(fileContent);
-                                            String extension = fileName.split(".")[1];
+                                            String extension = fileName.split("\\.")[1];
                                             ImageIO.write(image, extension, file);
 
-                                        }
+                                        }}
                                     }
 
                                 } catch (FileUploadException ex) {
                                     System.out.println(ex.getMessage());
                                 }
-                                user.setProfilePictureLink(request.getParameter("profilePic"));
 
                                 user.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
                                 UserModel um = new UserModel();

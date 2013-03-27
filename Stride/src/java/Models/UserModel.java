@@ -40,7 +40,7 @@ public class UserModel {
             oldUser.setAnonymous(user.isAnonymous());
             oldUser.setBiography(user.getBiography());
             if(user.getProfilePictureLink()!=null){
-                
+                oldUser.setProfilePictureLink(user.getProfilePictureLink());
             }
             
               ua.update(oldUser);

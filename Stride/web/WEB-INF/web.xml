@@ -60,6 +60,10 @@
         <servlet-name>Jobs</servlet-name>
         <servlet-class>Controllers.Jobs</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfilePicture</servlet-name>
+        <servlet-class>Controllers.ProfilePicture</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mySQLServlet</servlet-name>
         <url-pattern>/mySQLServlet</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>Jobs</servlet-name>
         <url-pattern>/Jobs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfilePicture</servlet-name>
+        <url-pattern>/ProfilePicture</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

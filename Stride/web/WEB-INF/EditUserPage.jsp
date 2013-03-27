@@ -34,8 +34,8 @@
                         if (session.getAttribute("id").equals(request.getParameter("id"))) {
                     %>
                     <div id="tabs">
-                        <a class="youarehere" href="home" title="View">View</a>
-                        <a href="Users?edit=true" class="otherTab">Edit</a>
+                        <a class="otherTab" href="Users" title="View">View</a>
+                        <a href="Users?edit=true" class="youarehere">Edit</a>
                     </div>
                     <%}%>
                 </div>
@@ -45,7 +45,7 @@
                             <div class="gravatar">
                                 <div class>
                                     <form method="POST" action="Users?id=${id}&edit=true&submit=true" id="edited" enctype="multipart/form-data">
-                                        <a href="#" id="uplink" onclick="getFile()"><img src="${bean.getUser().getImg()}" alt width="128px" height="128px" class="logo"/></a>
+                                        <a href="#" id="uplink" onclick="getFile()"><img src="ProfilePicture?id=${bean.getUser().getUserID()}" alt width="128px" height="128px" class="logo"/></a>
                                     
                                     
                                 </div>

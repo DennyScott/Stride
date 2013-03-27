@@ -96,7 +96,7 @@
                                                             <div class="user-gravatar32">
                                                                 <a href="Users?id=${bean.getAuthorID()}">
                                                                     <div class>
-                                                                        <img src="img/kip.jpg" alt width="32" height="32">
+                                                                        <img src="ProfilePicture?id=${bean.getAuthorID()}" alt width="32" height="32">
                                                                     </div>
                                                                 </a>
                                                             </div>

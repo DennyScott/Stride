@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.jsp.PageContext;
 
 /**
  *
@@ -59,7 +60,7 @@ public class UserAdapter {
         returnUser.setEmail(user.getEmailAddress());
         returnUser.setFirstName(user.getFirstName());
         returnUser.setGold(user.getGoldCount());
-        returnUser.setImg(user.getProfilePictureLink());
+        returnUser.setImg("/img/"+user.getUserID()+"/"+user.getProfilePictureLink());
         returnUser.setJoinedDate(user.getCreated());
         returnUser.setLastName(user.getLastName());
         returnUser.setLastOnline(user.getLastLoggedIn());
