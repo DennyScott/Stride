@@ -5,6 +5,7 @@
 package Adapters;
 
 import DataAccessors.UserDA;
+import ModelObjects.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,9 +18,22 @@ import java.util.logging.Logger;
  */
 public class UserAdapter {
     
-    public ArrayList<Beans.Users> getAllUsers(){
+    public ArrayList<Beans.Users> getAllUsers(int start, int end){
         UserDA um = new UserDA();
-        
+        ArrayList<Beans.Users> returnUser = new ArrayList<Beans.Users>();
+        try {
+            ArrayList<User> users = um.collectUsersByRep(start,end);
+            for(User u: users){
+                returnUser.add(adaptUser(u));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(UserAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return returnUser;
     }
     
     public Beans.Users getUser(int id){
@@ -46,7 +60,7 @@ public class UserAdapter {
         returnUser.setFirstName(user.getFirstName());
         returnUser.setGold(user.getGoldCount());
         returnUser.setImg(user.getProfilePictureLink());
-        returnUser.setJoinedDate(user.getJoin());
+        returnUser.setJoinedDate(user.getCreated());
         returnUser.setLastName(user.getLastName());
         returnUser.setLastOnline(user.getLastLoggedIn());
         returnUser.setNumberAnswers(user.getNumberOfAnswers());

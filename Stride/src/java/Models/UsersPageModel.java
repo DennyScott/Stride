@@ -4,6 +4,7 @@
  */
 package Models;
 
+import Adapters.UserAdapter;
 import Beans.UserPage;
 
 /**
@@ -11,8 +12,10 @@ import Beans.UserPage;
  * @author Denny
  */
 public class UsersPageModel {
-    public UserPage getUserPage(){
-    UserPage up = new UserPage();
-    up.setUsers(new UserAdapter().getAllUsers());
+
+    public UserPage getUserPage(int start, int end) {
+        UserPage up = new UserPage();
+        up.setUsers(new UserAdapter().getAllUsers(start, end));
+        return up;
     }
 }

@@ -4,6 +4,7 @@
  */
 package DataAccessors;
 
+import ModelObjects.Question;
 import ModelObjects.Tag;
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -205,6 +207,33 @@ public class TagDA {
         }
 
         return returnTag;
+    }
+    
+    public ArrayList<Tag> collectRecentTags(int userID, ArrayList<Question> questions) throws IOException, ClassNotFoundException, SQLException {
+
+        ArrayList<Tag> returnList = new ArrayList();
+        String SQLString = "SELECT * FROM Tag WHERE Title = ";
+        TagLinkDA tl = new TagLinkDA();
+        try {
+            for (Question q : questions) {
+                Tag returnTag = new Tag();
+                ArrayList<Tag> tempTags = tl.collectQuestionTags(q.getQuestionID());
+                for (Tag t : tempTags) {
+                    if (!returnList.contains(t)) {
+                        returnList.add(t);
+                    }
+                }
+            } //ADD ANSWERS HERE IF WANTED LATER
+
+            while (returnList.size() > 10) {
+                returnList.remove(returnList.size() - 1);
+            }
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnList;
     }
 
     /**

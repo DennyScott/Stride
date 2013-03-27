@@ -31,3 +31,8 @@ function answerComment(questionID,spot){
 </td><td><input tabindex=\"0\" type=\"submit\" value=\"Add Comment\"></td></tr></tbody></table></form>";
     comment.onclick="";
 }
+
+function getFile(){
+    var file = document.getElementById("profilePic");
+    file.click();
+}

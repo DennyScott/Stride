@@ -1928,6 +1928,10 @@ a.post-tag:hover,.post-text a.post-tag:hover,.wmd-preview a.post-tag:hover {
     word-wrap:break-word;
 }
 
+.profilePic{
+    width:1px;
+}
+
 .wmd-preview img,.post-text img {
     max-width:640px;
 }

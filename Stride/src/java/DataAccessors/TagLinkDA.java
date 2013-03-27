@@ -165,6 +165,43 @@ public class TagLinkDA {
 
         return returnList;
     }
+    
+    public ArrayList<Tag> collectTagRecentQuestions(int tagID, int startPosition, int totalAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        ArrayList<Tag> returnList = new ArrayList();
+        String SQLString = "SELECT * FROM TagLink WHERE tagID = " + tagID + "ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
+        TagLinkDA tl = new TagLinkDA();
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                Tag returnTag = new Tag();
+                returnTag.setTagID(Integer.parseInt(resultSet.getString(2)));
+                returnList.add(returnTag);
+            }
+            TagDA findTag = new TagDA();
+            for (int i = 0; i < returnList.size(); i++) {
+                returnList.set(i, findTag.query(returnList.get(i).getTagID()));
+            }
+
+
+            connection.close();
+
+            while (returnList.size() > 10) {
+                returnList.remove(returnList.size() - 1);
+            }
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnList;
+    }
 
     /**
      * Collects all Questions that contain a given Tag

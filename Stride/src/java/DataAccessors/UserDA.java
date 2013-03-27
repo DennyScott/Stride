@@ -119,7 +119,7 @@ public class UserDA {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
-        String sqlString = "Update User set Profile_Picture_Path = \"" + newUser.getProfilePictureLink() + "\", Last_Logged_In = \"" + subDate + "\", Number_Of_Questions = \"" + newUser.getNumberOfQuestions() + "\", Number_Of_Answers = \"" + newUser.getNumberOfAnswers() + "\", Votes = \"" + newUser.getVotes() + "\", Biography = \"" + newUser.getBiography() + "\", Rank = \"" + newUser.getRank() + "\", Is_Anonymous = \"" + (newUser.isAnonymous() ? 1 : 0) + "\", Gold_Count = \"" + newUser.getGoldCount() + "\", Silver_Count = \"" + newUser.getSilverCount() + "\", Bronze_Count = \"" + newUser.getBronzeCount() + "\", Reputation = \"" + newUser.getReputation() + "\"  where User_ID = " + newUser.getUserID();
+        String sqlString = "Update User set Profile_Picture_Path = \"" + newUser.getProfilePictureLink() + "\", Last_Logged_In = \"" + subDate + "\", Number_Of_Questions = " + newUser.getNumberOfQuestions() + ", First_Name = \"" + newUser.getFirstName() + "\" , Last_Name = \"" + newUser.getLastName() + "\", Number_Of_Answers = " + newUser.getNumberOfAnswers() + ", Votes = " + newUser.getVotes() + ", Biography = \"" + newUser.getBiography() + "\", Rank = \"" + newUser.getRank() + "\", Anonymous = " + (newUser.isAnonymous() ? 1 : 0) + ", Gold_Count = " + newUser.getGoldCount() + ", Silver_Count = " + newUser.getSilverCount() + ", Bronze_Count = " + newUser.getBronzeCount() + ", Reputation = " + newUser.getReputation() + "  where User_ID = " + newUser.getUserID();
 
         try {
             Connection connection = connectDB();
@@ -134,7 +134,7 @@ public class UserDA {
             connection.close();
 
         } catch (SQLException sqle) {
-            return false;
+            System.out.println(sqle.getMessage());
         }
 
         return true;
@@ -195,9 +195,107 @@ public class UserDA {
         return returnUser;
     }
     
-     public ArrayList<User> collectQuestions(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
+       public ArrayList<User> collectUsersByRep(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
 
         String SQLString = "SELECT * FROM User ORDER BY Reputation DESC LIMIT " + (questionAmount+startPosition);
+        ArrayList<User> returnList = new ArrayList();
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                User returnUser = new User();
+                returnUser.setUserID(Integer.parseInt(resultSet.getString(1)));
+                returnUser.setUsername(resultSet.getString(2));
+                returnUser.setPassword(resultSet.getString(3));
+                returnUser.setFirstName(resultSet.getString(4));
+                returnUser.setLastName(resultSet.getString(5));
+                returnUser.setEmailAddress(resultSet.getString(6));
+                returnUser.setNumberOfQuestions(Integer.parseInt(resultSet.getString(7)));
+                returnUser.setNumberOfAnswers(Integer.parseInt(resultSet.getString(8)));
+                returnUser.setVotes(Integer.parseInt(resultSet.getString(9)));
+                returnUser.setCreated(resultSet.getString(10));
+                returnUser.setLastLoggedIn(resultSet.getString(11));
+                returnUser.setProfilePictureLink(resultSet.getString(12));
+                returnUser.setBiography(resultSet.getString(13));
+                returnUser.setRank(resultSet.getString(14));
+                returnUser.setAnonymous(resultSet.getBoolean(15));
+                returnUser.setGoldCount(Integer.parseInt(resultSet.getString(16)));
+                returnUser.setSilverCount(Integer.parseInt(resultSet.getString(17)));
+                returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(18)));
+                returnUser.setReputation(Integer.parseInt(resultSet.getString(19)));
+                returnList.add(returnUser);
+            }
+
+            for (int i = startPosition - 1; i >= 0; i--) {
+                returnList.remove(i);
+            }
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnList;
+    }
+     
+      public ArrayList<User> collectUsersByOldest(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM User ORDER BY Created DESC LIMIT " + (questionAmount+startPosition);
+        ArrayList<User> returnList = new ArrayList();
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                User returnUser = new User();
+                returnUser.setUserID(Integer.parseInt(resultSet.getString(1)));
+                returnUser.setUsername(resultSet.getString(2));
+                returnUser.setPassword(resultSet.getString(3));
+                returnUser.setFirstName(resultSet.getString(4));
+                returnUser.setLastName(resultSet.getString(5));
+                returnUser.setEmailAddress(resultSet.getString(6));
+                returnUser.setNumberOfQuestions(Integer.parseInt(resultSet.getString(7)));
+                returnUser.setNumberOfAnswers(Integer.parseInt(resultSet.getString(8)));
+                returnUser.setVotes(Integer.parseInt(resultSet.getString(9)));
+                returnUser.setCreated(resultSet.getString(10));
+                returnUser.setLastLoggedIn(resultSet.getString(11));
+                returnUser.setProfilePictureLink(resultSet.getString(12));
+                returnUser.setBiography(resultSet.getString(13));
+                returnUser.setRank(resultSet.getString(14));
+                returnUser.setAnonymous(resultSet.getBoolean(15));
+                returnUser.setGoldCount(Integer.parseInt(resultSet.getString(16)));
+                returnUser.setSilverCount(Integer.parseInt(resultSet.getString(17)));
+                returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(18)));
+                returnUser.setReputation(Integer.parseInt(resultSet.getString(19)));
+                returnList.add(returnUser);
+            }
+
+            for (int i = startPosition - 1; i >= 0; i--) {
+                returnList.remove(i);
+            }
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnList;
+    }
+      
+      public ArrayList<User> collectUsersByNewest(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM User ORDER BY Created Asc LIMIT " + (questionAmount+startPosition);
         ArrayList<User> returnList = new ArrayList();
 
         try {

@@ -35,11 +35,13 @@ public class UserModel {
         try {
             ModelObjects.User oldUser = ua.query(user.getUserID());
          
-            oldUser.setFirstName("Jim");
             oldUser.setFirstName(user.getFirstName());
             oldUser.setLastName(user.getLastName());
             oldUser.setAnonymous(user.isAnonymous());
             oldUser.setBiography(user.getBiography());
+            if(user.getProfilePictureLink()!=null){
+                
+            }
             
               ua.update(oldUser);
             return true;

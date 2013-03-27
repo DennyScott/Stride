@@ -30,6 +30,26 @@ public class AnswerAdapter {
         
         return newAnswers;
     }
+    
+    public ArrayList<Answers> getRecentAnswers(int id,int start, int stop) {
+
+        ArrayList<ModelObjects.Answer> answer = new AnswerDA().collectRecentUserAnswers(id, start, stop);
+        ArrayList<Answers> newAnswers = new ArrayList<Answers>();
+
+        for (ModelObjects.Answer a : answer) {
+            newAnswers.add(adaptAnswer(a));
+        }
+        
+        return newAnswers;
+    }
+    
+    public ArrayList<Answers> adaptAnswerList(ArrayList<ModelObjects.Answer> answer){
+        ArrayList<Answers> returnAnswer = new ArrayList<Answers>();
+        for(ModelObjects.Answer a: answer){
+            returnAnswer.add(adaptAnswer(a));
+        }
+        return returnAnswer;
+    }
 
     public Answers adaptAnswer(ModelObjects.Answer answer) {
         Answers a = new Answers();

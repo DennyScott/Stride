@@ -31,7 +31,7 @@
                     %>
                     <div id="tabs">
                         <a class="youarehere" href="home" title="View">View</a>
-                        <a href="Users?edit=true&id=11" class="otherTab">Edit</a>
+                        <a href="Users?edit=true&id=${id}" class="otherTab">Edit</a>
                     </div>
                     <%}%>
                 </div>
@@ -40,7 +40,7 @@
                             <div class="user-header-left">
                                 <div class="gravatar">
                                     <div class>
-                                        <img src="${bean.getUser().getImg()}" alt width="128px" height="128px" class="logo" />
+                                        <img src="${bean.getUser().getImg()}.jpg" alt width="128px" height="128px" class="logo" />
                                     </div>
                                     <div class="reputation">
                                         <span>
@@ -255,7 +255,7 @@
                         <div id="user-panel-questions" class="user-panel user-panel-left">
                             <div class="subheader">
                                 <h1>
-                                    <span class="count">40</span>
+                                    <span class="count">${bean.getTotalVotes()}</span>
                                     Votes Cast
                                 </h1>
                             </div>

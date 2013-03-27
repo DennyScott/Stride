@@ -24,9 +24,9 @@ public class QuestionModel {
             int id = qm.add(question);
             ra.add(id);
             UserModel um = new UserModel();
-            um.incrementQuestions(id);
+            um.incrementQuestions(question.getUserID());
             CourseModel cm = new CourseModel();
-            cm.incrementQuestion(id);
+            cm.incrementQuestion(question.getUserID());
             return id;
         } catch (IOException ex) {
             Logger.getLogger(QuestionModel.class.getName()).log(Level.SEVERE, null, ex);

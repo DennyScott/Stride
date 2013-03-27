@@ -62,7 +62,7 @@
                                             <div class="user-gravatar48">
                                                 <a href="Users?id=${user.getUserID()}">
                                                     <div class>
-                                                        <img src="${user.getImg()}" alt width="48" height="48" />
+                                                        <img src="${user.getImg()}.jpg" alt width="48" height="48" />
                                                     </div>
                                                 </a>
                                             </div>

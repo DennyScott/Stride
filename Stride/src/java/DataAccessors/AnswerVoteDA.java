@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -179,6 +180,42 @@ public class AnswerVoteDA {
         return findAV;
     }
 
+    public ArrayList<AnswerVote> query(int userID) throws IOException, ClassNotFoundException, SQLException {
+
+        ArrayList<AnswerVote> av = new ArrayList<AnswerVote>();
+        
+        String SQLString = "SELECT * FROM AnswerVote WHERE User_ID = " + userID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                AnswerVote findAV = new AnswerVote();
+                findAV.setUserID(Integer.parseInt(resultSet.getString(1)));
+                findAV.setAnswerID(Integer.parseInt(resultSet.getString(2)));
+                if (Integer.parseInt(resultSet.getString(3)) != 0) {
+                    findAV.setUp(true);
+                } else {
+                    findAV.setUp(false);
+                }
+                findAV.setSubmitted(resultSet.getString(4));
+                av.add(findAV);
+            }
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return av;
+    }
+    
     /**
      * Deletes the given AnswerVote from the Database
      *

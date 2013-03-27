@@ -4,9 +4,12 @@
  */
 package Adapters;
 
+import DataAccessors.BadgeCollectedDA;
 import DataAccessors.BadgeDA;
+import ModelObjects.Badge;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +32,40 @@ public class BadgeAdapter {
             Logger.getLogger(BadgeAdapter.class.getName()).log(Level.SEVERE, null, ex);
         }
         return badge;
+    }
+    
+    public ArrayList<Beans.Badges> getUserBadges(int id){
+        ArrayList<Beans.Badges> returnBadge = new ArrayList<Beans.Badges>();
+        try {
+            ArrayList<Badge> bc = new BadgeCollectedDA().collectBadges(id);
+            for(Badge b:bc){
+                returnBadge.add(adaptBadge(b));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(BadgeAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BadgeAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BadgeAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return returnBadge;
+    }
+    
+    public ArrayList<Beans.Badges> getRecentBadges(int id, int start, int total){
+        ArrayList<Beans.Badges> returnBadge = new ArrayList<Beans.Badges>();
+        try {
+            ArrayList<Badge> bc = new BadgeCollectedDA().collectRecentUserBadges(id, start, total);
+            for(Badge b:bc){
+                returnBadge.add(adaptBadge(b));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(BadgeAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BadgeAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BadgeAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return returnBadge;
     }
     
     public Beans.Badges adaptBadge(ModelObjects.Badge badge){

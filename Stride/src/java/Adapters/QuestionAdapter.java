@@ -42,6 +42,17 @@ public class QuestionAdapter {
         return returnList;
     }
     
+    public ArrayList<ModelObjects.Question> collectRecentUserQuestions(int id, int startPosition, int Amount) {
+        
+        QuestionDA rm = new QuestionDA();
+        
+            ArrayList<ModelObjects.Question> q = rm.collectRecentUserQuestions(id, startPosition, Amount);
+            
+           
+        
+        return q;
+    }
+    
     public Beans.Question query(int id){
         QuestionDA qda = new QuestionDA();
         try {
@@ -54,6 +65,39 @@ public class QuestionAdapter {
             Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
         }
         return new Beans.Question();
+    }
+    
+    public ArrayList<Beans.Question> getQuestionsUser(int id){
+        ArrayList<Beans.Question> questions = new ArrayList<Beans.Question>();
+        ArrayList<ModelObjects.Question> oldQues = new QuestionDA().getUserQuestion(id);
+        for(ModelObjects.Question q:oldQues){
+            try {
+                questions.add(adaptQuestion(q));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return questions;
+    }
+    
+    public ArrayList<Beans.Question> adaptQuestionList(ArrayList<ModelObjects.Question> question){
+        ArrayList<Beans.Question> returnQuestion = new ArrayList<Beans.Question>();
+        for(ModelObjects.Question q: question){
+            try {
+                returnQuestion.add(adaptQuestion(q));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return returnQuestion;
     }
     
     public Beans.Question adaptQuestion(ModelObjects.Question preQuestion) throws ClassNotFoundException, IOException, SQLException{

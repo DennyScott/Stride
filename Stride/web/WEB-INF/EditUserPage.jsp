@@ -12,6 +12,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="javascript/Stride.js"></script>
+        <script type="text/javascript" src="javascript/jquery-1.2.6.js"></script>
+
 
         <title>Profile</title>
     </head>
@@ -40,8 +44,12 @@
                         <div class="user-header-left">
                             <div class="gravatar">
                                 <div class>
-                                    <img src="${bean.getUser().getImg()}" alt width="128px" height="128px" class="logo" />
+                                    <form method="POST" action="Users?id=${id}&edit=true&submit=true" id="edited" enctype="multipart/form-data">
+                                        <a href="#" id="uplink" onclick="getFile()"><img src="${bean.getUser().getImg()}" alt width="128px" height="128px" class="logo"/></a>
+                                    
+                                    
                                 </div>
+                                
                                 <div class="reputation">
                                     <span>
                                         ${bean.getUser().getReputation()}
@@ -68,7 +76,7 @@
 
 
                             <div class="data">
-                                <form method="POST" action="Users?id=11&edit=true&submit=true" id="edited">
+                                
                                     <table>
                                         <tbody>
                                             <tr>
@@ -105,7 +113,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                            
+                                            <div style="opacity:0"><input type="file" id="profilePic" class="profilePic" name="profilePic"></div>
                             </div>
                         </div>
 

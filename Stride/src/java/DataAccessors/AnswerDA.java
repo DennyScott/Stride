@@ -53,6 +53,53 @@ public class AnswerDA {
         }
         return false;
     }
+    
+    /**
+     * Use to get all Answers from a User
+     *
+     * @param userID The ID of the User to be searched with
+     * @return An ArrayList containing all Answers from a User
+     */
+    public ArrayList<Answer> collectRecentUserAnswers(int userID, int startPosition, int totalAmount) {
+        String SQLString = "SELECT * FROM Answer WHERE User_ID = " + userID + " ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
+        ArrayList<Answer> returnList = new ArrayList();
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                Answer returnAnswer = new Answer();
+                returnAnswer.setAnswerID(Integer.parseInt(resultSet.getString(1)));
+                returnAnswer.setAnswer(resultSet.getString(2));
+                returnAnswer.setQuestionID(Integer.parseInt(resultSet.getString(3)));
+                returnAnswer.setUserID(Integer.parseInt(resultSet.getString(4)));
+                returnAnswer.setVotes(Integer.parseInt(resultSet.getString(5)));
+                returnAnswer.setSubmitted(resultSet.getString(6));
+                returnAnswer.setLastUpdated(resultSet.getString(7));
+                returnAnswer.setChosen(resultSet.getBoolean(8));
+                returnList.add(returnAnswer);
+            }
+
+            for (int i = startPosition - 1; i >= 0; i--) {
+                returnList.remove(i);
+            }
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        } catch (ClassNotFoundException cnf) {
+            return null;
+        } catch (IOException ioe) {
+            return null;
+        }
+
+        return returnList;
+    }
 
     /**
      * Separates values being added to the database

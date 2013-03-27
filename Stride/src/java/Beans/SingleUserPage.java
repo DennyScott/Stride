@@ -20,9 +20,18 @@ public class SingleUserPage {
     private int tagTimes;
     private int votesUp;
     private int votesDown;
+    private int totalVotes;
     private int questionVotes;
     private int answerVotes;
     private ArrayList<Badges> userBadges;
+
+    public int getTotalVotes() {
+        return totalVotes;
+    }
+
+    public void setTotalVotes(int totalVotes) {
+        this.totalVotes = totalVotes;
+    }
 
     public ArrayList<Badges> getUserBadges() {
         return userBadges;

@@ -5,8 +5,8 @@
 package Adapters;
 
 import Beans.Courses;
+import Beans.Question;
 import DataAccessors.CourseDA;
-import DataAccessors.QuestionDA;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,6 +40,30 @@ public class CourseAdapter {
         
         return returnCourses;
         
+    }
+    
+    public ArrayList<Courses> getCourseUser(ArrayList<Question> question){
+        ArrayList<Courses> courses = new ArrayList<Courses>();
+        ArrayList<Integer> id = new ArrayList<Integer>();
+        for(Question q: question){
+            Integer i = Integer.parseInt(q.getCourseID());
+            if(id.isEmpty() || id.indexOf(i)==-1){
+                id.add(i);
+            }
+        }
+        CourseDA cda = new CourseDA();
+            for(Integer t:id){
+            try {
+                courses.add(adaptCourse(cda.query(t)));
+            } catch (IOException ex) {
+                Logger.getLogger(CourseAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(CourseAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(CourseAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+            return courses;
     }
     
     public Courses adaptCourse(ModelObjects.Course c){
