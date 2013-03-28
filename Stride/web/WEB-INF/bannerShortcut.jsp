@@ -59,9 +59,9 @@ the top of the page, if attribute is null the document places a link so a new me
 
             </div>
             <div id="search">
-                <form id="search" action="/search" method="get" autocomplete="off">
+                <form id="search" action="Search" method="get" autocomplete="off">
                     <div>
-                        <input autocomplete="off" name="q" class="textbox" placeholder="search" tabindex="1" type="text" maxlength="140" size="28" value>
+                        <input autocomplete="off" name="searchBar" class="textbox" placeholder="search" tabindex="1" type="text" maxlength="140" size="28" value>
                     </div>
                 </form>
             </div>
