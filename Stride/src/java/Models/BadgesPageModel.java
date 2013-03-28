@@ -4,10 +4,11 @@
  */
 package Models;
 
-import Adapters.CourseAdapter;
+import Adapters.BadgeAdapter;
+import Adapters.QuestionAdapter;
 import Adapters.RecentBadgeAdapter;
 import Adapters.TagAdapter;
-import Beans.AskQuestionPage;
+import Beans.BadgePage;
 import Beans.RecentBadges;
 import Beans.Tags;
 import Jobs.Download;
@@ -18,30 +19,38 @@ import java.util.ArrayList;
  *
  * @author Denny
  */
-public class AskQuestionModel {
-
-    public AskQuestionPage getPage() {
-
-        AskQuestionPage page = new AskQuestionPage();
-
-        //Side Content
+public class BadgesPageModel {
+    
+    
+    
+    public BadgePage getPage(int id, int start){
+        
+        int totalAmount = 20;
+        start = start==1?0:start*totalAmount-totalAmount;
+        
+        BadgePage page = new BadgePage();
+         //Side Content
         ArrayList<Tags> tags;
         ArrayList<RecentBadges> recent;
-
         TagAdapter ta = new TagAdapter();
         RecentBadgeAdapter rba = new RecentBadgeAdapter();
-        CourseAdapter ca = new CourseAdapter();
-        page.setCourses(ca.getAllCourses());
+        
+        //Side Content
 
         tags = ta.getRecent();
         recent = rba.getRecent(5);
         Download d = new Download();
         ArrayList<KijAd> ad = d.getAds();
+        QuestionAdapter qa = new QuestionAdapter();
+        BadgeAdapter ba = new BadgeAdapter();
         
-        page.setBadges(recent);
+        
+        page.setBadgeInfo(ba.getBadgeByColor(id, start, totalAmount));
         page.setAd(ad);
+        page.setBadges(recent);
         page.setRecent(tags);
         
         return page;
     }
+    
 }

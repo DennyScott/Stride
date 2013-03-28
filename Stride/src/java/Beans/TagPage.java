@@ -12,6 +12,15 @@ import java.util.ArrayList;
  */
 public class TagPage {
     private ArrayList<Tags> tags;
+    private int totalTags;
+
+    public int getTotalTags() {
+        return totalTags;
+    }
+
+    public void setTotalTags(int totalTags) {
+        this.totalTags = totalTags;
+    }
 
     public ArrayList<Tags> getTags() {
         return tags;

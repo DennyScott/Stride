@@ -83,7 +83,7 @@
                         <!--Question Summary -->
                         <div class="tagSummary">
                             <h3>
-                                <a href="" class="question-hyperlink">${blurb.getQuestion().getTitle()}<!--Enter Question Title--></a>
+                                <a href="home?id=${blurb.getQuestion().getQuestionID()}" class="question-hyperlink">${blurb.getQuestion().getTitle()}<!--Enter Question Title--></a>
                             </h3>
                             <div class="tagexcerpt">${blurb.getQuestion().getQuestion()}<!--Enter Excerpt here--></div>
                             <div class="tags">
@@ -101,7 +101,7 @@
                                     <div class="user-gravatar32">
                                         <a href="">
                                             <div class="gravatar-wrapper-32">
-                                                <img src="img/kip.jpg" alt width="32" height="32"/>
+                                                <img src="ProfilePicture?id=${blurb.getQuestion().getAuthorID()}" alt width="32" height="32"/>
                                             </div>
                                         </a>
                                     </div>
@@ -133,6 +133,8 @@
                 <span class="cbt"></span>
 
                 <div id="sideContent">
+                    
+                    <%@include file="recentJobs.jsp" %>
 
                     <%@include file="recentTags.jsp" %>
 

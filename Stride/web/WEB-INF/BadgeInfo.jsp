@@ -27,54 +27,76 @@
                     <h1 id="topQuestions">
                         Badges
                     </h1>
-                    
+
                 </div>
+
+
+                <table class="mb">
+                    <tbody>
+                        <tr>
+                            <td class="check-cell">
+
+                            </td>
+                            <td class="badge-cell">
+                                <a href="Badge?id=${bean.getBadgeInfo().getId()}" title="${bean.getBadgeInfo().getBadge()}" class="badge"><span class="badge${bean.getBadgeInfo().getColor()}"></span> ${bean.getBadgeInfo().getBadge()}</a>
+                            </td>
+
+                            <td>
+                                ${bean.getBadgeInfo().getDescription()}
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+                <div class="mainHeader"></div>  
+                <table class="mb">
+                    <tbody>
+                        <tr>
+                            <td class="pl">
+                                <h1 class="awarded">
+                                    This page has been awarded 
+                                    <span class="badgeawardcount">${bean.getBadgeInfo().getTotal()}</span>
+                                    times. Recently awarded to:
+                                </h1>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="mb post-badge">
+                    
+                        <c:forEach items="${bean.getUsers()}" var="user">
+                            
+                                <div class="user-info">
+
+
+                                    <div class="user-gravatar48">
+                                        <a href="Users?id=${user.getUserID()}">
+                                            <div class>
+                                                <img src="ProfilePicture?id=${user.getUserID()}" alt width="48" height="48">
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="user-details">
+                                        <a href="Users?id=${user.getUserID()}">${user.getUser()}</a>
+                                        <br>
+                                        <span class="reputation-score" title="reputation score" dir="ltr">${user.getReputation()}</span>
+                                        <span title="2 bronze badges">
+                                            <span class="badge3"></span>
+                                            <span class="badgecount">2</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    
                 
 
-                        <table class="mb">
-                            <tbody>
-                                    <tr>
-                                        <td class="check-cell">
-                                            
-                                        </td>
-                                        <td class="badge-cell">
-                                            <a href="Badge?id=${bean.getBadgeInfo().getId()}" title="${bean.getBadgeInfo().getBadge()}" class="badge"><span class="badge${bean.getBadgeInfo().getColor()}"></span> ${bean.getBadgeInfo().getBadge()}</a>
-                                        </td>
-                                        
-                                        <td>
-                                            ${bean.getBadgeInfo().getDescription()}
-                                        </td>
-                                           
-                                    </tr>
-                                    
-                               
-                            </tbody>
-                        </table>
-                                        <div class="mainHeader"></div>  
-                                        <table class="mb">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="pl">
-                                                        <h1 class="awarded">
-                                                            This page has been awarded 
-                                                            <span class="badgeawardcount">${bean.getBadgeInfo().getTotal()}</span>
-                                                             times. Recently awarded to:
-                                                        </h1>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                                             
-                                                             <div class="mb post-badge">
-                                                                 <div class="user-list">
-                                                                     <div class="cool" style="display:inline-block">
-                                                                         <span title="" class="relativetime">${bean.getBadgeInfo()}</span>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                        
-                                        
-                        
+
+
             </div>
             <span class="cbt"></span>
             <div id="sideContent">
@@ -107,7 +129,7 @@
                 <%@include file="recentTags.jsp" %>
 
                 <%@include file="recentBadges.jsp" %>
-                
+
             </div>
 
 

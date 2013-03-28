@@ -17,6 +17,15 @@ public class SingleBadgePage {
     private ArrayList<RecentBadges> badges;
     private Badges badgeInfo;
     private ArrayList<KijAd> ad;
+    private ArrayList<Users> users;
+
+    public ArrayList<Users> getUsers() {
+        return users;
+    }
+
+    public void setUsers(ArrayList<Users> users) {
+        this.users = users;
+    }
 
     public ArrayList<KijAd> getAd() {
         return ad;

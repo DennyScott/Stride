@@ -166,10 +166,10 @@ public class TagLinkDA {
         return returnList;
     }
     
-    public ArrayList<Tag> collectTagRecentQuestions(int tagID, int startPosition, int totalAmount) throws IOException, ClassNotFoundException, SQLException {
+    public ArrayList<Question> collectTagRecentQuestions(int tagID, int startPosition, int totalAmount) throws IOException, ClassNotFoundException, SQLException {
 
-        ArrayList<Tag> returnList = new ArrayList();
-        String SQLString = "SELECT * FROM TagLink WHERE tagID = " + tagID + "ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
+        ArrayList<Question> returnList = new ArrayList();
+        String SQLString = "SELECT * FROM TagLink WHERE Tag_ID = " + tagID + " ORDER BY Submitted DESC LIMIT " + (totalAmount + startPosition);
         TagLinkDA tl = new TagLinkDA();
         try {
             Connection connection = connectDB();
@@ -180,13 +180,13 @@ public class TagLinkDA {
             ResultSetMetaData result = resultSet.getMetaData();
             int cn = result.getColumnCount();
             while (resultSet.next()) {
-                Tag returnTag = new Tag();
-                returnTag.setTagID(Integer.parseInt(resultSet.getString(2)));
-                returnList.add(returnTag);
+                Question returnQ = new Question();
+                returnQ.setQuestionID(Integer.parseInt(resultSet.getString(1)));
+                returnList.add(returnQ);
             }
-            TagDA findTag = new TagDA();
+            QuestionDA qda = new QuestionDA();
             for (int i = 0; i < returnList.size(); i++) {
-                returnList.set(i, findTag.query(returnList.get(i).getTagID()));
+                returnList.set(i, qda.query(returnList.get(i).getQuestionID()));
             }
 
 
@@ -254,9 +254,10 @@ public class TagLinkDA {
  * @throws ClassNotFoundException
  * @throws SQLException 
  */
-    public ArrayList<Tag> collectRecentTags(int tagsReturned) throws IOException, ClassNotFoundException, SQLException {
+    public ArrayList<Tag> collectRecentTags() throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "SELECT * FROM TagLink ORDER BY Submitted DESC LIMIT " + tagsReturned;
+        String SQLString = "SELECT * FROM TagLink ORDER BY Submitted DESC LIMIT " + 30;
+        ArrayList<Tag> secondReturnList = new ArrayList<Tag>();
         ArrayList<Tag> returnList = new ArrayList();
         try {
             Connection connection = connectDB();
@@ -276,6 +277,22 @@ public class TagLinkDA {
             for (int i = 0; i < returnList.size(); i++) {
                 returnList.set(i, findTag.query(returnList.get(i).getTagID()));
             }
+            
+            for (Tag t : returnList) {
+                if(secondReturnList.size()>=5){
+                    break;
+                }
+                    boolean found = false;
+                    for (int i = 0; i < secondReturnList.size(); i++) {
+                        if (secondReturnList.get(i).getTitle().equals(t.getTitle())) {
+                            found = true;
+
+                        }
+                    }
+                    if(!found){
+                        secondReturnList.add(t);
+                    }
+                }
 
 
 
@@ -285,7 +302,7 @@ public class TagLinkDA {
             return null;
         }
 
-        return returnList;
+        return secondReturnList;
     }
 
     /**

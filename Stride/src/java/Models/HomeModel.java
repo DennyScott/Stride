@@ -42,7 +42,7 @@ public class HomeModel {
 
         //Side Content
 
-        tags = ta.getRecent(5);
+        tags = ta.getRecent();
         recent = rba.getRecent(5);
 
         Download d = new Download();

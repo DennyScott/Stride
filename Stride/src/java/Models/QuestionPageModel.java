@@ -11,7 +11,6 @@ import Adapters.RecentBadgeAdapter;
 import Adapters.TagAdapter;
 import Beans.Answers;
 import Beans.Comments;
-import Beans.Question;
 import Beans.QuestionPage;
 import Beans.RecentBadges;
 import Beans.Tags;
@@ -50,7 +49,7 @@ public class QuestionPageModel {
 
         //Side Content
 
-        tags = ta.getRecent(5);
+        tags = ta.getRecent();
         recent = rba.getRecent(5);
         Download d = new Download();
         ArrayList<KijAd> ad = d.getAds();

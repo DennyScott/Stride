@@ -179,7 +179,7 @@ public class CourseDA {
      */
     public ArrayList<Course> getAllCourses() throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "SELECT * FROM Course";
+        String SQLString = "SELECT * FROM Course ORDER BY Name ASC";
         ArrayList<Course> c = new ArrayList<Course>();
 
         try {

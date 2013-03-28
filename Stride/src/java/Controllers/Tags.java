@@ -6,7 +6,8 @@ package Controllers;
 
 import Beans.SingleTagPage;
 import Beans.TagPage;
-import Models.QModel;
+import Models.SingleTagPageModel;
+import Models.TagPageModel;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,17 +34,33 @@ public class Tags extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("id") != null) {
-            SingleTagPage tag = QModel.getTag();
+            SingleTagPage tag;
+            if (request.getParameter("page") == null) {
+                tag = new SingleTagPageModel().getPage(Integer.parseInt(request.getParameter("id")), 1);
+
+            } else {
+                tag = new SingleTagPageModel().getPage(Integer.parseInt(request.getParameter("id")), Integer.parseInt(request.getParameter("page")));
+            }
             request.setAttribute("bean", tag);
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/TagPage.jsp");
-            rd.forward(request, response);
+            forwardBean(request, response, "WEB-INF/TagPage.jsp");
         } else {
-            TagPage tag = QModel.getTags();
+            TagPage tag;
+            if (request.getParameter("page") == null) {
+                tag = new TagPageModel().getPage(1);
+            } else {
+                tag = new TagPageModel().getPage(Integer.parseInt(request.getParameter("page")));
+
+            }
             request.setAttribute("bean", tag);
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/Tags.jsp");
-            rd.forward(request, response);
+            forwardBean(request, response, "WEB-INF/Tags.jsp");
         }
 
+    }
+
+    public void forwardBean(HttpServletRequest request, HttpServletResponse response, String target) throws ServletException, IOException {
+
+        RequestDispatcher rd = request.getRequestDispatcher(target);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

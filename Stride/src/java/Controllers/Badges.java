@@ -6,7 +6,8 @@ package Controllers;
 
 import Beans.BadgePage;
 import Beans.SingleBadgePage;
-import Models.QModel;
+import Models.BadgesPageModel;
+import Models.SingleBadgePageModel;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,16 +35,27 @@ public class Badges extends HttpServlet {
             throws ServletException, IOException {
 
         if (request.getParameter("id") == null) {
-            BadgePage badges = QModel.getBadges();
+            int color = getParameterValue("color", request, response);
+            int page = getParameterValue("page", request, response);
+
+            BadgePage badges = new BadgesPageModel().getPage(color, page);
             request.setAttribute("bean", badges);
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/badges.jsp");
-            rd.forward(request, response);
+            forwardBean(request, response, "WEB-INF/badges.jsp");
         } else {
-            SingleBadgePage badges = QModel.getBadge(Integer.parseInt(request.getParameter("id")));
+            SingleBadgePage badges = new SingleBadgePageModel().getPage((Integer.parseInt(request.getParameter("id"))),10);
             request.setAttribute("bean", badges);
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/BadgeInfo.jsp");
-            rd.forward(request, response);
+            forwardBean(request, response, "WEB-INF/BadgeInfo.jsp");
         }
+    }
+
+    public int getParameterValue(String name, HttpServletRequest request, HttpServletResponse response) {
+        return request.getParameter(name) != null ? Integer.parseInt(request.getParameter(name)) : 1;
+    }
+
+    public void forwardBean(HttpServletRequest request, HttpServletResponse response, String target) throws ServletException, IOException {
+
+        RequestDispatcher rd = request.getRequestDispatcher(target);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

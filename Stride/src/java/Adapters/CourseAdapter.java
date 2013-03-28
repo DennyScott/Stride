@@ -42,6 +42,19 @@ public class CourseAdapter {
         
     }
     
+    public Courses getCourse(int id){
+        try {
+            return adaptCourse(new CourseDA().query(id));
+        } catch (IOException ex) {
+            Logger.getLogger(CourseAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CourseAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new Courses();
+    }
+    
     public ArrayList<Courses> getCourseUser(ArrayList<Question> question){
         ArrayList<Courses> courses = new ArrayList<Courses>();
         ArrayList<Integer> id = new ArrayList<Integer>();
@@ -71,7 +84,7 @@ public class CourseAdapter {
         course.setCourse(c.getName());
         course.setDescription(c.getDescription());
         course.setId(c.getCourseID());
-        course.setTotal(course.getTotal());
+        course.setTotal(c.getQuestionsTotal());
         return course;
     }
 }

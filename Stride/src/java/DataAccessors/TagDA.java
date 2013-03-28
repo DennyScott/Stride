@@ -209,6 +209,68 @@ public class TagDA {
         return returnTag;
     }
     
+    public int totalTags() throws IOException, ClassNotFoundException, SQLException {
+
+        int returnNum = 0;
+        String SQLString = "SELECT COUNT(*) FROM Tag";
+        Tag returnTag = new Tag();
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+               returnNum = Integer.parseInt(resultSet.getString(1));
+            }
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return 0;
+        }
+
+        return returnNum;
+    }
+
+    public ArrayList<Tag> collectAllTags(int startPosition, int totalAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        ArrayList<Tag> returnList = new ArrayList();
+        String SQLString = "SELECT * FROM Tag ORDER BY Count DESC LIMIT " + (totalAmount + startPosition);
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                Tag returnTag = new Tag();
+                returnTag.setTagID(Integer.parseInt(resultSet.getString(1)));
+                returnTag.setTitle(resultSet.getString(2));
+                returnTag.setDescription(resultSet.getString(3));
+                returnTag.setCount(Integer.parseInt(resultSet.getString(4)));
+                returnList.add(returnTag);
+            }
+
+
+            connection.close();
+
+            while (returnList.size() > totalAmount) {
+                returnList.remove(0);
+            }
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnList;
+    }
+
     public ArrayList<Tag> collectRecentTags(int userID, ArrayList<Question> questions) throws IOException, ClassNotFoundException, SQLException {
 
         ArrayList<Tag> returnList = new ArrayList();
@@ -218,8 +280,16 @@ public class TagDA {
             for (Question q : questions) {
                 Tag returnTag = new Tag();
                 ArrayList<Tag> tempTags = tl.collectQuestionTags(q.getQuestionID());
+
                 for (Tag t : tempTags) {
-                    if (!returnList.contains(t)) {
+                    boolean found = false;
+                    for (int i = 0; i < returnList.size(); i++) {
+                        if (returnList.get(i).getTitle().equals(t.getTitle())) {
+                            found = true;
+
+                        }
+                    }
+                    if(!found){
                         returnList.add(t);
                     }
                 }

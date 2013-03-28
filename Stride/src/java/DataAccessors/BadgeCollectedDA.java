@@ -246,6 +246,45 @@ public class BadgeCollectedDA {
 
         return returnList;
     }
+    
+        /**
+     * Returns a given amount of recent badges
+     * @param badgeReturned The amount of recent badge wanted
+     * @return The most recent badges in the database
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    public ArrayList<RecentBadge> collectRecentBadge(int badgeReturned, int badgeID) throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM BadgeCollected WHERE Badge_ID = " + badgeID + " ORDER BY Submitted DESC LIMIT " + badgeReturned;
+        ArrayList<RecentBadge> returnList = new ArrayList();
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                RecentBadge returnBadge = new RecentBadge();
+                returnBadge.setUserID(Integer.parseInt(resultSet.getString(1)));
+                returnBadge.setBadgeID(Integer.parseInt(resultSet.getString(2)));
+                returnBadge.setSubmission(resultSet.getString(3));
+                returnList.add(returnBadge);
+            }
+
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnList;
+    }
 
     /**
      * Collects Badges that a given User has

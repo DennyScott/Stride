@@ -4,6 +4,7 @@
  */
 package Adapters;
 
+import Beans.Tags;
 import DataAccessors.TagDA;
 import DataAccessors.TagLinkDA;
 import java.io.IOException;
@@ -18,11 +19,11 @@ import java.util.logging.Logger;
  */
 public class TagAdapter {
 
-    public ArrayList<Beans.Tags> getRecent(int num) {
+    public ArrayList<Beans.Tags> getRecent() {
         ArrayList<Beans.Tags> tags = new ArrayList<Beans.Tags>();
         TagLinkDA tlm = new TagLinkDA();
         try {
-            ArrayList<ModelObjects.Tag> t = tlm.collectRecentTags(num);
+            ArrayList<ModelObjects.Tag> t = tlm.collectRecentTags();
             for (ModelObjects.Tag tag : t) {
                 tags.add(adaptTag(tag));
             }
@@ -34,6 +35,69 @@ public class TagAdapter {
             Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
         }
         return tags;
+    }
+    
+    public int getTotalTags(){
+        try {
+            return new TagDA().totalTags();
+        } catch (IOException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public Tags getTag(int id){
+        try {
+            return adaptTag(new TagDA().query(id));
+        } catch (IOException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new Tags();
+    }
+    
+    public ArrayList<Beans.Question> getQuestionByTag(int tagID, int startPosition, int totalAmount){
+        TagLinkDA tda = new TagLinkDA();
+        ArrayList<Beans.Question> returnQuestion = new ArrayList<Beans.Question>();
+        QuestionAdapter qa = new QuestionAdapter();
+        try {
+            ArrayList<ModelObjects.Question> tags =  tda.collectTagRecentQuestions(tagID, startPosition, totalAmount);
+            returnQuestion = qa.adaptQuestionList(tags);
+        } catch (IOException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return returnQuestion;
+    }
+    
+    public ArrayList<Beans.Tags> collectAllTags(int start, int totalAmount){
+        ArrayList<Beans.Tags> returnTags = new ArrayList<Beans.Tags>();
+        try {
+            ArrayList<ModelObjects.Tag> tags = new TagDA().collectAllTags(start, totalAmount);
+            for(ModelObjects.Tag t: tags){
+                returnTags.add(adaptTag(t));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TagAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return returnTags;
+        
+        
     }
 
     public ArrayList<Beans.Tags> collectUserTags(ArrayList<ModelObjects.Question> question,int id) {

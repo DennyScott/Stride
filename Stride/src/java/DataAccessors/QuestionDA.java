@@ -318,8 +318,8 @@ public class QuestionDA {
      * @param courseID The Course_ID of a given course to be searched
      * @return An ArrayList containing all Questions belonging to a Course
      */
-    public ArrayList<Question> collectCourseQuestion(int courseID) {
-        String SQLString = "SELECT * FROM Question WHERE Course_ID = ";
+    public ArrayList<Question> collectCourseQuestion(int courseID,int startPosition, int totalAmount) {
+        String SQLString = "SELECT * FROM Question WHERE Course_ID = "+ courseID + " ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
         ArrayList<Question> returnList = new ArrayList();
 
         try {
@@ -327,7 +327,7 @@ public class QuestionDA {
 
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery(SQLString + courseID);
+            ResultSet resultSet = statement.executeQuery(SQLString);
             ResultSetMetaData result = resultSet.getMetaData();
             int cn = result.getColumnCount();
             while (resultSet.next()) {
@@ -343,6 +343,9 @@ public class QuestionDA {
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
                 returnList.add(returnQuestion);
+            }
+            for (int i = startPosition - 1; i >= 0; i--) {
+                returnList.remove(i);
             }
             connection.close();
 

@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+        <script type="text/javascript" src="javascript/Stride.js"></script>
 
         <title>Badges</title>
     </head>
@@ -29,12 +30,22 @@
                     </h1>
                    
                     <div id="tabs">
-                        <a class="youarehere" href="" title="You are here!">Bronze</a>
-                        <a href="Badges?color=Silver" class="otherTab">
+                        <a class="youarehere" href="Badges?color=1" id ="GoldBadge" title="You are here!">Gold</a>
+                        <a href="Badges?color=2" class="otherTab" id="SilverBadge" ">
                             Silver
                         </a>
-                        <a href="Badges?color=Gold" class="otherTab">Gold</a>
+                        <a href="Badges?color=3" class="otherTab"id="BronzeBadge">Bronze</a>
                     </div>
+                    <script type ="text/javascript">
+                        var num = ${param.color};
+                        if(num==1){
+                            goldClick();
+                        }else if(num==2){
+                            silverClick();
+                        }else if(num==3){
+                            bronzeClick();
+                        }
+                    </script>
                     
                 </div>
                 

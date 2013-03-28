@@ -61,11 +61,11 @@
                             </c:if>
                                 
                                 <td class="tag-cell">
-                                    <a href="Tags?id=${tag.getID()}" class="post-tag" title="show questions tagged " rel="tag">c#</a>
+                                    <a href="Tags?id=${tag.getID()}" class="post-tag" title="show questions tagged " rel="tag">${tag.getTag()}</a>
                                     <span class="item-multiplier">
                                         <span class="item-multiplier-x">x</span>
                                         &nbsp;
-                                        <span class="item-multiplier-count">100</span>
+                                        <span class="item-multiplier-count">${tag.getCount()}</span>
                                     </span>
                                     <div class="excerpt">
                                        ${tag.getDescription()}

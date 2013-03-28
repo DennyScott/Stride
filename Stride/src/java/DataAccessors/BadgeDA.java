@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -167,6 +168,42 @@ public class BadgeDA {
         }
 
         return findBadge;
+    }
+    
+    public ArrayList<Badge> collectAllColorBadge(int color,int startPosition, int totalAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        ArrayList<Badge> returnList = new ArrayList<Badge>();
+        String SQLString = "SELECT * FROM Badge WHERE Color = " + color + " ORDER BY Name DESC LIMIT " + (totalAmount + startPosition);
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                Badge findBadge = new Badge();
+                findBadge.setBadgeID(Integer.parseInt(resultSet.getString(1)));
+                findBadge.setColor(Integer.parseInt(resultSet.getString(2)));
+                findBadge.setName(resultSet.getString(3));
+                findBadge.setCount(Integer.parseInt(resultSet.getString(4)));
+                findBadge.setDescription(resultSet.getString(5));
+                returnList.add(findBadge);
+            }
+            
+            for (int i = startPosition - 1; i >= 0; i--) {
+                returnList.remove(i);
+            }
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return returnList;
     }
 
     /**

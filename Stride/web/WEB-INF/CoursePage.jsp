@@ -83,7 +83,7 @@
                         <!--Question Summary -->
                         <div class="tagSummary">
                             <h3>
-                                <a href="" class="question-hyperlink">${blurb.getQuestion().getTitle()}<!--Enter Question Title--></a>
+                                <a href="home?id=${blurb.getQuestion().getQuestionID()}" class="question-hyperlink">${blurb.getQuestion().getTitle()}<!--Enter Question Title--></a>
                             </h3>
                             <div class="tagexcerpt">${blurb.getQuestion().getQuestion()}<!--Enter Excerpt here--></div>
                             <div class="tags">

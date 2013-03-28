@@ -6,7 +6,8 @@ package Controllers;
 
 import Beans.CoursePage;
 import Beans.SingleCoursePage;
-import Models.QModel;
+import Models.CoursePageModel;
+import Models.SingleCoursePageModel;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,13 +35,13 @@ public class Courses extends HttpServlet {
             throws ServletException, IOException {
         
        if(request.getParameter("id")!=null){ 
-       SingleCoursePage course = QModel.getCourse(Integer.parseInt(request.getParameter("id")));
+       SingleCoursePage course = new SingleCoursePageModel().getPage(Integer.parseInt(request.getParameter("id")),1);
        request.setAttribute("bean", course);
        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/CoursePage.jsp");
        rd.forward(request, response);
        }
        else{
-       CoursePage front = QModel.getCourses();
+       CoursePage front = new CoursePageModel().getPage();
        request.setAttribute("bean", front);
        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/Courses.jsp");
        rd.forward(request, response);    
