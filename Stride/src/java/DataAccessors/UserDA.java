@@ -87,6 +87,7 @@ public class UserDA {
         String answerString = "(" + "null" + ", " + "\"" + newUser.getUsername() + seperateValue() + newUser.getPassword() + seperateValue() + newUser.getFirstName() + seperateValue() + newUser.getLastName() + seperateValue() + newUser.getEmailAddress() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newUser.getProfilePictureLink() + seperateValue() + newUser.getBiography() + seperateValue() + newUser.getRank() + seperateValue() + (newUser.isAnonymous() ? 1 : 0) + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + "\")";
 
         try {
+            synchronized(this){
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
@@ -97,7 +98,7 @@ public class UserDA {
 
             statement.executeUpdate(sqlString + answerString);
             connection.close();
-
+            }
         } catch (SQLException sqle) {
             return false;
         }

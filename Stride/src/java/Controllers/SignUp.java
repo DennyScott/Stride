@@ -63,22 +63,7 @@ public class SignUp extends HttpServlet {
             user.setUsername(request.getParameter("signUpUsername"));
             user.setPassword(request.getParameter("signUpPassword"));
             user.setProfilePictureLink(request.getParameter("image"));
-            user.setReputation(Integer.parseInt(request.getParameter("reputation")));
-            user.setFirstName("");
-            user.setLastName("");
             user.setEmailAddress(request.getParameter("email"));
-            user.setNumberOfQuestions(Integer.parseInt(request.getParameter("numQuestions")));
-            user.setNumberOfAnswers(Integer.parseInt(request.getParameter("numAnswers")));
-            user.setVotes(Integer.parseInt(request.getParameter("votes")));
-            user.setRank(request.getParameter("rank"));
-            user.setBiography(request.getParameter("bio"));
-            user.setGoldCount(Integer.parseInt(request.getParameter("gold")));
-            user.setSilverCount(Integer.parseInt(request.getParameter("silver")));
-            user.setBronzeCount(Integer.parseInt(request.getParameter("bronze")));
-            user.setJoin(request.getParameter("join"));
-            user.setLastLoggedIn(request.getParameter("lastOnline"));
-            user.setAnonymous(request.getParameter("isAnon").equals("ON") ? true : false);
-
 
                 UserModel um = new UserModel();
                 

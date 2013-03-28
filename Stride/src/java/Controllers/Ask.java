@@ -92,11 +92,13 @@ public class Ask extends HttpServlet {
 
                 String[] tokens = tags.split(",");
                 for (String t : tokens) {
+                    if(!(t.equals(""))){
                     ModelObjects.Tag temp = new ModelObjects.Tag();
                     temp.setDescription("");
-                    temp.setTitle(t.toLowerCase());
+                    temp.setTitle(t.toLowerCase().trim());
                     if (questionId != 0) {
                         tm.addTag(temp, questionId);
+                    }
                     }
 
 

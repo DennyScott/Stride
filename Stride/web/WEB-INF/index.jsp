@@ -15,6 +15,7 @@
         <script type="text/javascript" src="javascript/yaphet.js"></script>
         <script type="text/javascript" src="javascript/Stride.js"></script>
         <script type="text/javascript" src="javascript/sonic.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
         <title>Stride</title>
     </head>
@@ -45,7 +46,7 @@
 
                     <!-- Question -->
                     <c:forEach items="${bean.getQuestions()}" var="question">
-                        <div class="question-summary" id="${question.toString()}">
+                        <div class="question-summary" id="${question.getQuestion().getQuestionID()}">
                             <div onclick="window.location.href='home?id=${question.getQuestion().getQuestionID()}'" class="cp" >
                                 <div class="votes">
                                     <div class="mini-counts">${question.getQuestion().getVotes()}</div>
@@ -80,8 +81,8 @@
                                     <span class="started-link">
                                         <span title="2013-01-25 05:46:00" class="relativetime">${question.getQuestion().getSubmitted()}</span>
                                     </span>
-                                    <a href="Users?id=${question.getQuestion().getAuthorID()}">${question.getQuestion().getAuthor()}</a>
-                                    <span class="reputation-score" title="reputation-score" dir="ltr">${question.getQuestion().getReputation()}</span>
+                                    <a href="Users?id=${question.getQuestion().getAuthorID()}">${question.getQuestion().getUser().getUser()}</a>
+                                    <span class="reputation-score" title="reputation-score" dir="ltr">${question.getQuestion().getUser().getReputation()}</span>
                                 </div>
                             </div>
                         </div>

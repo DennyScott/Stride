@@ -12,10 +12,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+        <script type="text/javascript" src="javascript/sonic.js"></script>
 
         <title>Badges</title>
     </head>
     <body class="badges-page">
+        <div id="in"></div>
+        <div id ="wholePage">
 
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />
@@ -72,6 +75,7 @@
         </div>
 
         <jsp:include page = "footerShortcut.jsp" />
+        </div>
 
     </body>
 </html>

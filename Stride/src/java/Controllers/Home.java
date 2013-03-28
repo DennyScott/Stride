@@ -72,6 +72,7 @@ public class Home extends HttpServlet {
             //Get Front Page
             HomeModel frontPage = new HomeModel();
             Front front = frontPage.getFront();
+            //Add to read Cookies
             request.setAttribute("bean", front);
 
             forwardBean(request, response, "WEB-INF/index.jsp");
@@ -82,8 +83,8 @@ public class Home extends HttpServlet {
 
     public void getQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         QuestionPage question = new QuestionPageModel().getQuestion(Integer.parseInt(request.getParameter("id")));
+       
         request.setAttribute("bean", question);
-
         forwardBean(request, response, "WEB-INF/question.jsp");
 
     }

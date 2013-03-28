@@ -18,13 +18,15 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="javascript/1.2.6.js"></script>
         <script type="text/javascript" src="javascript/Stride.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 
         <script type="text/javascript" src="javascript/showdown.js"></script>
 
 
         <title>${bean.getTitle()}</title>
     </head>
-    <body>
+    <body onload="collectData()">
 
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />
@@ -69,7 +71,7 @@
                                         <div class="post-taglist">
 
                                             <c:forEach items="${bean.getTags()}" var="tag">
-                                                <a href="Tags?id=${tag.getID()}" class="post-tag" title="Show me more about ${tag.getTag()}" rel="tag">${tag.getTag()}</a>
+                                                <a href="Tags?id=${tag.getID()}" class="post-tag" name="tagList" title="Show me more about ${tag.getTag()}" rel="tag">${tag.getTag()}</a>
                                             </c:forEach>
 
 
@@ -102,12 +104,18 @@
                                                             </div>
 
                                                             <div class="user-details">
-                                                                <a href="Users?id=${bean.getAuthorID()}">${bean.getAuthor()}</a>
+                                                                <a href="Users?id=${bean.getAuthorID()}">${bean.getQuestionSlot().getUser().getUser()}</a>
                                                                 <br>
-                                                                <span class="reputation-score" title="reputation score" dir="ltr">1</span>
-                                                                <span title="2 bronze badges">
+                                                                <span class="reputation-score" title="reputation score" dir="ltr">${bean.getQuestionSlot().getUser().getReputation()}</span>
+                                                                <span title="Badges">
+                                                                    
                                                                     <span class="badge3"></span>
-                                                                    <span class="badgecount">2</span>
+                                                                    <span class="badgecount">${bean.getQuestionSlot().getUser().getBronze()}</span>
+                                                                    <span class="badge2"></span>
+                                                                    <span class="badgecount">${bean.getQuestionSlot().getUser().getSilver()}</span>
+                                                                    <span class="badge1"></span>
+                                                                    <span class="badgecount">${bean.getQuestionSlot().getUser().getGold()}</span>
+                                                                    
                                                                 </span>
                                                             </div>
                                                         </div>

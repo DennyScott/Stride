@@ -27,13 +27,14 @@
                     <h1 id="user-displayname">${bean.getUser().getUser()}</h1>
 
                     <%
+                        if(session.getAttribute("id")!=null){
                         if (session.getAttribute("id").equals(request.getParameter("id"))) {
                     %>
                     <div id="tabs">
                         <a class="youarehere" href="User?id=${id}" title="View">View</a>
                         <a href="Users?edit=true&id=${id}" class="otherTab">Edit</a>
                     </div>
-                    <%}%>
+                    <%}}%>
                 </div>
                     <div id="user-info-container">
                         <div id="large-user-info" class="user-header">
@@ -132,7 +133,7 @@
                                                     <div class="mini-counts">${answer.getVotes()}</div>
                                                 </td>
                                                 <td class="answer-hyperlink">
-                                                    <a href="Question?id=${answer.getQuestionID()}" class="answer-hyperlink">
+                                                    <a href="home?id=${answer.getQuestionID()}" class="answer-hyperlink">
                                                         ${answer.getAnswer()}
                                                     </a>
                                                 </td>
@@ -203,7 +204,7 @@
                                                     <div class="mini-counts">${question.getCount()}</div>
                                                 </td>
                                                 <td class="answer-hyperlink">
-                                                    <a href="Question?id=${question.getQuestionID()}" class="answer-hyperlink">
+                                                    <a href="home?id=${question.getQuestionID()}" class="answer-hyperlink">
                                                         ${question.getTitle()}
                                                     </a>
                                                 </td>

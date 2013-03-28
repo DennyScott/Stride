@@ -18,6 +18,7 @@ public class AnswerModel {
 
     public boolean addAnswer(ModelObjects.Answer answer) {
 
+        answer.setAnswer(UtilityModel.filter(answer.getAnswer()));
         AnswerDA ad = new AnswerDA();
         try {
             ad.add(answer);

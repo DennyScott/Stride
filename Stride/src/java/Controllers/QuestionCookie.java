@@ -4,10 +4,8 @@
  */
 package Controllers;
 
-import Adapters.UserAdapter;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Denny
  */
-public class ProfilePicture extends HttpServlet {
+public class QuestionCookie extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -31,22 +29,7 @@ public class ProfilePicture extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        int id = Integer.parseInt(request.getParameter("id"));
-        UserAdapter ua = new UserAdapter();
-        Beans.Users user = ua.getUser(id);
-        response.setContentType("image/jpeg");
-        OutputStream out = response.getOutputStream();
-        FileInputStream in = new FileInputStream(getServletContext().getRealPath("/") + "/" + user.getImg());
-        int size = in.available();
-        byte[] content = new byte[size];
-        in.read(content);
-        out.write(content);
-        in.close();
-        out.close();
-
-
-
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

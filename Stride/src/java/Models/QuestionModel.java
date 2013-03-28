@@ -20,6 +20,8 @@ public class QuestionModel {
     public int addQuestion(ModelObjects.Question question){
         QuestionDA qm = new QuestionDA();
         RecentDA ra = new RecentDA();
+        question.setQuestion(UtilityModel.filter(question.getQuestion()));
+        
         try {
             int id = qm.add(question);
             ra.add(id);

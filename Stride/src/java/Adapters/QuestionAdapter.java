@@ -122,10 +122,9 @@ public class QuestionAdapter {
         returnQuestion.setAnswers(preQuestion.getAnswers());
         returnQuestion.setCourseID(preQuestion.getCourseID() + "");
 
-        UserDA um = new UserDA();
-        ModelObjects.User user = um.query(preQuestion.getUserID());
-        returnQuestion.setAuthor(user.getUsername());
-        returnQuestion.setReputation(user.getReputation());
+        UserAdapter ua = new UserAdapter();
+        Beans.Users user = ua.getUser(preQuestion.getUserID());
+        returnQuestion.setUser(user);
 
         CourseDA cm = new CourseDA();
         ModelObjects.Course course = cm.query(preQuestion.getCourseID());

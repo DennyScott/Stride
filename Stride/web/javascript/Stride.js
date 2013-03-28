@@ -64,3 +64,33 @@ function bronzeClick(){
     gold.className = "otherTab";
     bronze.className = "youarehere";
 }
+
+function collectData(){
+    
+    
+    }
+    
+    
+
+
+function collectTagID(){
+    //Get Tags
+    var tags = document.getElementsByName("tagList")
+    var tagId = new Array();
+    var tagNames = new Array();
+    
+    for (var i = 0; i<tags.length; i++){
+       tagId[i] = tags.item(i).toString().split("id=")[1];
+       tagNames[i]=tags[i].innerHTML;
+    }
+}
+
+function collectTagNames(){
+     var tagNames = new Array();
+    
+    for (var i = 0; i<tags.length; i++){
+       tagNames[i]=tags[i].innerHTML;
+    }
+    
+    return tagNames;
+}

@@ -4,14 +4,8 @@
  */
 package Controllers;
 
-import Beans.Error;
 import Models.LoginModel;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,7 +43,8 @@ public class Login extends HttpServlet {
             if (session.getAttribute("Name") != null) {
 
                 ///Change the Name attribute in the session to null and redirect them to the login to sign back in
-                session.setAttribute("Name", null);
+                session.removeAttribute("Name");
+                session.removeAttribute("id");
                 RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/login.jsp");
                 rd.forward(request, response);
 

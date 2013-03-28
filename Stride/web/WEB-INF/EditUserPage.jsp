@@ -15,11 +15,14 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="javascript/Stride.js"></script>
         <script type="text/javascript" src="javascript/jquery-1.2.6.js"></script>
+        <script type="text/javascript" src="javascript/sonic.js"></script>
 
 
         <title>Profile</title>
     </head>
     <body class="badges-page">
+        <div id="in"></div>
+        <div id ="wholePage">
 
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />
@@ -58,7 +61,7 @@
                                 </div>
                                 <div class="badges center">
                                     <span>
-                                        <span title="3 bronze">
+                                        <span>
                                             <span class="badge1"></span>
                                             <span class="badgecount">${bean.getUser().getGold()}</span>
                                         </span>
@@ -357,6 +360,6 @@
         </div>
 
         <jsp:include page = "footerShortcut.jsp" />
-
+        </div>
     </body>
 </html>

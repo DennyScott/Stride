@@ -68,6 +68,10 @@
         <servlet-name>Search</servlet-name>
         <servlet-class>Controllers.Search</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuestionCookie</servlet-name>
+        <servlet-class>Controllers.QuestionCookie</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mySQLServlet</servlet-name>
         <url-pattern>/mySQLServlet</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
         <url-pattern>/Search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionCookie</servlet-name>
+        <url-pattern>/QuestionCookie</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

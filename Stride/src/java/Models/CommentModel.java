@@ -19,6 +19,7 @@ public class CommentModel {
     
     public boolean addQuestionComment(ModelObjects.QuestionComment qc){
         try {
+            qc.setComment(UtilityModel.filter(qc.getComment()));
             QuestionCommentDA qca = new QuestionCommentDA();
             qca.add(qc);
             
@@ -34,6 +35,7 @@ public class CommentModel {
     
     public boolean addAnswerComment(ModelObjects.AnswerComment ac){
         
+        ac.setComment(UtilityModel.filter(ac.getComment()));
         AnswerCommentDA aca = new AnswerCommentDA();
         try {
             aca.add(ac);
