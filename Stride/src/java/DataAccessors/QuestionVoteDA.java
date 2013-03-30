@@ -182,6 +182,39 @@ public class QuestionVoteDA {
 
         return findQV;
     }
+
+    public boolean exists(int userID, int answerID) throws IOException, ClassNotFoundException, SQLException {
+        String sqlString = "SELECT * FROM QuestionVote WHERE Question_ID = " + answerID + " AND User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(sqlString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+
+            try {
+                int testInt;
+                while (resultSet.next()) {
+                    testInt = (Integer.parseInt(resultSet.getString(1)));
+                    return true;
+                }
+                connection.close();
+            } catch (Exception e) {
+                return false;
+            }
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+
+
+        return false;
+
+    }
     
     public ArrayList<QuestionVote> queryUser(int userID) throws IOException, ClassNotFoundException, SQLException {
 

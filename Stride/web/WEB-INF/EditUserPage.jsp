@@ -37,7 +37,7 @@
                         if (session.getAttribute("id").equals(request.getParameter("id"))) {
                     %>
                     <div id="tabs">
-                        <a class="otherTab" href="Users" title="View">View</a>
+                        <a class="otherTab" href="Users?id=${id}" title="View">View</a>
                         <a href="Users?edit=true" class="youarehere">Edit</a>
                     </div>
                     <%}%>

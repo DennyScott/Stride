@@ -62,7 +62,14 @@ public class AnswerAdapter {
         a.setSubmitted(answer.getSubmitted());
         a.setVotes(answer.getVotes());
         try {
-            a.setAuthor(new UserDA().query(answer.getUserID()).getUsername());
+            UserDA uda = new UserDA();
+            ModelObjects.User user = uda.query(answer.getUserID());
+            a.setAuthor(user.getUsername());
+            a.setImg(user.getProfilePictureLink());
+            a.setGold(user.getGoldCount());
+            a.setSilver(user.getSilverCount());
+            a.setBronze(user.getBronzeCount());
+            a.setReputation(user.getReputation());
 
             a.setComments(new CommentAdapter().collectAnswerComments(answer.getAnswerID()));
 

@@ -72,6 +72,22 @@
         <servlet-name>QuestionCookie</servlet-name>
         <servlet-class>Controllers.QuestionCookie</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Settings</servlet-name>
+        <servlet-class>Controllers.Settings</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StoreZoom</servlet-name>
+        <servlet-class>Controllers.StoreZoom</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VoteUp</servlet-name>
+        <servlet-class>Controllers.VoteUp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VoteDown</servlet-name>
+        <servlet-class>Controllers.VoteDown</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mySQLServlet</servlet-name>
         <url-pattern>/mySQLServlet</url-pattern>
@@ -143,6 +159,22 @@
     <servlet-mapping>
         <servlet-name>QuestionCookie</servlet-name>
         <url-pattern>/QuestionCookie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Settings</servlet-name>
+        <url-pattern>/Settings</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StoreZoom</servlet-name>
+        <url-pattern>/StoreZoom</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteUp</servlet-name>
+        <url-pattern>/VoteUp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteDown</servlet-name>
+        <url-pattern>/VoteDown</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

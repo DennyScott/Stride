@@ -15,10 +15,55 @@ public class Answers {
     private String answer;
     private String author;
     private String authorID;
+    private String img;
     private String questionID;
     private String submitted;
     private String lastUpdated;
+    private int gold;
+    private int silver;
+    private int bronze;
     private int votes;
+    private int reputation;
+
+    public int getReputation() {
+        return reputation;
+    }
+
+    public void setReputation(int reputation) {
+        this.reputation = reputation;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public int getSilver() {
+        return silver;
+    }
+
+    public void setSilver(int silver) {
+        this.silver = silver;
+    }
+
+    public int getBronze() {
+        return bronze;
+    }
+
+    public void setBronze(int bronze) {
+        this.bronze = bronze;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public String getQuestionID() {
         return questionID;

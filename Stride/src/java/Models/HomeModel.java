@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class HomeModel {
 
-    public Front getFront() {
+    public Front getFront(ArrayList<Integer> cookies) {
         //Main Content
         ArrayList<Blurb> questions = new ArrayList<Blurb>();
 
@@ -40,6 +40,26 @@ public class HomeModel {
             questions.add(temp);
         }
 
+        //Cookies
+        int size = testCookies(cookies);
+        if (size == 2) {
+            for(int i = 1; i>=0; i--){
+            Blurb temp = new Blurb();
+            Beans.Question cookieOne = qa.query(cookies.get(i));
+            temp.setQuestion(cookieOne);
+            temp.setTags(ta.collectQuestionTags(cookies.get(i)));
+            questions.add(0, temp);
+    }
+        } else if (size == 1) {
+            Blurb temp = new Blurb();
+            Beans.Question cookieOne = qa.query(cookies.get(0));
+            temp.setQuestion(cookieOne);
+            temp.setTags(ta.collectQuestionTags(cookies.get(0)));
+            questions.add(0, temp);
+        }
+        
+        front.setCookieSize(size);
+
         //Side Content
 
         tags = ta.getRecent();
@@ -55,5 +75,21 @@ public class HomeModel {
 
         return front;
 
+    }
+
+    private int testCookies(ArrayList<Integer> cookies) {
+        if(!cookies.isEmpty()){
+        if(cookies.get(0) == cookies.get(1)){
+            cookies.set(1,0);
+        }
+        if (cookies.get(0) == 0 && cookies.get(1) == 0) {
+            return 0;
+        } else if (cookies.get(0) != 0 && cookies.get(1) == 0) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+        return 0;
     }
 }

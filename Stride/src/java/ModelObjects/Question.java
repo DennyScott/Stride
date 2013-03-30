@@ -6,9 +6,11 @@ package ModelObjects;
 
 /**
  * The Question Bean and Model Object
+ *
  * @author Travis
  */
 public class Question {
+
     private int questionID;
     private int userID;
     private int visits;
@@ -19,9 +21,11 @@ public class Question {
     private int courseID;
     private String submitted;
     private String lastUpdated;
+    private boolean answered;
 
     /**
      * Gets the userID associated with the Question
+     *
      * @return The userID within the Question
      */
     public int getUserID() {
@@ -30,6 +34,7 @@ public class Question {
 
     /**
      * Sets the userID associated with the question
+     *
      * @param userID The new user ID for the Question
      */
     public void setUserID(int userID) {
@@ -38,6 +43,7 @@ public class Question {
 
     /**
      * Return the amount of visits to the question
+     *
      * @return The amount of visits to the question
      */
     public int getVisits() {
@@ -46,30 +52,34 @@ public class Question {
 
     /**
      * Sets how many visits the question has had
+     *
      * @param visits The new amount of visits the Question has
      */
     public void setVisits(int visits) {
         this.visits = visits;
     }
-    
+
     /**
      * Gets how many answers the Question ha
+     *
      * @return The amount of Answers the Question has
      */
-     public int getAnswers() {
+    public int getAnswers() {
         return answers;
     }
 
-     /**
-      * Sets the amount of Answers a Question has
-      * @param answers The new amount of answers
-      */
+    /**
+     * Sets the amount of Answers a Question has
+     *
+     * @param answers The new amount of answers
+     */
     public void setAnswers(int answers) {
         this.answers = answers;
     }
 
     /**
      * Gets the QuestionID of the Question
+     *
      * @return The QuestionID of the Question
      */
     public int getQuestionID() {
@@ -78,6 +88,7 @@ public class Question {
 
     /**
      * Sets the QuestionID of the Question
+     *
      * @param questionID The new questionID of the Question
      */
     public void setQuestionID(int questionID) {
@@ -85,7 +96,8 @@ public class Question {
     }
 
     /**
-     * Gets the Title of the Question 
+     * Gets the Title of the Question
+     *
      * @return The Title of the Question
      */
     public String getTitle() {
@@ -94,6 +106,7 @@ public class Question {
 
     /**
      * Sets the title of the Question
+     *
      * @param title The new title of the question
      */
     public void setTitle(String title) {
@@ -102,6 +115,7 @@ public class Question {
 
     /**
      * Gets the Question contained within the Question Bean
+     *
      * @return The Actual String Question
      */
     public String getQuestion() {
@@ -110,6 +124,7 @@ public class Question {
 
     /**
      * Sets the Question String of the Question Object
+     *
      * @param question The new Question String of the Question
      */
     public void setQuestion(String question) {
@@ -118,6 +133,7 @@ public class Question {
 
     /**
      * Gets the Submitted Date of the Question
+     *
      * @return The Submission Date of the Question
      */
     public String getSubmitted() {
@@ -126,6 +142,7 @@ public class Question {
 
     /**
      * Sets the Submission Date of the Question
+     *
      * @param submitted The new Submission date of the question
      */
     public void setSubmitted(String submitted) {
@@ -134,6 +151,7 @@ public class Question {
 
     /**
      * Gets the amount of vote the Question has received
+     *
      * @return The amount of votes the question has received
      */
     public int getVotes() {
@@ -142,6 +160,7 @@ public class Question {
 
     /**
      * Sets the amount of vote the question has
+     *
      * @param votes The new amount of votes for the question
      */
     public void setVotes(int votes) {
@@ -150,6 +169,7 @@ public class Question {
 
     /**
      * Gets the CoureID associated with this Question
+     *
      * @return The CourseID of the question
      */
     public int getCourseID() {
@@ -158,6 +178,7 @@ public class Question {
 
     /**
      * Sets the CourseID of the question
+     *
      * @param courseID The new course ID associated with the Question
      */
     public void setCourseID(int courseID) {
@@ -166,6 +187,7 @@ public class Question {
 
     /**
      * Gets the Last Updated Time of the Question
+     *
      * @return The Last Updated Time of the Question
      */
     public String getLastUpdated() {
@@ -174,20 +196,23 @@ public class Question {
 
     /**
      * Sets the last updated time of the question
+     *
      * @param lastUpdated The new Last Updated time of the Question
      */
     public void setLastUpdated(String lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
+    public boolean isAnswered() {
+        return answered;
+    }
+
+    public void setAnswered(boolean answered) {
+        this.answered = answered;
+    }
+
     @Override
     public String toString() {
         return "Question{" + "questionID=" + questionID + ", userID=" + userID + ", visits=" + visits + ", answers=" + answers + ", title=" + title + ", question=" + question + ", votes=" + votes + ", courseID=" + courseID + ", submitted=" + submitted + ", lastUpdated=" + lastUpdated + '}';
     }
-    
-    
-    
-    
-    
-    
 }

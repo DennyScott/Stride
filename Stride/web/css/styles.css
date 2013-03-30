@@ -10,8 +10,22 @@ body{
     font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
 }
 
+.hoverPoint{
+    cursor: pointer;
+}
+
+.storeCookie{
+    width:200px;
+    font-size:10px;
+    float:right;
+    margin-top:20px;
+}
 .addComment td{
     vertical-align: top;
+}
+
+.cookieQuestion{
+    background-color:gainsboro;
 }
 
 .courseOverlay{

@@ -35,7 +35,7 @@ public class Courses extends HttpServlet {
             throws ServletException, IOException {
         
        if(request.getParameter("id")!=null){ 
-       SingleCoursePage course = new SingleCoursePageModel().getPage(Integer.parseInt(request.getParameter("id")),1);
+       SingleCoursePage course = new SingleCoursePageModel().getPage(Integer.parseInt(request.getParameter("id")),0);
        request.setAttribute("bean", course);
        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/CoursePage.jsp");
        rd.forward(request, response);

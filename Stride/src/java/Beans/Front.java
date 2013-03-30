@@ -17,6 +17,15 @@ public class Front {
     private ArrayList<Tags> recent;
     private ArrayList<RecentBadges> badges;
     private ArrayList<KijAd> ad;
+    private int cookieSize;
+
+    public int getCookieSize() {
+        return cookieSize;
+    }
+
+    public void setCookieSize(int cookieSize) {
+        this.cookieSize = cookieSize;
+    }
 
     public ArrayList<KijAd> getAd() {
         return ad;

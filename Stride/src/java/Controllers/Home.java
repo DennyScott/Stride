@@ -11,8 +11,10 @@ import Models.CommentModel;
 import Models.HomeModel;
 import Models.QuestionPageModel;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,7 +65,7 @@ public class Home extends HttpServlet {
                 }
             } else if (request.getParameter("questionComment") != null) {
                 addQuestionComment(request, response);
-            }else if (request.getParameter("answerComment") != null) {
+            } else if (request.getParameter("answerComment") != null) {
                 addAnswerComment(request, response);
             } else {
                 getQuestion(request, response);
@@ -71,7 +73,10 @@ public class Home extends HttpServlet {
         } else {
             //Get Front Page
             HomeModel frontPage = new HomeModel();
-            Front front = frontPage.getFront();
+            ArrayList<Integer> values = getCookies(request);
+            Front front = frontPage.getFront(values);
+
+            
             //Add to read Cookies
             request.setAttribute("bean", front);
 
@@ -81,9 +86,44 @@ public class Home extends HttpServlet {
 
     }
 
+    public ArrayList<Integer> getCookies(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        ArrayList<Integer> values = new ArrayList<Integer>();
+        int placement=0;
+        int IDOne=0;
+        int IDTwo=0;
+        try {
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equals("questionID1")) {
+                     IDOne = (Integer.parseInt(cookies[i].getValue()));
+                } else if (cookies[i].getName().equals("questionID2")) {
+                     IDTwo = (Integer.parseInt(cookies[i].getValue()));
+                } else if (cookies[i].getName().equals("scanCookies")){
+                    placement = Integer.parseInt(cookies[i].getValue());
+                }
+            }
+            if(placement!=0){
+               if(placement==1){
+                   values.add(IDTwo);
+                   if(IDOne!=0){
+                   values.add(IDOne);
+                   }
+               }else if (placement==2){
+                   values.add(IDOne);
+                   if(IDTwo!=0){
+                       values.add(IDTwo);
+                   }
+               }
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
+        return values;
+    }
+
     public void getQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         QuestionPage question = new QuestionPageModel().getQuestion(Integer.parseInt(request.getParameter("id")));
-       
+
         request.setAttribute("bean", question);
         forwardBean(request, response, "WEB-INF/question.jsp");
 
@@ -113,19 +153,19 @@ public class Home extends HttpServlet {
             getQuestion(request, response);
         }
     }
-    
+
     public void addAnswerComment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean answerComment = request.getParameter("answerComment").equals("true") ? true : false;
         if (answerComment && request.getAttribute("aCommentSubmitted") == null) {
-            if (request.getParameter("aComment"+request.getParameter("answer")) != null && request.getParameter("answer")!=null) {
-                
+            if (request.getParameter("aComment" + request.getParameter("answer")) != null && request.getParameter("answer") != null) {
+
                 ModelObjects.AnswerComment qc = new ModelObjects.AnswerComment();
                 String answerID = request.getParameter("answer");
-                String comment = request.getParameter("aComment"+answerID);
+                String comment = request.getParameter("aComment" + answerID);
                 qc.setComment(comment);
                 qc.setComponentID(Integer.parseInt(answerID));
                 qc.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
-                
+
                 CommentModel cm = new CommentModel();
                 cm.addAnswerComment(qc);
                 request.setAttribute("aCommentSubmitted", "true");

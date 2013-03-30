@@ -110,7 +110,7 @@ public class QuestionDA {
 
         return id;
     }
-    
+
     /**
      * Collects all Questions belonging to a User
      *
@@ -159,7 +159,84 @@ public class QuestionDA {
 
         return returnList;
     }
+    
+    public boolean exists(int questionID) throws IOException, ClassNotFoundException, SQLException {
+        String sqlString = "SELECT * FROM Question WHERE Question_ID = ";
 
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(sqlString + questionID);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+
+            try {
+                int testInt;
+                while (resultSet.next()) {
+                    testInt = (Integer.parseInt(resultSet.getString(1)));
+                    return true;
+                }
+                connection.close();
+            } catch (Exception e) {
+                return false;
+            }
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+
+
+        return false;
+
+    }
+
+
+    public ArrayList<Question> collectUnanweredQuestions(int startPosition, int totalAmount) {
+        String SQLString = "SELECT * FROM Question WHERE Answered = 0 ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
+        ArrayList<Question> returnList = new ArrayList();
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                Question returnQuestion = new Question();
+                returnQuestion.setQuestionID(Integer.parseInt(resultSet.getString(1)));
+                returnQuestion.setQuestion(resultSet.getString(2));
+                returnQuestion.setUserID(Integer.parseInt(resultSet.getString(3)));
+                returnQuestion.setVotes(Integer.parseInt(resultSet.getString(4)));
+                returnQuestion.setSubmitted(resultSet.getString(5));
+                returnQuestion.setLastUpdated(resultSet.getString(6));
+                returnQuestion.setTitle(resultSet.getString(7));
+                returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
+                returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
+                returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnList.add(returnQuestion);
+            }
+
+            for (int i = startPosition - 1; i >= 0; i--) {
+                returnList.remove(i);
+            }
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        } catch (ClassNotFoundException cnf) {
+            return null;
+        } catch (IOException ioe) {
+            return null;
+        }
+
+        return returnList;
+    }
 
     /**
      * Updates the Question object found in the database
@@ -226,6 +303,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
+               // returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
             }
 
 
@@ -297,6 +375,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
                 returnList.add(returnQuestion);
             }
             connection.close();
@@ -318,8 +397,8 @@ public class QuestionDA {
      * @param courseID The Course_ID of a given course to be searched
      * @return An ArrayList containing all Questions belonging to a Course
      */
-    public ArrayList<Question> collectCourseQuestion(int courseID,int startPosition, int totalAmount) {
-        String SQLString = "SELECT * FROM Question WHERE Course_ID = "+ courseID + " ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
+    public ArrayList<Question> collectCourseQuestion(int courseID, int startPosition, int totalAmount) {
+        String SQLString = "SELECT * FROM Question WHERE Course_ID = " + courseID + " ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
         ArrayList<Question> returnList = new ArrayList();
 
         try {
@@ -342,6 +421,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
+              //  returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
                 returnList.add(returnQuestion);
             }
             for (int i = startPosition - 1; i >= 0; i--) {

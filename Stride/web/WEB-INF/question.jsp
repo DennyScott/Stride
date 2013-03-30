@@ -16,18 +16,20 @@
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
         <link href="css/wmd.css" rel="Stylesheet" type="text/css" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src="javascript/1.2.6.js"></script>
         <script type="text/javascript" src="javascript/Stride.js"></script>
+        <script type="text/javascript" src="javascript/Voting.js"></script>
+        <script type="text/javascript" src="javascript/wmd.js"></script>
+        <script type="text/javascript" src="javascript/sonic.js"></script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
-        <script type="text/javascript" src="javascript/showdown.js"></script>
+        
 
 
         <title>${bean.getTitle()}</title>
     </head>
     <body onload="collectData()">
-
+        
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />
 
@@ -35,14 +37,15 @@
 
             <div id="question-header">
                 <h1 itemprop="name">
-                    <a href="" class="question-hyperlink">
+                    <a href="home?id=${bean.getQuestionID()}" name ="questionID" class="question-hyperlink">
                         ${bean.getTitle()}
+                        
                     </a>
                 </h1>
             </div>
 
             <div id="mainContent">
-
+                <input type="hidden" name="userData" id="userData" value="${sessionScope.id}" />
                 <div id="question" class="question" data-questionid="00005">
 
                     <table>
@@ -51,9 +54,9 @@
                                 <td class="votecell">
                                     <div class="vote">
                                         <input type="hidden" value="00005">
-                                        <a class="vote-up-off" title="This question shows research effort; it is useful and clear (click again to undo)">up vote</a>
-                                        <span class="vote-count-post">${bean.getVotes()}</span>
-                                        <a class="vote-down-off" title="Thi question does not show any research effort; it is unclear or not useful (click again to undo">down vote</a>
+                                        <a class="vote-up-off" onclick="questionVoteUp(${bean.getQuestionID()})" title="This question shows research effort; it is useful and clear (click again to undo)">up vote</a>
+                                        <span class="vote-count-post" id="questionVote">${bean.getVotes()}</span>
+                                        <a class="vote-down-off" onclick ="questionVoteDown(${bean.getQuestionID()})"title="Thi question does not show any research effort; it is unclear or not useful (click again to undo">down vote</a>
                                         <a class="star-off" href="#" title="This is a favourite question (click to undo"></a>
 
                                     </div>
@@ -75,7 +78,7 @@
                                             </c:forEach>
 
 
-
+                                                
                                         </div>
 
                                         <table class="fw">
@@ -83,7 +86,7 @@
                                                 <tr>
                                                     <td class="vt">
                                                         <div class="post-menu">
-                                                            <a href="Courses?id=${bean.getCourseId()}" title="Go to other questions from ${question.getSchool()}" class="short-link">
+                                                            <a href="Courses?id=${bean.getCourseId()}" name="courseID" title="Go to other questions from ${question.getSchool()}" class="short-link">
                                                                 Course: ${bean.getSchool()}
                                                             </a>
                                                         </div>
@@ -96,7 +99,7 @@
                                                                 <span title="2013-01-25 21:43:19" class="relativeTime">${bean.getSubmitted()}</span>
                                                             </div>
                                                             <div class="user-gravatar32">
-                                                                <a href="Users?id=${bean.getAuthorID()}">
+                                                                <a href="Users?id=${bean.getAuthorID()}" name ="userID">
                                                                     <div class>
                                                                         <img src="ProfilePicture?id=${bean.getAuthorID()}" alt width="32" height="32">
                                                                     </div>
@@ -194,9 +197,9 @@
                                         <td class="votecell">
                                             <div class="vote">
                                                 <input type="hidden" value="98478">
-                                                <a class="vote-up-off" title="This answer is useful(click to undo)">up vote</a>
-                                                <span class="vote-count-post">${answer.getVotes()}</span>
-                                                <a class="vote-down-off" title="This answer was not useful (click to undo)">down vote</a>
+                                                <a class="vote-up-off" onclick="answerVoteUp(${answer.getID()})"title="This answer is useful(click to undo)">up vote</a>
+                                                <span class="vote-count-post" id="answerVote-${answer.getID()}">${answer.getVotes()}</span>
+                                                <a class="vote-down-off" onclick="answerVoteDown(${answer.getID()})"title="This answer was not useful (click to undo)">down vote</a>
                                             </div>
                                         </td>
 
@@ -223,7 +226,7 @@
                                                                 <div class="user-gravatar32">
                                                                     <a href="Users?id=${answer.getAuthorID()}">
                                                                         <div class>
-                                                                            <img src="img/kip.jpg" alt width="32" height="32">
+                                                                            <img src="ProfilePicture?id=${answer.getAuthorID()}" alt width="32" height="32">
                                                                         </div>
                                                                     </a>
                                                                 </div>
@@ -231,10 +234,14 @@
                                                                 <div class="user-details">
                                                                     <a href="Users?id=${answer.getAuthorID()}">${answer.getAuthor()}</a>
                                                                     <br>
-                                                                    <span class="reputation-score" title="reputation score" dir="ltr">1</span>
-                                                                    <span title="2 bronze badges">
+                                                                    <span class="reputation-score" title="reputation score" dir="ltr">${answer.getReputation()}</span>
+                                                                    <span title="">
                                                                         <span class="badge3"></span>
-                                                                        <span class="badgecount">2</span>
+                                                                        <span class="badgecount">${answer.getBronze()}</span>
+                                                                        <span class="badge2"></span>
+                                                                        <span class="badgecount">${answer.getSilver()}</span>
+                                                                        <span class="badge1"></span>
+                                                                        <span class="badgecount">${answer.getGold()}</span>
                                                                     </span>
                                                                 </div>
 
@@ -294,25 +301,12 @@
                         </div>
                     </c:forEach>
                     <!--End of Answer -->
-
+                
                     <a name="new-answer"></a>
                     <form id="post-form" action="home?id=${bean.getQuestionID()}&submit=true" method="post" class="post-form">
                         <h2 class="space">Your Answer</h2>
 
-                        <%--    StackExchange.ready(function() {
-                                 initTagRenderer("".split(" "), "".split(" "));
-
-                            prepareEditor({
-                                heartbeatType: 'answer',
-                                bindNavPrevention: true,
-                                postfix: "",
-                                onDemand: true,
-                                discardSelector: ".discard-answer"
-                                ,immediatelyShowMarkdownHelp:true
-                            });
-
-
-                        });  --%>
+                        
                         <div id="post-editor" class="post-editor">
                             <div class="wmd-container">
                                 <div id="wmd-button-bar" class="wmd-button-bar">

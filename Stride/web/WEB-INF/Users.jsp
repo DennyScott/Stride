@@ -67,7 +67,7 @@
                                                 </a>
                                             </div>
                                             <div class="user-details">
-                                                <a href="Users?id=${user.getUserID()}">${user.getFirstName()} ${user.getLastName()}</a>
+                                                <a href="Users?id=${user.getUserID()}">${user.getUser()}</a>
                                                 <br>
                                                 <span class="user-location">${user.getRank()}</span>                                                <br>
                                                 <span class="reputation-score" title="reputation this week: 1500 total reputation: 545308" dir="ltr">${user.getReputation()}</span>

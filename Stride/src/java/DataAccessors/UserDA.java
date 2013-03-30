@@ -69,6 +69,27 @@ public class UserDA {
         return "\"" + ", " + "\"";
     }
 
+    private boolean exists(String username) throws ClassNotFoundException, IOException, SQLException {
+        String SQLString = "SELECT * FROM User WHERE Username = ";
+        User returnUser = new User();
+
+        Connection connection = connectDB();
+
+        Statement statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(SQLString + username);
+        ResultSetMetaData result = resultSet.getMetaData();
+        int cn = result.getColumnCount();
+        while (resultSet.next()) {
+            returnUser.setUserID(Integer.parseInt(resultSet.getString(1)));
+            returnUser.setUsername(resultSet.getString(2));
+            return true;
+        }
+        connection.close();
+
+        return false;
+    }
+
     /**
      * Adds a new User to the database
      *
@@ -80,14 +101,14 @@ public class UserDA {
      */
     public boolean add(User newUser) throws IOException, ClassNotFoundException, SQLException {
 
-        Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String subDate = dateFormat.format(date);
-        String sqlString = "INSERT into User VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newUser.getUsername() + seperateValue() + newUser.getPassword() + seperateValue() + newUser.getFirstName() + seperateValue() + newUser.getLastName() + seperateValue() + newUser.getEmailAddress() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newUser.getProfilePictureLink() + seperateValue() + newUser.getBiography() + seperateValue() + newUser.getRank() + seperateValue() + (newUser.isAnonymous() ? 1 : 0) + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + "\")";
+        if (!exists(newUser.getUsername())) {
 
-        try {
-            synchronized(this){
+            Date date = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            String subDate = dateFormat.format(date);
+            String sqlString = "INSERT into User VALUES ";
+            String answerString = "(" + "null" + ", " + "\"" + newUser.getUsername() + seperateValue() + newUser.getPassword() + seperateValue() + newUser.getFirstName() + seperateValue() + newUser.getLastName() + seperateValue() + newUser.getEmailAddress() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newUser.getProfilePictureLink() + seperateValue() + newUser.getBiography() + seperateValue() + newUser.getRank() + seperateValue() + (newUser.isAnonymous() ? 1 : 0) + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + "\")";
+
             Connection connection = connectDB();
 
             Statement statement = connection.createStatement();
@@ -98,12 +119,13 @@ public class UserDA {
 
             statement.executeUpdate(sqlString + answerString);
             connection.close();
-            }
-        } catch (SQLException sqle) {
+
+
+
+            return true;
+        } else {
             return false;
         }
-
-        return true;
     }
 
     /**
@@ -195,10 +217,10 @@ public class UserDA {
 
         return returnUser;
     }
-    
-       public ArrayList<User> collectUsersByRep(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "SELECT * FROM User ORDER BY Reputation DESC LIMIT " + (questionAmount+startPosition);
+    public ArrayList<User> collectUsersByRep(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM User ORDER BY Reputation DESC LIMIT " + (questionAmount + startPosition);
         ArrayList<User> returnList = new ArrayList();
 
         try {
@@ -244,10 +266,10 @@ public class UserDA {
 
         return returnList;
     }
-     
-      public ArrayList<User> collectUsersByOldest(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "SELECT * FROM User ORDER BY Created DESC LIMIT " + (questionAmount+startPosition);
+    public ArrayList<User> collectUsersByOldest(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM User ORDER BY Created DESC LIMIT " + (questionAmount + startPosition);
         ArrayList<User> returnList = new ArrayList();
 
         try {
@@ -293,10 +315,10 @@ public class UserDA {
 
         return returnList;
     }
-      
-      public ArrayList<User> collectUsersByNewest(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "SELECT * FROM User ORDER BY Created Asc LIMIT " + (questionAmount+startPosition);
+    public ArrayList<User> collectUsersByNewest(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        String SQLString = "SELECT * FROM User ORDER BY Created Asc LIMIT " + (questionAmount + startPosition);
         ArrayList<User> returnList = new ArrayList();
 
         try {
@@ -553,7 +575,7 @@ public class UserDA {
         }
         return true;
     }
-    
+
     public boolean decrementAnswers(int userID) throws IOException, ClassNotFoundException, SQLException {
 
         User me = query(userID);
@@ -572,7 +594,7 @@ public class UserDA {
         }
         return true;
     }
-    
+
     public boolean incrementVotes(int userID) throws IOException, ClassNotFoundException, SQLException {
 
         User me = query(userID);
@@ -591,7 +613,7 @@ public class UserDA {
         }
         return true;
     }
-    
+
     public boolean decrementVotes(int userID) throws IOException, ClassNotFoundException, SQLException {
 
         User me = query(userID);

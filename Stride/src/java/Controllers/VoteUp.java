@@ -4,19 +4,19 @@
  */
 package Controllers;
 
+import Models.VotingModel;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.http.Cookies;
 
 /**
  *
  * @author Denny
  */
-public class QuestionCookie extends HttpServlet {
+public class VoteUp extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -30,46 +30,28 @@ public class QuestionCookie extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("id") != null) {
-            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-            String scanCookies = searchCookies("scanCookies", request);
-            if (!scanCookies.equals("")) {
-                setCookie("questionID" + scanCookies, request.getParameter("id"),response);
-                setScan(Integer.parseInt(scanCookies),response);
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            
+            if (request.getParameter("id") != null) {
+                if (request.getParameter("question")!=null) {
+                    boolean question = request.getParameter("question").equals("true") ? true : false;
+                    int vote=100;
+                    if(question){
+                        vote = new VotingModel().questionVoteUpAndGet(Integer.parseInt(request.getParameter("id")),Integer.parseInt((String)request.getSession().getAttribute("id")));
+                    }else{
+                        vote = new VotingModel().answerVoteUpAndGet(Integer.parseInt(request.getParameter("id")),Integer.parseInt((String)request.getSession().getAttribute("id")));
+                    }
+                    out.write(vote+"");
+                }
             }else{
-                setCookie("questionID1", request.getParameter("id"),response);
-                setScan(1,response);
+                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             }
-
-            Cookie cookie = new Cookie("questionID", request.getParameter("id"));
-            cookie.setMaxAge(24 * 60 * 60 * 31);
-            response.addCookie(cookie);
+            
+        } finally {
+            out.close();
         }
-
-    }
-
-    private void setScan(int num,HttpServletResponse response) {
-        if (num == 1) {
-            setCookie("scanCookies","2",response);
-        } else{
-            setCookie("scanCookies", "1", response);
-        }
-    }
-
-    private void setCookie(String name, String id, HttpServletResponse response) {
-        Cookie cookie = new Cookie(name, id);
-        cookie.setMaxAge(24 * 60 * 60 * 31);
-        response.addCookie(cookie);
-    }
-
-    private String searchCookies(String value, HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        for (int i = 0; i < cookies.length; i++) {
-            if (cookies[i].getName().equals(value)) {
-                return cookies[i].getValue();
-            }
-        }
-        return "";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

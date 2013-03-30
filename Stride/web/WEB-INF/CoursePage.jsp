@@ -111,7 +111,7 @@
                                             <div class="user-details">
                                                 <a href="Users?id=${blurb.getQuestion().getAuthorID()}">${blurb.getQuestion().getUser().getUser()}<!--Name here--></a>
                                                 <br>
-                                                <span class="reputation-score" dir="ltr">930 <!--Reputation--></span>
+                                                <span class="reputation-score" dir="ltr">${blurb.getQuestion().getUser().getReputation()} <!--Reputation--></span>
                                                 <span title="Badges">
 
                                                     <span class="badge3"></span>

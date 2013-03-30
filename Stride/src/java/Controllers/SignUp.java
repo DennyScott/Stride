@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -64,6 +64,9 @@ public class SignUp extends HttpServlet {
             user.setPassword(request.getParameter("signUpPassword"));
             user.setProfilePictureLink(request.getParameter("image"));
             user.setEmailAddress(request.getParameter("email"));
+            user.setFirstName("");
+            user.setLastName("");
+            user.setRank("Newbie");
 
                 UserModel um = new UserModel();
                 
