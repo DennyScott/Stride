@@ -22,6 +22,7 @@ public class Question {
     private String submitted;
     private String lastUpdated;
     private boolean answered;
+    private int bounty;
 
     /**
      * Gets the userID associated with the Question
@@ -211,8 +212,17 @@ public class Question {
         this.answered = answered;
     }
 
+    public int getBounty() {
+        return bounty;
+    }
+
+    public void setBounty(int bounty) {
+        this.bounty = bounty;
+    }
+
     @Override
     public String toString() {
-        return "Question{" + "questionID=" + questionID + ", userID=" + userID + ", visits=" + visits + ", answers=" + answers + ", title=" + title + ", question=" + question + ", votes=" + votes + ", courseID=" + courseID + ", submitted=" + submitted + ", lastUpdated=" + lastUpdated + '}';
+        return "Question{" + "questionID=" + questionID + ", userID=" + userID + ", visits=" + visits + ", answers=" + answers + ", title=" + title + ", question=" + question + ", votes=" + votes + ", courseID=" + courseID + ", submitted=" + submitted + ", lastUpdated=" + lastUpdated + ", answered=" + answered + ", bounty=" + bounty + '}';
     }
+
 }

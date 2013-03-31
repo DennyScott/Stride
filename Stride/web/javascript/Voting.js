@@ -14,6 +14,16 @@ function questionVoteUp(num){
     }
 }
 
+function questionVoteDown(num){
+    if(getUserData()>0){
+        $.get('VoteDown?id='+num+"&question=true", function(data) {
+            var user = document.getElementById("questionVote");
+        
+            user.innerHTML = data;
+        });
+    }
+}
+
 function getUserData(){
     var elements = document.getElementsByTagName("input");
     var len = elements.length;
@@ -21,7 +31,11 @@ function getUserData(){
     
     for(var i = 0; i<len; i++){
         if(elements[i].name=="userData"){
+            if(elements[i].value != ""){
             uData = elements[i].value;
+            }else{
+                uData = 0;
+            }
             break;
         }
     }

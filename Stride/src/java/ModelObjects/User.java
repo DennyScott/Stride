@@ -24,13 +24,13 @@ public class User {
     private String profilePictureLink;
     private String biography;
     private String rank;
-    private String join;
     private int bronzeCount;
     private int silverCount;
     private int goldCount;
     private boolean Anonymous;
     private int reputation;
-
+    private int highestReputation;
+    
     public int getUserID() {
         return userID;
     }
@@ -143,14 +143,6 @@ public class User {
         this.rank = rank;
     }
 
-    public String getJoin() {
-        return join;
-    }
-
-    public void setJoin(String join) {
-        this.join = join;
-    }
-
     public int getBronzeCount() {
         return bronzeCount;
     }
@@ -191,10 +183,20 @@ public class User {
         this.reputation = reputation;
     }
 
+    public int getHighestReputation() {
+        return highestReputation;
+    }
+
+    public void setHighestReputation(int highestReputation) {
+        this.highestReputation = highestReputation;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "userID=" + userID + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", emailAddress=" + emailAddress + ", numberOfQuestions=" + numberOfQuestions + ", numberOfAnswers=" + numberOfAnswers + ", votes=" + votes + ", created=" + created + ", lastLoggedIn=" + lastLoggedIn + ", profilePictureLink=" + profilePictureLink + ", biography=" + biography + ", rank=" + rank + ", join=" + join + ", bronzeCount=" + bronzeCount + ", silverCount=" + silverCount + ", goldCount=" + goldCount + ", Anonymous=" + Anonymous + ", reputation=" + reputation + '}';
+        return "User{" + "userID=" + userID + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", emailAddress=" + emailAddress + ", numberOfQuestions=" + numberOfQuestions + ", numberOfAnswers=" + numberOfAnswers + ", votes=" + votes + ", created=" + created + ", lastLoggedIn=" + lastLoggedIn + ", profilePictureLink=" + profilePictureLink + ", biography=" + biography + ", rank=" + rank + ", bronzeCount=" + bronzeCount + ", silverCount=" + silverCount + ", goldCount=" + goldCount + ", Anonymous=" + Anonymous + ", reputation=" + reputation + ", highestReputation=" + highestReputation + '}';
     }
+
+    
     
     
 }

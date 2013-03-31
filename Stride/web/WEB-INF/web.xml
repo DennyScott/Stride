@@ -13,6 +13,10 @@
         <servlet-class>database</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>About</servlet-name>
+        <servlet-class>Controllers.About</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>home</servlet-name>
         <servlet-class>Controllers.Home</servlet-class>
     </servlet>
@@ -175,6 +179,10 @@
     <servlet-mapping>
         <servlet-name>VoteDown</servlet-name>
         <url-pattern>/VoteDown</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>About</servlet-name>
+        <url-pattern>/About</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

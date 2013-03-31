@@ -119,7 +119,7 @@ public class QuestionVoteDA {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
-        String sqlString = "Update QuestionVote set Vote_Up = \"" + (newQV.isUp()?1:0) + "\", Submitted = \"" + subDate + "\" where User_ID = " + newQV.getUserID() + "AND Question_ID = " + newQV.getQuestionID();
+        String sqlString = "Update QuestionVote set Vote_Up = \"" + (newQV.isUp()?1:0) + "\", Submitted = \"" + subDate + "\" where User_ID = " + newQV.getUserID() + " AND Question_ID = " + newQV.getQuestionID();
         try {
             Connection connection = connectDB();
 
@@ -152,7 +152,7 @@ public class QuestionVoteDA {
     public QuestionVote query(int userID, int questionID) throws IOException, ClassNotFoundException, SQLException {
 
         QuestionVote findQV = new QuestionVote();
-        String SQLString = "SELECT * FROM QuestionVote WHERE User_ID = " + userID + " AND Question_ID" + questionID;
+        String SQLString = "SELECT * FROM QuestionVote WHERE User_ID = " + userID + " AND Question_ID = " + questionID;
         try {
             Connection connection = connectDB();
 

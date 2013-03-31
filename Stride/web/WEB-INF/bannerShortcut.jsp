@@ -45,8 +45,14 @@ the top of the page, if attribute is null the document places a link so a new me
                 %>
                 <span class="lsep">|</span>
                 <span class="links-nav">
-                    <a href="www.cnn.com">About</a>
+                    <a href="Settings">Settings</a>
                 </span>
+                
+                <span class="lsep">|</span>
+                <span class="links-nav">
+                    <a href="About">About</a>
+                </span>
+                
                 <span class="lsep">|</span>
                 <span class="links-nav">
                     <a href="www.cnn.com">Contact</a>

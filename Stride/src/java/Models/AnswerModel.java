@@ -5,6 +5,7 @@
 package Models;
 
 import DataAccessors.AnswerDA;
+import ModelObjects.Answer;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -26,6 +27,9 @@ public class AnswerModel {
             qm.incrementAnswers(answer.getQuestionID());
             UserModel um = new UserModel();
             um.incrementAnswers(answer.getUserID());
+            if (!qm.isCreator(answer.getUserID(), answer.getQuestionID())) {
+                um.increaseReputation(answer.getUserID(), 35);
+            }
         } catch (IOException ex) {
             Logger.getLogger(AnswerModel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -62,5 +66,24 @@ public class AnswerModel {
             Logger.getLogger(AnswerModel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public void selectAnswer(int answerID) {
+        try {
+            AnswerDA ad = new AnswerDA();
+            Answer answer = ad.query(answerID);
+            ad.chosen(answerID);
+            QuestionModel qm = new QuestionModel();
+            int bounty = qm.answerSelected(answer.getQuestionID());
+            UserModel um = new UserModel();
+            int increaseAmount = 50 + bounty;
+            um.increaseReputation(answer.getUserID(), increaseAmount);
+        } catch (IOException ex) {
+            Logger.getLogger(AnswerModel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AnswerModel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

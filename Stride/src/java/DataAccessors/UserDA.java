@@ -70,14 +70,14 @@ public class UserDA {
     }
 
     private boolean exists(String username) throws ClassNotFoundException, IOException, SQLException {
-        String SQLString = "SELECT * FROM User WHERE Username = ";
+        String SQLString = "SELECT * FROM User WHERE Username = \"" + username + "\"";
         User returnUser = new User();
 
         Connection connection = connectDB();
 
         Statement statement = connection.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(SQLString + username);
+        ResultSet resultSet = statement.executeQuery(SQLString);
         ResultSetMetaData result = resultSet.getMetaData();
         int cn = result.getColumnCount();
         while (resultSet.next()) {
@@ -107,7 +107,7 @@ public class UserDA {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             String subDate = dateFormat.format(date);
             String sqlString = "INSERT into User VALUES ";
-            String answerString = "(" + "null" + ", " + "\"" + newUser.getUsername() + seperateValue() + newUser.getPassword() + seperateValue() + newUser.getFirstName() + seperateValue() + newUser.getLastName() + seperateValue() + newUser.getEmailAddress() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newUser.getProfilePictureLink() + seperateValue() + newUser.getBiography() + seperateValue() + newUser.getRank() + seperateValue() + (newUser.isAnonymous() ? 1 : 0) + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + "\")";
+            String answerString = "(" + "null" + ", " + "\"" + newUser.getUsername() + seperateValue() + newUser.getPassword() + seperateValue() + newUser.getFirstName() + seperateValue() + newUser.getLastName() + seperateValue() + newUser.getEmailAddress() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newUser.getProfilePictureLink() + seperateValue() + newUser.getBiography() + seperateValue() + "Newbie" + seperateValue() + (newUser.isAnonymous() ? 1 : 0) + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + "0" + "\")";
 
             Connection connection = connectDB();
 
@@ -204,6 +204,7 @@ public class UserDA {
                 returnUser.setSilverCount(Integer.parseInt(resultSet.getString(17)));
                 returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(18)));
                 returnUser.setReputation(Integer.parseInt(resultSet.getString(19)));
+                returnUser.setHighestReputation(Integer.parseInt(resultSet.getString(20)));
 
 
             }
@@ -252,6 +253,7 @@ public class UserDA {
                 returnUser.setSilverCount(Integer.parseInt(resultSet.getString(17)));
                 returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(18)));
                 returnUser.setReputation(Integer.parseInt(resultSet.getString(19)));
+                returnUser.setHighestReputation(Integer.parseInt(resultSet.getString(20)));
                 returnList.add(returnUser);
             }
 
@@ -301,6 +303,7 @@ public class UserDA {
                 returnUser.setSilverCount(Integer.parseInt(resultSet.getString(17)));
                 returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(18)));
                 returnUser.setReputation(Integer.parseInt(resultSet.getString(19)));
+                returnUser.setHighestReputation(Integer.parseInt(resultSet.getString(20)));
                 returnList.add(returnUser);
             }
 
@@ -350,6 +353,7 @@ public class UserDA {
                 returnUser.setSilverCount(Integer.parseInt(resultSet.getString(17)));
                 returnUser.setBronzeCount(Integer.parseInt(resultSet.getString(18)));
                 returnUser.setReputation(Integer.parseInt(resultSet.getString(19)));
+                returnUser.setHighestReputation(Integer.parseInt(resultSet.getString(20)));
                 returnList.add(returnUser);
             }
 
@@ -630,6 +634,73 @@ public class UserDA {
         } catch (SQLException sqle) {
             return false;
         }
+        return true;
+    }
+
+    public User increaseReputation(int userID, int increaseAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString;
+        int newRep = me.getReputation() + increaseAmount;
+        if(me.getHighestReputation() > newRep){
+        sqlString = "Update User set Reputation = \"" + (newRep) + "\"  where User_ID = " + userID;
+        }else{
+            sqlString = "Update User set Reputation = \"" + (newRep) + "\", Highest_Reputation = \"" + newRep + "\"  where User_ID = " + userID;
+            
+        }
+        me.setReputation(me.getReputation()+increaseAmount);
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        }
+
+        return me;
+    }
+
+    public boolean decreaseReputation(int userID, int decreaseAmount) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Reputation = \"" + (me.getReputation() - decreaseAmount) + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean updateRank(int userID, String newRank) throws IOException, ClassNotFoundException, SQLException {
+
+        User me = query(userID);
+        String sqlString = "Update User set Rank = \"" + newRank + "\"  where User_ID = " + userID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
         return true;
     }
 }

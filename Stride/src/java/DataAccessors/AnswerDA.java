@@ -125,7 +125,7 @@ public class AnswerDA {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
         String sqlString = "INSERT into Answer VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newAnswer.getAnswer() + seperateValue() + newAnswer.getQuestionID() + seperateValue() + newAnswer.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + (newAnswer.isChosen() ? 1 : 0) + "\")";
+        String answerString = "(" + "null" + ", " + "\"" + newAnswer.getAnswer() + seperateValue() + newAnswer.getQuestionID() + seperateValue() + newAnswer.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + "0" + "\")";
 
         try {
             Connection connection = connectDB();
@@ -160,7 +160,7 @@ public class AnswerDA {
         java.util.Date date = new java.util.Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
-        String sqlString = "Update Answer set Answer = \"" + newAnswer.getAnswer() + "\", Last_Updated = \"" + subDate + "\", Is_Chosen = \"" + (newAnswer.isChosen() ? 1 : 0) + "\" where Answer_ID = " + newAnswer.getAnswerID();
+        String sqlString = "Update Answer set Answer = \"" + newAnswer.getAnswer() + "\", Last_Updated = \"" + subDate + "\", Chosen = \"" + (newAnswer.isChosen() ? 1 : 0) + "\" where Answer_ID = " + newAnswer.getAnswerID();
         try {
             Connection connection = connectDB();
 
@@ -209,6 +209,7 @@ public class AnswerDA {
                 returnAnswer.setVotes(Integer.parseInt(resultSet.getString(5)));
                 returnAnswer.setSubmitted(resultSet.getString(6));
                 returnAnswer.setLastUpdated(resultSet.getString(7));
+                returnAnswer.setChosen(resultSet.getBoolean(8));
             }
 
 
@@ -277,6 +278,7 @@ public class AnswerDA {
                 returnAnswer.setVotes(Integer.parseInt(resultSet.getString(5)));
                 returnAnswer.setSubmitted(resultSet.getString(6));
                 returnAnswer.setLastUpdated(resultSet.getString(7));
+                returnAnswer.setChosen(resultSet.getBoolean(8));
                 returnList.add(returnAnswer);
             }
 
@@ -379,6 +381,25 @@ public class AnswerDA {
 
         Answer found = query(answerID);
         String sqlString = "Update Answer set Votes = \"" + (found.getVotes() - 1) + "\" where Answer_ID = " + answerID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+
+        return true;
+    }
+    
+        public boolean chosen(int answerID) throws IOException, ClassNotFoundException, SQLException {
+
+        Answer found = query(answerID);
+        String sqlString = "Update Answer set Chosen = \"" + "1" + "\" where Answer_ID = " + answerID;
         try {
             Connection connection = connectDB();
 

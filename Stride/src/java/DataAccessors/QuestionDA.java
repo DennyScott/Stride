@@ -84,7 +84,7 @@ public class QuestionDA {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
         String sqlString = "INSERT into Question VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newQuestion.getQuestion() + seperateValue() + newQuestion.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newQuestion.getTitle() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + newQuestion.getCourseID() + "\")";
+        String answerString = "(" + "null" + ", " + "\"" + newQuestion.getQuestion() + seperateValue() + newQuestion.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newQuestion.getTitle() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + newQuestion.getCourseID() + seperateValue() + "0" + seperateValue() + newQuestion.getBounty() + "\")";
         int id = 0;
         try {
             Connection connection = connectDB();
@@ -141,6 +141,8 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
 
@@ -159,40 +161,6 @@ public class QuestionDA {
 
         return returnList;
     }
-    
-    public boolean exists(int questionID) throws IOException, ClassNotFoundException, SQLException {
-        String sqlString = "SELECT * FROM Question WHERE Question_ID = ";
-
-        try {
-            Connection connection = connectDB();
-
-            Statement statement = connection.createStatement();
-
-            ResultSet resultSet = statement.executeQuery(sqlString + questionID);
-            ResultSetMetaData result = resultSet.getMetaData();
-            int cn = result.getColumnCount();
-
-            try {
-                int testInt;
-                while (resultSet.next()) {
-                    testInt = (Integer.parseInt(resultSet.getString(1)));
-                    return true;
-                }
-                connection.close();
-            } catch (Exception e) {
-                return false;
-            }
-
-        } catch (SQLException sqle) {
-            return false;
-        }
-
-
-
-        return false;
-
-    }
-
 
     public ArrayList<Question> collectUnanweredQuestions(int startPosition, int totalAmount) {
         String SQLString = "SELECT * FROM Question WHERE Answered = 0 ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
@@ -219,6 +187,7 @@ public class QuestionDA {
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
                 returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
 
@@ -303,7 +272,8 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-               // returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
             }
 
 
@@ -376,6 +346,7 @@ public class QuestionDA {
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
                 returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
             connection.close();
@@ -421,7 +392,8 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-              //  returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
             for (int i = startPosition - 1; i >= 0; i--) {
@@ -583,5 +555,24 @@ public class QuestionDA {
         }
 
         return true;
+    }
+
+    public int Answered(int questionID) throws IOException, ClassNotFoundException, SQLException {
+
+        Question q = query(questionID);
+        String sqlString = "Update Question set Answered = 1, Bounty=0 where Question_ID = " + questionID;
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return 0;
+        }
+
+        return q.getBounty();
     }
 }

@@ -13,10 +13,12 @@
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
         <link href="css/wmd.css" rel="Stylesheet" type="text/css" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src="javascript/1.2.6.js"></script>
         <script type="text/javascript" src="javascript/Stride.js"></script>
         <script type="text/javascript" src="javascript/sonic.js"></script>
-        <script type="text/javascript" src="javascript/showdown.js"></script>
+        <script type="text/javascript" src="javascript/ask.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 
         <title>Ask a Question</title>
@@ -108,6 +110,14 @@
                                     <option value="${course.getId()}">${course.getCourse()}</option>
                                 </c:forEach>
                             </select>
+                        </div>
+                        <br><br>
+                        <!--Bounty-->
+                        <div id="toogleBounty">
+                            <input type="checkbox" id="check" class="toogleBounty"/><label for="check">Bounty</label>
+                            
+                                <input type="text" name ="bounty" id="resizable"/>
+                            
                         </div>
                         <span></span>
 

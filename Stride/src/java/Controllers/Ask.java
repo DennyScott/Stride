@@ -8,6 +8,7 @@ import Beans.AskQuestionPage;
 import Models.AskQuestionModel;
 import Models.QuestionModel;
 import Models.TagModel;
+import Models.UtilityModel;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -77,7 +78,16 @@ public class Ask extends HttpServlet {
             question.setVotes(0);
             question.setVisits(0);
             question.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
-
+            
+            if(request.getParameter("bounty")!=null){
+                if(UtilityModel.isInteger(request.getParameter("bounty"))){
+                    question.setBounty(Integer.parseInt(request.getParameter("bounty")));
+                }else{
+                    question.setBounty(0);
+                }
+            }else{
+                question.setBounty(0);
+            }
             
             
             String tags = request.getParameter("tags");

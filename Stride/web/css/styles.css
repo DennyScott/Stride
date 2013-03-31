@@ -10,6 +10,26 @@ body{
     font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
 }
 
+.toogleBounty, #toogleBounty{
+    width:100px;
+    height:15px;
+    font-size:10px;
+    float:left;
+}
+
+#resizable {
+    width: 1px; 
+    visibility: hidden;
+    float:left;
+    height: 15px; 
+    padding: 0.5em;
+    -webkit-transition: width 1s ease;  
+    -moz-transition: width 1s ease;  
+    -o-transition: width 1s ease;  
+    -ms-transition: width 1s ease;  
+    transition: width 1s ease;  
+}
+
 .hoverPoint{
     cursor: pointer;
 }

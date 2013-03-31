@@ -79,6 +79,9 @@ public class HomeModel {
 
     private int testCookies(ArrayList<Integer> cookies) {
         if(!cookies.isEmpty()){
+            if(cookies.size()==1){
+                return 0;
+            }
         if(cookies.get(0) == cookies.get(1)){
             cookies.set(1,0);
         }
