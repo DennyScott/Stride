@@ -66,6 +66,7 @@ public class SignUp extends HttpServlet {
             user.setEmailAddress(request.getParameter("email"));
             user.setFirstName("");
             user.setLastName("");
+            user.setBiography("");
             user.setRank("Newbie");
 
                 UserModel um = new UserModel();

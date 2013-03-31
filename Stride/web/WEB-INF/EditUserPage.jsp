@@ -109,11 +109,7 @@
                                                 <td>Last Seen:</td>
                                                 <td class="italic">${bean.getUser().getLastOnline()}</td>
                                             </tr>
-                                            <tr>
-                                                <th></th>
-                                                <td>Anonymous:</td>
-                                                <td><input type="checkbox" name="isAnon" value="ON" checked="checked" /></td>
-                                            </tr>
+                                           
                                         </tbody>
                                     </table>
                                             <div style="opacity:0"><input type="file" id="profilePic" class="profilePic" name="profilePic"></div>

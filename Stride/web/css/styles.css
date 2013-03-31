@@ -8,8 +8,26 @@
 
 body{
     font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
+    overflow-x: hidden;
 }
 
+#help{
+clear:both;
+}
+
+#Bounty h2, #modal h2{
+    font-size:120%;
+    text-align: center;
+}
+.time{
+    color:#808185;
+}
+
+
+
+#dialog{
+    font-size:10px;
+}
 .toogleBounty, #toogleBounty{
     width:100px;
     height:15px;
@@ -661,6 +679,48 @@ td,th{
     padding:11px 0px;
     width:730px;
     float:left;
+}
+
+.question-status{
+    margin-top: 15px;
+    margin-bottom: -5px;
+    width:657px;
+    background-color: #eee;
+    line-height:150%;
+    padding: 8px 8px 1px 60px;
+    clear:both;
+}
+
+.bounty-award{
+    display:inline !important;
+    margin: 0px !important;
+    cursor: default;
+}
+
+.bounty-indicator, .bounty-award{
+    padding:2px 5px 2px 4px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.bounty-indicator, .bounty-award, .bounty-indicator-tab{
+    color: #fff;
+    background-color: rgba(255,110,14,1);
+    font-size:90%;
+    font-weight:bold;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius:3px;
+}
+
+
+
+.question-status h2{
+    font-size:150%;
+    line-height: 125%;
+    margin-bottom: 4px;
 }
 
 .cp{
@@ -1490,6 +1550,17 @@ input, select, button{
     background-image: url('../img/sprites.png?v=5');
     background-repeat: no-repeat;
     overflow: hidden;
+}
+
+.vote-accepted-on{
+    background-position:0px -460px;
+}
+
+.vote-accepted-on{
+    width:39px;
+    height:40px;
+    display:block;
+    margin:0 auto;
 }
 
 .stats{

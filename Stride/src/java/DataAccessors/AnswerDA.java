@@ -399,7 +399,7 @@ public class AnswerDA {
         public boolean chosen(int answerID) throws IOException, ClassNotFoundException, SQLException {
 
         Answer found = query(answerID);
-        String sqlString = "Update Answer set Chosen = \"" + "1" + "\" where Answer_ID = " + answerID;
+        String sqlString = "Update Answer set Choosen = \"" + "1" + "\" where Answer_ID = " + answerID;
         try {
             Connection connection = connectDB();
 

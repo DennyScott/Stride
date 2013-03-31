@@ -39,9 +39,9 @@
                             <a class="youarehere" href="home" title="You are here!">Interesting</a>
                             <a href="home" class="otherTab">
                                 <span class="quick-need">100</span>
-                                Quick Need
+                                Open Bounties
                             </a>
-                            <a href="home?hot=true" class="otherTab">Hot</a>
+                            <a href="home?hot=true" class="otherTab">Votes</a>
                         </div>
                     </div>
 

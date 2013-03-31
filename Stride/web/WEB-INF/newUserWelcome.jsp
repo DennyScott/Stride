@@ -15,9 +15,8 @@
                             Stride is a website where students of Applied Computer Science can help one another by asking and answering questions.
                         </p>
                         <p class="ar">
-                            <a href="aboutus">about >></a>
-                            &nbsp;&nbsp;&nbsp;
-                            <a href="faq">faq >></a>
+                            <a href="About">about >></a>
+                           
                         </p>
                     </div>
                 </div>

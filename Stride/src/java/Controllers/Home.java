@@ -4,14 +4,19 @@
  */
 package Controllers;
 
+import Adapters.AnswerAdapter;
 import Beans.QuestionPage;
 import Beans.Front;
 import Models.AnswerModel;
 import Models.CommentModel;
 import Models.HomeModel;
+import Models.LoginModel;
 import Models.QuestionPageModel;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -46,6 +51,38 @@ public class Home extends HttpServlet {
                 if (submit && request.getAttribute("submitted") == null) {
                     if (request.getParameter("post-text") != null) {
                         //Add Answer
+
+
+                        //check if logged in
+                        if (request.getSession().getAttribute("id") == null) {
+                            //Login and userName Lookup, to be used with a database
+                            String loginUsername = request.getParameter("jspUsername").trim();
+                            String loginPassword = request.getParameter("jspPassword").trim();
+
+                            LoginModel loginModel = new LoginModel();
+
+                            try {
+                                if (loginModel.isValid(loginUsername, loginPassword, request, response)) {
+                                    //Set a name attribute in a session for userName;
+                                    request.getSession().setAttribute("Name", loginUsername);
+
+                                } else {
+                                    //forward to error page
+
+                                    forwardBean(request, response, "WEB-INF/login.jsp");
+                                }
+                            } catch (ClassNotFoundException cnfe) {
+                                //Email technician
+
+                                forwardBean(request, response, "WEB-INF/login.jsp");
+                            } catch (SQLException sqle) {
+
+                                //Email Technician
+
+                                forwardBean(request, response, "WEB-INF/login.jsp");
+                            }
+                        }
+                        
                         ModelObjects.Answer answer = new ModelObjects.Answer();
                         answer.setAnswer(request.getParameter("post-text"));
                         answer.setQuestionID(Integer.parseInt((String) request.getParameter("id")));
@@ -67,6 +104,8 @@ public class Home extends HttpServlet {
                 addQuestionComment(request, response);
             } else if (request.getParameter("answerComment") != null) {
                 addAnswerComment(request, response);
+            } else if (request.getParameter("answer") != null) {
+                selectAnswer(request, response);
             } else {
                 getQuestion(request, response);
             }
@@ -76,7 +115,7 @@ public class Home extends HttpServlet {
             ArrayList<Integer> values = getCookies(request);
             Front front = frontPage.getFront(values);
 
-            
+
             //Add to read Cookies
             request.setAttribute("bean", front);
 
@@ -86,34 +125,58 @@ public class Home extends HttpServlet {
 
     }
 
+    public void selectAnswer(HttpServletRequest request, HttpServletResponse response) {
+        int answerID = Integer.parseInt(request.getParameter("answer"));
+        Beans.Answers answer = new AnswerAdapter().getAnswer(answerID);
+        if (!(Integer.parseInt(answer.getAuthorID()) == Integer.parseInt((String) request.getSession().getAttribute("id")))) {
+            try {
+                AnswerModel am = new AnswerModel();
+                am.selectAnswer(answerID);
+                getQuestion(request, response);
+            } catch (ServletException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                getQuestion(request, response);
+            } catch (ServletException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public ArrayList<Integer> getCookies(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         ArrayList<Integer> values = new ArrayList<Integer>();
-        int placement=0;
-        int IDOne=0;
-        int IDTwo=0;
+        int placement = 0;
+        int IDOne = 0;
+        int IDTwo = 0;
         try {
             for (int i = 0; i < cookies.length; i++) {
                 if (cookies[i].getName().equals("questionID1")) {
-                     IDOne = (Integer.parseInt(cookies[i].getValue()));
+                    IDOne = (Integer.parseInt(cookies[i].getValue()));
                 } else if (cookies[i].getName().equals("questionID2")) {
-                     IDTwo = (Integer.parseInt(cookies[i].getValue()));
-                } else if (cookies[i].getName().equals("scanCookies")){
+                    IDTwo = (Integer.parseInt(cookies[i].getValue()));
+                } else if (cookies[i].getName().equals("scanCookies")) {
                     placement = Integer.parseInt(cookies[i].getValue());
                 }
             }
-            if(placement!=0){
-               if(placement==1){
-                   values.add(IDTwo);
-                   if(IDOne!=0){
-                   values.add(IDOne);
-                   }
-               }else if (placement==2){
-                   values.add(IDOne);
-                   if(IDTwo!=0){
-                       values.add(IDTwo);
-                   }
-               }
+            if (placement != 0) {
+                if (placement == 1) {
+                    values.add(IDTwo);
+                    if (IDOne != 0) {
+                        values.add(IDOne);
+                    }
+                } else if (placement == 2) {
+                    values.add(IDOne);
+                    if (IDTwo != 0) {
+                        values.add(IDTwo);
+                    }
+                }
             }
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());

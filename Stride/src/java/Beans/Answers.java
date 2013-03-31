@@ -24,6 +24,15 @@ public class Answers {
     private int bronze;
     private int votes;
     private int reputation;
+    private boolean chosen;
+    
+    public void setChosen(boolean chosen){
+        this.chosen = chosen;
+    }
+    
+    public boolean isChosen(){
+        return chosen;
+    }
 
     public int getReputation() {
         return reputation;

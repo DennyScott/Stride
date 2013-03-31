@@ -4,8 +4,10 @@
  */
 package Controllers;
 
+import Beans.BarePage;
 import Jobs.Download;
 import Jobs.KijAd;
+import Models.BarePageModel;
 import Models.QModel;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class Jobs extends HttpServlet {
         if (request.getParameter("search") != null) {
             boolean search = request.getParameter("search").equals("true") ? true : false;
             if (search) {
-                Beans.Jobs job = QModel.getJobs();
+                BarePage job = new BarePageModel().getPage();
                 Download d = new Download();
                 ArrayList<KijAd> ad = d.getAdsWithLocation();
                 job.setAd(ad);

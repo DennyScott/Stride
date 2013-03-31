@@ -208,7 +208,7 @@ public class SearchModel {
                 findQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 findQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 findQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                findQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                findQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
                 returnList.add(findQuestion);
             }
             connection.close();

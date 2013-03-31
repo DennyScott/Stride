@@ -116,6 +116,9 @@ public class Ask extends HttpServlet {
             }
             forwardBean(request,response,"home?id="+questionId);
         }
+        else{
+            forwardBean(request,response,"Login");
+        }
     }
     public void forwardBean(HttpServletRequest request, HttpServletResponse response, String target)throws ServletException, IOException{
     RequestDispatcher rd = request.getRequestDispatcher(target);

@@ -22,6 +22,24 @@ public class Question {
     private String lastUpdated;
     private String courseID;
     private Users user;
+    private boolean isAnswered;
+    private int bounty;
+
+    public int getBounty() {
+        return bounty;
+    }
+
+    public void setBounty(int bounty) {
+        this.bounty = bounty;
+    }
+
+    public boolean isAnswered() {
+        return isAnswered;
+    }
+
+    public void setAnswered(boolean isAnswered) {
+        this.isAnswered = isAnswered;
+    }
 
     public Users getUser() {
         return user;

@@ -18,3 +18,32 @@ $(function() {
     });
     
 });
+$(function() {
+    $( "#help" ).button({
+        icons: {
+            primary: "ui-icon-lightbulb"
+        },
+        text:false
+    });
+});
+
+$(function(){
+$( "#dialog" ).dialog({
+    autoOpen: false,
+    show: {
+        effect: "blind",
+        duration: 1000
+    },
+    hide: {
+        effect: "explode",
+        duration: 1000
+    }
+});
+
+$( "#help" ).click(function() {
+      $( "#dialog" ).dialog( "open" );
+      
+      sleep(4000);
+    });
+});
+

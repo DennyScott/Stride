@@ -27,6 +27,39 @@ public class AnswerAdapter {
         for (ModelObjects.Answer a : answer) {
             newAnswers.add(adaptAnswer(a));
         }
+        int spot = -1;
+        for (int i = 0; i<newAnswers.size(); i++){
+            if(newAnswers.get(i).isChosen()){
+                spot = i;
+                break;
+            }
+        }
+        
+        if(spot>-1){
+            Answers temp = newAnswers.remove(spot);
+            newAnswers.add(0, temp);
+        }
+        
+        return newAnswers;
+    }
+    
+    public Answers getAnswer(int id) {
+
+        ModelObjects.Answer answer = new ModelObjects.Answer();
+        try {
+            answer = new AnswerDA().query(id);
+        } catch (IOException ex) {
+            Logger.getLogger(AnswerAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AnswerAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Answers newAnswers;
+
+        
+            newAnswers= adaptAnswer(answer);
+        
         
         return newAnswers;
     }
@@ -61,6 +94,7 @@ public class AnswerAdapter {
         a.setQuestionID(answer.getQuestionID() + "");
         a.setSubmitted(answer.getSubmitted());
         a.setVotes(answer.getVotes());
+        a.setChosen(answer.isChosen());
         try {
             UserDA uda = new UserDA();
             ModelObjects.User user = uda.query(answer.getUserID());
@@ -70,6 +104,7 @@ public class AnswerAdapter {
             a.setSilver(user.getSilverCount());
             a.setBronze(user.getBronzeCount());
             a.setReputation(user.getReputation());
+            
 
             a.setComments(new CommentAdapter().collectAnswerComments(answer.getAnswerID()));
 

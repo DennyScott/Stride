@@ -141,7 +141,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
                 returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
@@ -186,7 +186,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
                 returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
@@ -272,7 +272,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
                 returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
             }
 
@@ -345,7 +345,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
                 returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
@@ -392,7 +392,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
                 returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }

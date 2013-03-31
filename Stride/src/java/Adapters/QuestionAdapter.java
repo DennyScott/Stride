@@ -121,6 +121,8 @@ public class QuestionAdapter {
         returnQuestion.setLastUpdated(preQuestion.getLastUpdated());
         returnQuestion.setAnswers(preQuestion.getAnswers());
         returnQuestion.setCourseID(preQuestion.getCourseID() + "");
+        returnQuestion.setAnswered(preQuestion.isAnswered());
+        returnQuestion.setBounty(preQuestion.getBounty());
 
         UserAdapter ua = new UserAdapter();
         Beans.Users user = ua.getUser(preQuestion.getUserID());

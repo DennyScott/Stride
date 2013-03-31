@@ -112,62 +112,78 @@
                             </select>
                         </div>
                         <br><br>
+
                         <!--Bounty-->
-                        <div id="toogleBounty">
-                            <input type="checkbox" id="check" class="toogleBounty"/><label for="check">Bounty</label>
-                            
-                                <input type="text" name ="bounty" id="resizable"/>
-                            
-                        </div>
-                        <span></span>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div id="toogleBounty">
+                                            <input type="checkbox" id="check" class="toogleBounty"/><label for="check">Bounty</label>
+                                    </td>
+                                    <td>
+                                        <button id="help" type="button" style="margin-top:5px;">Button with icon only</button>
+                                    </td>
+                                </tr>
+
+                            <input type="text" name ="bounty" id="resizable"/>
 
                     </div>
+                    <div id="dialog" title="What is a Bounty?">
+                        <p>Bounties allow you to pay a chosen amount of your reputation to other users in exchange for "increased" interest in answering the question. When choosing the best answer, that user will receive your bounty.</p>
+                    </div>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <span></span>
 
             </div>
-
-            <div id="question-only-section" class="postQuestion">
-                <div class="form-submit cbt">
-                    <input id="submit-button" type="submit" value="Post Your Question" tabindex="120">
-                </div>
-            </div>
-        </form>
-
-
-
-
-
-
-        <div id="askSideContent">
-            <div class="newUser" id="newUserBox">
-                <h4>
-                    Welcome!
-                </h4>
-                <div>
-                    <p>
-                        Stride is a website where students of Applied Computer Science can help one another by asking and answering questions.
-                    </p>
-                    <p class="ar">
-                        <a href="aboutus">about >></a>
-                        &nbsp;&nbsp;&nbsp;
-                        <a href="faq">faq >></a>
-                    </p>
-                </div>
-            </div>
-
-
-            <%@include file="recentJobs.jsp" %>
-            <%@include file="recentTags.jsp" %>
-
-
 
         </div>
+
+        <div id="question-only-section" class="postQuestion">
+            <div class="form-submit cbt">
+                <input id="submit" type="submit" value="Post Your Question" tabindex="120">
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+
+    <div id="askSideContent">
+        <div class="newUser" id="newUserBox">
+            <h4>
+                Welcome!
+            </h4>
+            <div>
+                <p>
+                    Stride is a website where students of Applied Computer Science can help one another by asking and answering questions.
+                </p>
+                <p class="ar">
+                    <a href="aboutus">about >></a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="faq">faq >></a>
+                </p>
+            </div>
+        </div>
+
+
+        <%@include file="recentJobs.jsp" %>
+        <%@include file="recentTags.jsp" %>
 
 
 
     </div>
 
-    <script type="text/javascript" src="javascript/wmd.js"></script>
 
-    <jsp:include page = "footerShortcut.jsp" />
+
+</div>
+
+<script type="text/javascript" src="javascript/wmd.js"></script>
+
+<jsp:include page = "footerShortcut.jsp" />
 </body>
 </html>

@@ -20,16 +20,15 @@
         <script type="text/javascript" src="javascript/Voting.js"></script>
         <script type="text/javascript" src="javascript/wmd.js"></script>
         <script type="text/javascript" src="javascript/sonic.js"></script>
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
-        
+
 
 
         <title>${bean.getTitle()}</title>
     </head>
     <body onload="collectData()">
-        
+
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />
 
@@ -39,7 +38,7 @@
                 <h1 itemprop="name">
                     <a href="home?id=${bean.getQuestionID()}" name ="questionID" class="question-hyperlink">
                         ${bean.getTitle()}
-                        
+
                     </a>
                 </h1>
             </div>
@@ -78,7 +77,7 @@
                                             </c:forEach>
 
 
-                                                
+
                                         </div>
 
                                         <table class="fw">
@@ -111,14 +110,14 @@
                                                                 <br>
                                                                 <span class="reputation-score" title="reputation score" dir="ltr">${bean.getQuestionSlot().getUser().getReputation()}</span>
                                                                 <span title="Badges">
-                                                                    
+
                                                                     <span class="badge3"></span>
                                                                     <span class="badgecount">${bean.getQuestionSlot().getUser().getBronze()}</span>
                                                                     <span class="badge2"></span>
                                                                     <span class="badgecount">${bean.getQuestionSlot().getUser().getSilver()}</span>
                                                                     <span class="badge1"></span>
                                                                     <span class="badgecount">${bean.getQuestionSlot().getUser().getGold()}</span>
-                                                                    
+
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -131,6 +130,7 @@
                                     </div>
                                 </td>
                             </tr>
+                            
                             <tr>
                                 <td class="votecell"></td>
                                 <td>
@@ -161,9 +161,21 @@
                                         </table>
                                         <br>
                                         <div id="addQuestionComment" class="addComment" onclick="questionComment(${bean.getQuestionID()})">Add a comment</div>
+
                                     </div>
                                 </td>
                             </tr>
+                            <c:if test="${bean.getQuestionSlot().getBounty()>0}">
+                            <tr>
+                                <td colspan="2">
+                                    <div class="question-status bounty">
+                                        <h2>
+                                            This has an open bounty worth <span class="bounty-award">+${bean.getQuestionObject().getBounty()}</span> reputation from <a href="Users?id=${bean.getQuestionSlot().getUser().getUserID()}"</a>${bean.getQuestionSlot().getUser().getUser()}.
+                                        </h2>
+                                    </div>
+                                </td>
+                            </tr>
+                            </c:if>
                         </tbody>
                     </table>
 
@@ -190,6 +202,7 @@
                     <!--Answer -->
                     <c:forEach items="${bean.getAnswers()}" var="answer">
                         <div id="answer-98478" class="answer" data-answerid="98478">
+
                             <table>
                                 <tbody>
 
@@ -200,6 +213,9 @@
                                                 <a class="vote-up-off" onclick="answerVoteUp(${answer.getID()})"title="This answer is useful(click to undo)">up vote</a>
                                                 <span class="vote-count-post" id="answerVote-${answer.getID()}">${answer.getVotes()}</span>
                                                 <a class="vote-down-off" onclick="answerVoteDown(${answer.getID()})"title="This answer was not useful (click to undo)">down vote</a>
+                                                <c:if test="${answer.isChosen()}">
+                                                    <span class="vote-accepted-on">accepted</span>
+                                                </c:if>
                                             </div>
                                         </td>
 
@@ -279,7 +295,13 @@
                                                 </table>
                                                 <br>
                                                 <div id="answerComment-${answer.getID()}" class="addComment" onclick="answerComment(${bean.getQuestionID()},${answer.getID()})">Add a comment</div>
-
+                                                <c:if test="${not empty id}">
+                                                    <c:if test="${id == bean.getAuthorID()}">
+                                                        <c:if test="${not bean.getQuestionSlot().isAnswered()}">
+                                                            <a href="home?id=${bean.getQuestionID()}&answer=${answer.getID()}">This answered my Question!</a>
+                                                        </c:if>
+                                                    </c:if>
+                                                </c:if>
                                             </div>
 
                                             <div class="was-this-useful">
@@ -301,12 +323,12 @@
                         </div>
                     </c:forEach>
                     <!--End of Answer -->
-                
+
                     <a name="new-answer"></a>
                     <form id="post-form" action="home?id=${bean.getQuestionID()}&submit=true" method="post" class="post-form">
                         <h2 class="space">Your Answer</h2>
 
-                        
+
                         <div id="post-editor" class="post-editor">
                             <div class="wmd-container">
                                 <div id="wmd-button-bar" class="wmd-button-bar">
@@ -330,26 +352,25 @@
 
 
                         </div>
-
+                        <c:if test="${empty id}">
                         <table>
                             <tbody>
                                 <tr>
                                     <td class="vm">
                                         <div>
-                                            <label for="display-name">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                            <input type="text" size="30" maxlength="30" value tabindex="105" style="opacity: 1; position:absolute; background-color:white; color:white; -webkit-text-fill-color: black; width: 209px; height:16px; line-height:normal; font-size:13px; text-align:start; border:1px solid rgb(153,153,153);" class="actual-edit-overlay" disabled="disabled">
-                                            <input id="display-name" name="display-name" type="text" size="30" maxlengt="30" value tabindex="105" style="opacity: 0.4; z-index:1; position:relative;" class="edit-field-overlay"> 
+                                            <label for="display-name">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>                                         
+                                            <input id="display-name" name="jspUsername" type="text" size="30" maxlengt="30" value tabindex="105" style="opacity: 0.8; z-index:1; position:relative; color:black;" class="edit-field-overlay"> 
                                         </div>
                                         <div>
                                             <label for="password">Password</label>
-                                            <input type="text" size="30" maxlength="30" value tabindex="105" style="opacity: 1; position:absolute; background-color:white; color:white; -webkit-text-fill-color: black; width: 209px; height:16px; line-height:normal; font-size:13px; text-align:start; border:1px solid rgb(153,153,153);" class="actual-edit-overlay" disabled="disabled">
-                                            <input id="password" name="password" type="password" size="30" maxlengt="30" value tabindex="105" style="opacity: 0.4; z-index:1; position:relative;" class="edit-field-overlay"> 
+                                            <input id="password" name="jspPassword" type="password" size="30" maxlengt="30" value tabindex="105" style="opacity: 0.9; z-index:1; position:relative; color:black;" class="edit-field-overlay"> 
                                         </div>
 
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        </c:if>
                 </div>
 
                 <div class="form-submit cbt">
