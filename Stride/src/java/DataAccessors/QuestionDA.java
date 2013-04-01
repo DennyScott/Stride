@@ -84,7 +84,7 @@ public class QuestionDA {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String subDate = dateFormat.format(date);
         String sqlString = "INSERT into Question VALUES ";
-        String answerString = "(" + "null" + ", " + "\"" + newQuestion.getQuestion() + seperateValue() + newQuestion.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newQuestion.getTitle() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + newQuestion.getCourseID() + seperateValue() + "0" + seperateValue() + newQuestion.getBounty() + "\")";
+        String answerString = "(" + "null" + ", " + "\"" + newQuestion.getQuestion() + seperateValue() + newQuestion.getUserID() + seperateValue() + "0" + seperateValue() + subDate + seperateValue() + subDate + seperateValue() + newQuestion.getTitle() + seperateValue() + "0" + seperateValue() + "0" + seperateValue() + newQuestion.getCourseID() + seperateValue() + "0" + newQuestion.getBounty() + "\")";
         int id = 0;
         try {
             Connection connection = connectDB();
@@ -141,7 +141,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
                 returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
@@ -160,37 +160,6 @@ public class QuestionDA {
         }
 
         return returnList;
-    }
-
-    public int getTotalQuestions() {
-        String SQLString = "SELECT Count(*) FROM Question ";
-        int count=0;
-
-        try {
-            Connection connection = connectDB();
-
-            Statement statement = connection.createStatement();
-
-            ResultSet resultSet = statement.executeQuery(SQLString);
-            ResultSetMetaData result = resultSet.getMetaData();
-            int cn = result.getColumnCount();
-            while (resultSet.next()) {
-                count = Integer.parseInt(resultSet.getString(1));
-            }
-
-
-            connection.close();
-
-        } catch (SQLException sqle) {
-            return 0;
-        } catch (ClassNotFoundException cnf) {
-            return 0;
-        } catch (IOException ioe) {
-            return 0;
-        }
-
-        return count;
-
     }
 
     public ArrayList<Question> collectUnanweredQuestions(int startPosition, int totalAmount) {
@@ -217,7 +186,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
                 returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
@@ -303,7 +272,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
                 returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
             }
 
@@ -376,7 +345,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
                 returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
@@ -423,7 +392,7 @@ public class QuestionDA {
                 returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
                 returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
                 returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
                 returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
                 returnList.add(returnQuestion);
             }
@@ -591,7 +560,7 @@ public class QuestionDA {
     public int Answered(int questionID) throws IOException, ClassNotFoundException, SQLException {
 
         Question q = query(questionID);
-        String sqlString = "Update Question set Answered = 1, Bounty=0 where Question_ID = " + questionID;
+        String sqlString = "Update Question set Answered = 1, Bounty = 0 WHERE Question_ID = " + questionID;
         try {
             Connection connection = connectDB();
 
@@ -605,5 +574,93 @@ public class QuestionDA {
         }
 
         return q.getBounty();
+    }
+
+    public ArrayList<Question> collectOpenBounties(int startPosition, int totalAmount) {
+        String SQLString = "SELECT * FROM Question WHERE Bounty > 0 ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
+        ArrayList<Question> returnList = new ArrayList();
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                Question returnQuestion = new Question();
+                returnQuestion.setQuestionID(Integer.parseInt(resultSet.getString(1)));
+                returnQuestion.setQuestion(resultSet.getString(2));
+                returnQuestion.setUserID(Integer.parseInt(resultSet.getString(3)));
+                returnQuestion.setVotes(Integer.parseInt(resultSet.getString(4)));
+                returnQuestion.setSubmitted(resultSet.getString(5));
+                returnQuestion.setLastUpdated(resultSet.getString(6));
+                returnQuestion.setTitle(resultSet.getString(7));
+                returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
+                returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
+                returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
+                returnList.add(returnQuestion);
+            }
+            for (int i = startPosition - 1; i >= 0; i--) {
+                returnList.remove(i);
+            }
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        } catch (ClassNotFoundException cnf) {
+            return null;
+        } catch (IOException ioe) {
+            return null;
+        }
+
+        return returnList;
+    }
+
+    public ArrayList<Question> collectRecentAnsweredBountyQuestion(int startPosition, int totalAmount) {
+        String SQLString = "SELECT * FROM Question WHERE Number_Of_Answers > 0 AND Bounty > 0 ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
+        ArrayList<Question> returnList = new ArrayList();
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                Question returnQuestion = new Question();
+                returnQuestion.setQuestionID(Integer.parseInt(resultSet.getString(1)));
+                returnQuestion.setQuestion(resultSet.getString(2));
+                returnQuestion.setUserID(Integer.parseInt(resultSet.getString(3)));
+                returnQuestion.setVotes(Integer.parseInt(resultSet.getString(4)));
+                returnQuestion.setSubmitted(resultSet.getString(5));
+                returnQuestion.setLastUpdated(resultSet.getString(6));
+                returnQuestion.setTitle(resultSet.getString(7));
+                returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
+                returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
+                returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
+                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
+                returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
+                returnList.add(returnQuestion);
+            }
+            for (int i = startPosition - 1; i >= 0; i--) {
+                returnList.remove(i);
+            }
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return null;
+        } catch (ClassNotFoundException cnf) {
+            return null;
+        } catch (IOException ioe) {
+            return null;
+        }
+
+        return returnList;
     }
 }
