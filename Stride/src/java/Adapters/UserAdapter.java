@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.jsp.PageContext;
 
 /**
  *
@@ -24,6 +23,42 @@ public class UserAdapter {
         ArrayList<Beans.Users> returnUser = new ArrayList<Beans.Users>();
         try {
             ArrayList<User> users = um.collectUsersByRep(start,end);
+            for(User u: users){
+                returnUser.add(adaptUser(u));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(UserAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return returnUser;
+    }
+    
+    public ArrayList<Beans.Users> getAllUsersNewest(int start, int end){
+        UserDA um = new UserDA();
+        ArrayList<Beans.Users> returnUser = new ArrayList<Beans.Users>();
+        try {
+            ArrayList<User> users = um.collectUsersByNewest(start,end);
+            for(User u: users){
+                returnUser.add(adaptUser(u));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(UserAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return returnUser;
+    }
+    
+    public ArrayList<Beans.Users> getAllUsersOldest(int start, int end){
+        UserDA um = new UserDA();
+        ArrayList<Beans.Users> returnUser = new ArrayList<Beans.Users>();
+        try {
+            ArrayList<User> users = um.collectUsersByOldest(start,end);
             for(User u: users){
                 returnUser.add(adaptUser(u));
             }
@@ -50,6 +85,15 @@ public class UserAdapter {
             Logger.getLogger(UserAdapter.class.getName()).log(Level.SEVERE, null, ex);
         }
         return adaptUser(user);
+    }
+    
+    public ArrayList<Beans.Users> adaptUserList(ArrayList<ModelObjects.User> users){
+        ArrayList<Beans.Users> returnUser = new ArrayList<Beans.Users>();
+            for(User u: users){
+                returnUser.add(adaptUser(u));
+            }
+            
+            return returnUser;
     }
     
     public Beans.Users adaptUser(ModelObjects.User user){

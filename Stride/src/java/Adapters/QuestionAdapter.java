@@ -41,6 +41,29 @@ public class QuestionAdapter {
 
         return returnList;
     }
+    
+     public ArrayList<Beans.Question> collectUnansweredQuestions(int startPosition, int Amount) {
+
+        QuestionDA qd = new QuestionDA();
+        ArrayList<Beans.Question> returnList = new ArrayList<Beans.Question>();
+        try {
+            ArrayList<ModelObjects.Question> q = qd.collectUnanweredQuestions(startPosition, Amount);
+
+            for (ModelObjects.Question preQuestion : q) {
+                returnList.add(adaptQuestion(preQuestion));
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return returnList;
+    }
+
 
     public ArrayList<ModelObjects.Question> collectRecentUserQuestions(int id, int startPosition, int Amount) {
 

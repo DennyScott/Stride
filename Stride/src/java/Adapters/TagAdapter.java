@@ -143,6 +143,14 @@ public class TagAdapter {
 
         return tags;
     }
+    
+    public ArrayList<Beans.Tags> adaptTagList(ArrayList<ModelObjects.Tag> tags){
+        ArrayList<Beans.Tags> returnList = new ArrayList<Beans.Tags>();
+        for(ModelObjects.Tag t: tags){
+            returnList.add(adaptTag(t));
+        }
+        return returnList;
+    }
 
     public Beans.Tags adaptTag(ModelObjects.Tag t) {
         Beans.Tags tag = new Beans.Tags();

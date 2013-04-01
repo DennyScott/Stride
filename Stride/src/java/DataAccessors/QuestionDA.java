@@ -162,6 +162,37 @@ public class QuestionDA {
         return returnList;
     }
 
+    public int getTotalQuestions() {
+        String SQLString = "SELECT Count(*) FROM Question ";
+        int count=0;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                count = Integer.parseInt(resultSet.getString(1));
+            }
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return 0;
+        } catch (ClassNotFoundException cnf) {
+            return 0;
+        } catch (IOException ioe) {
+            return 0;
+        }
+
+        return count;
+
+    }
+
     public ArrayList<Question> collectUnanweredQuestions(int startPosition, int totalAmount) {
         String SQLString = "SELECT * FROM Question WHERE Answered = 0 ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
         ArrayList<Question> returnList = new ArrayList();

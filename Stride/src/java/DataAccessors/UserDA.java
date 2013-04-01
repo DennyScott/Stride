@@ -218,6 +218,37 @@ public class UserDA {
 
         return returnUser;
     }
+    
+    public int getTotalUsers() {
+        String SQLString = "SELECT Count(*) FROM User ";
+        int count=0;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(SQLString);
+            ResultSetMetaData result = resultSet.getMetaData();
+            int cn = result.getColumnCount();
+            while (resultSet.next()) {
+                count = Integer.parseInt(resultSet.getString(1));
+            }
+
+
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return 0;
+        } catch (ClassNotFoundException cnf) {
+            return 0;
+        } catch (IOException ioe) {
+            return 0;
+        }
+
+        return count;
+
+    }
 
     public ArrayList<User> collectUsersByRep(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
 
@@ -271,7 +302,7 @@ public class UserDA {
 
     public ArrayList<User> collectUsersByOldest(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "SELECT * FROM User ORDER BY Created DESC LIMIT " + (questionAmount + startPosition);
+        String SQLString = "SELECT * FROM User ORDER BY Created ASC LIMIT " + (questionAmount + startPosition);
         ArrayList<User> returnList = new ArrayList();
 
         try {
@@ -321,7 +352,7 @@ public class UserDA {
 
     public ArrayList<User> collectUsersByNewest(int startPosition, int questionAmount) throws IOException, ClassNotFoundException, SQLException {
 
-        String SQLString = "SELECT * FROM User ORDER BY Created Asc LIMIT " + (questionAmount + startPosition);
+        String SQLString = "SELECT * FROM User ORDER BY Created DESC LIMIT " + (questionAmount + startPosition);
         ArrayList<User> returnList = new ArrayList();
 
         try {

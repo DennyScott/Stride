@@ -640,7 +640,7 @@ td,th{
     margin-left:-4px;
     font-size:90%;
     background-color:rgba(255, 90, 0, 1);
-    color:#000;
+    color:white;
     font-weight:bold;
     margin-right:5px;
     -webkit-border-radius: 3px;
@@ -705,8 +705,16 @@ a{
     text-decoration: none;
 }
 
+.bounty-index{
+    float:left;
+    height:16px;
+    text-align: center;
+    margin-right:10px;
+}
+
 .bounty-indicator, .bounty-award, .bounty-indicator-tab{
     color: #fff;
+    width:45px;
     background-color: rgba(255,110,14,1);
     font-size:90%;
     font-weight:bold;

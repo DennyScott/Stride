@@ -4,8 +4,8 @@
  */
 package Controllers;
 
-import Beans.SearchResultPage;
-import Models.SearchResultPageModel;
+import Beans.TagPage;
+import Models.SearchCustomPageModel;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Denny
  */
-public class Search extends HttpServlet {
+public class SearchTag extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -31,20 +31,16 @@ public class Search extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SearchResultPageModel page = new SearchResultPageModel();
-        if (request.getParameter("searchBar") != null) {
-            String searchString = request.getParameter("searchBar");
-
-
-            SearchResultPage questions = page.getPage(searchString.trim().toLowerCase());
-            request.setAttribute("bean", questions);
-            forwardBean(request, response, "WEB-INF/SearchResult.jsp");
-        } else {
+        if(request.getParameter("tagSearch")!=null){
+        TagPage page = new SearchCustomPageModel().getTagPage(request.getParameter("tagSearch"));
+        request.setAttribute("bean", page);
+        forwardBean(request,response,"WEB-INF/Tags.jsp");
+        }else{
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         }
-
+        
     }
-
+    
     public void forwardBean(HttpServletRequest request, HttpServletResponse response, String target) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher(target);
         rd.forward(request, response);

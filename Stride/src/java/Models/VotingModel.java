@@ -206,12 +206,12 @@ public class VotingModel {
 
                     ModelObjects.QuestionVote oldVotes = new ModelObjects.QuestionVote();
                     oldVotes.setQuestionID(questionID);
-                    oldVotes.setUp(true);
+                    oldVotes.setUp(false);
                     oldVotes.setUserID(userID);
 
                     try {
                         vda.add(oldVotes);
-                        qda.incrementVote(questionID);
+                        qda.decrementVote(questionID);
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
@@ -278,12 +278,12 @@ public class VotingModel {
 
                     ModelObjects.AnswerVote oldVotes = new ModelObjects.AnswerVote();
                     oldVotes.setAnswerID(answerID);
-                    oldVotes.setUp(true);
+                    oldVotes.setUp(false);
                     oldVotes.setUserID(userID);
 
                     try {
                         vda.add(oldVotes);
-                        qda.incrementVotes(answerID);
+                        qda.decrementVotes(answerID);
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {

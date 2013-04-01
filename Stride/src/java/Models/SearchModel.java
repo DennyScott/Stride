@@ -255,14 +255,14 @@ public class SearchModel {
     }
 
     private ArrayList<Tag> collectTags(String[] tokens) throws ClassNotFoundException, IOException {
-        String sqlAddition = "Name LIKE \"%" + tokens[0] + "%\"";
+        String sqlAddition = "TITLE LIKE \"%" + tokens[0] + "%\"";
         int i = 1;
         while (i < tokens.length) {
-            sqlAddition += " OR Name LIKE \"%" + tokens[i] + "%\"";
+            sqlAddition += " OR TITLE LIKE \"%" + tokens[i] + "%\"";
             i++;
         }
 
-        String SQLString = "SELECT * FROM Tag WHERE " + sqlAddition + " ORDER BY Name";
+        String SQLString = "SELECT * FROM Tag WHERE " + sqlAddition + " ORDER BY TITLE";
         ArrayList<Tag> returnList = new ArrayList();
 
         try {
@@ -407,12 +407,6 @@ public class SearchModel {
             TagSearchNode foundNode = new TagSearchNode();
             int indexInt = 0;
             for (int i = 0; i < tags.size(); i++) {
-                if (tags.get(i).isWord()) {
-                    returnList.add(tags.get(i));
-                    tags.remove(i);
-                }
-            }
-            for (int i = 0; i < tags.size(); i++) {
                 TagSearchNode tsn = tags.get(i);
                 if (tsn.getPopularity() >= foundNode.getPopularity()) {
                     foundNode = tsn;
@@ -432,12 +426,7 @@ public class SearchModel {
         while (users.size() > 0) {
             UserSearchNode foundNode = new UserSearchNode();
             int indexInt = 0;
-            for (int i = 0; i < users.size(); i++) {
-                if (users.get(i).isUser()) {
-                    returnList.add(users.get(i));
-                    users.remove(i);
-                }
-            }
+            
             for (int i = 0; i < users.size(); i++) {
                 UserSearchNode tsn = users.get(i);
                 if (tsn.getPopularity() >= foundNode.getPopularity()) {

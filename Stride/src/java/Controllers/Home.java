@@ -113,8 +113,20 @@ public class Home extends HttpServlet {
             //Get Front Page
             HomeModel frontPage = new HomeModel();
             ArrayList<Integer> values = getCookies(request);
-            Front front = frontPage.getFront(values);
-
+            Front front;
+            if(request.getParameter("sort")!=null){
+                if(request.getParameter("sort").equals("unanswered")){
+                     front = frontPage.getUnansweredFront(values);
+                }else{
+                     front = frontPage.getFront(values);
+                }
+            }else{
+                 front = frontPage.getFront(values);
+            }
+            
+            
+            
+            
 
             //Add to read Cookies
             request.setAttribute("bean", front);

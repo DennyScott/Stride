@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -85,24 +83,25 @@ public class Users extends HttpServlet {
 
                                             String fieldName = item.getFieldName();
                                             String fileName = FilenameUtils.getName(item.getName());
-                                            if(!fileName.equals("")){
-                                            InputStream fileContent = item.getInputStream();
-                                            String path = getServletContext().getRealPath("/");
-  
-                                            String temp = path+"/img/" + request.getSession().getAttribute("id") + "/" + fileName;
-                                            user.setProfilePictureLink(fileName);
-                                            File file = new File(temp);
-                                            if(!file.exists()){
-                                                file.getParentFile().mkdirs();
-                                                file.createNewFile();
-                                                
-                                            }
-                                            System.out.println(file.getAbsolutePath());
-                                            BufferedImage image = ImageIO.read(fileContent);
-                                            String extension = fileName.split("\\.")[1];
-                                            ImageIO.write(image, extension, file);
+                                            if (!fileName.equals("")) {
+                                                InputStream fileContent = item.getInputStream();
+                                                String path = getServletContext().getRealPath("/");
 
-                                        }}
+                                                String temp = path + "/img/" + request.getSession().getAttribute("id") + "/" + fileName;
+                                                user.setProfilePictureLink(fileName);
+                                                File file = new File(temp);
+                                                if (!file.exists()) {
+                                                    file.getParentFile().mkdirs();
+                                                    file.createNewFile();
+
+                                                }
+                                                System.out.println(file.getAbsolutePath());
+                                                BufferedImage image = ImageIO.read(fileContent);
+                                                String extension = fileName.split("\\.")[1];
+                                                ImageIO.write(image, extension, file);
+
+                                            }
+                                        }
                                     }
 
                                 } catch (FileUploadException ex) {
@@ -133,7 +132,21 @@ public class Users extends HttpServlet {
             if (request.getParameter("id") != null) {
                 getUserPage(request, response);
             } else {
-                UserPage user = new UsersPageModel().getUserPage(0, 20);
+                //Get All Users Page
+
+                UserPage user;
+                if (request.getParameter("sort") != null) {
+                    if (request.getParameter("sort").equals("newest")) {
+                        user = new UsersPageModel().getUserPageNewest(0, 40);
+                    } else if (request.getParameter("sort").equals("oldest")) {
+                        user = new UsersPageModel().getUserPageOldest(0, 40);
+                    } else {
+                        user = new UsersPageModel().getUserPage(0, 40);
+                    }
+                } else {
+                    user = new UsersPageModel().getUserPage(0, 40);
+
+                }
                 request.setAttribute("bean", user);
                 forwardBean(request, response, "WEB-INF/Users.jsp");
             }

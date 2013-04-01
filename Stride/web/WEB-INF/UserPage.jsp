@@ -30,22 +30,24 @@
             <div id="mainbar-full" class="user-show-new">
                 <div class="subheader">
                     <h1 id="user-displayname">${bean.getUser().getUser()}</h1>
-<div id="tabs">
+
                     <%
                         if (session.getAttribute("id") != null) {
                             if (session.getAttribute("id").equals(request.getParameter("id"))) {
                     %>
-                    
+                    <div id="tabs">
                         <a class="youarehere" href="Users?id=${id}" title="View">View</a>
                         <a href="Users?edit=true&id=${id}" class="otherTab">Edit</a>
-                    
-                    <%}
-                        }%>
                         <a href="#Bounty" class="first">Bounties</a>
                         <a href="#modal" class="second">Web Apps</a>
-                        
-</div>
-                        
+
+                    </div>
+                    <%}
+                        }%>
+
+
+
+
                 </div>
                 <div id="user-info-container">
                     <div id="large-user-info" class="user-header">
@@ -128,53 +130,55 @@
 
                 <!--Side Content -->
 
-                
-                <div id="modal" style="display:none; font-size:12px;">
-                    <h2>Web Apps</h2>
-                    <hr>
-                    <h3>Education</h3>
-                    <br>
-                    <a href="home">Build Your Degree!</a><br>
-                    <a href="home">Course Planner</a><br>
-                    <a href="home">Video Tutoring</a><br>
-                    <a href="home">Find a Job!</a><br>
-                    <br>
-                    <hr>
-                    <h3>Games</h3>
-                    <br>
-                    <hr>
-                    <br>
-                    <a href="javascript:$.pageslide.close()">Close</a>
-                </div>
-                <script>
-                    $(".second").pageslide({ direction: "left", modal: true });
-                </script>
-                
-                <div id="Bounty" style="display:none; font-size: 11px;">
-                    <h2>Bounty</h2>
-                    <hr>
-                    <h3>Your Bounties</h3><br>
-                    <a href="home">Denny has answered your Bounty!<span class="time">   2h ago</span></a><br>
-                    <a href="home">Nick has answered your Bounty!</a><span class="time">   2h ago</span><br>
-                    <a href="home">Travis has answered your Bounty!</a><span class="time">   2h ago</span><br>
-                    <br>
-                    <hr>
-                    <h3>Bounties Awarded</h3><br>
-                    <a href="home">You have been awarded a Bounty!</a><span class="time">   2h ago</span><br>
-                    <br>
-                    <hr>
-                    <h3>Open Bounties</h3><br>
-                    <a href="home">How do I program</a><span class="time">   2h ago</span><br>
-                    <a href="home">What is the meaning of life</a><span class="time">   2h ago</span><br>
-                    <a href="home">Help me!</a><span class="time">   2h ago</span><br>
-                    <br>
-                    <hr>
-                    <a href="javascript:$.pageslide.close()">Close</a>
-                </div>
-                <script>
-                    $(".first").pageslide({ direction: "right", modal: true });
-                </script>
-                
+                <c:if test="${not empty id}">
+                    <c:if test="${param.id == id}">
+                        <div id="modal" style="display:none; font-size:12px;">
+                            <h2>Web Apps</h2>
+                            <hr>
+                            <h3>Education</h3>
+                            <br>
+                            <a href="home">Build Your Degree!</a><br>
+                            <a href="home">Course Planner</a><br>
+                            <a href="home">Video Tutoring</a><br>
+                            <a href="Jobs">Find a Job!</a><br>
+                            <br>
+                            <hr>
+                            <h3>Games</h3>
+                            <br>
+                            <hr>
+                            <br>
+                            <a href="javascript:$.pageslide.close()">Close</a>
+                        </div>
+                        <script>
+                            $(".second").pageslide({ direction: "left", modal: true });
+                        </script>
+
+                        <div id="Bounty" style="display:none; font-size: 11px;">
+                            <h2>Bounty</h2>
+                            <hr>
+                            <h3>Your Bounties</h3><br>
+                            <a href="home">Denny has answered your Bounty!<span class="time">   2h ago</span></a><br>
+                            <a href="home">Nick has answered your Bounty!</a><span class="time">   2h ago</span><br>
+                            <a href="home">Travis has answered your Bounty!</a><span class="time">   2h ago</span><br>
+                            <br>
+                            <hr>
+                            <h3>Bounties Awarded</h3><br>
+                            <a href="home">You have been awarded a Bounty!</a><span class="time">   2h ago</span><br>
+                            <br>
+                            <hr>
+                            <h3>Open Bounties</h3><br>
+                            <a href="home">How do I program</a><span class="time">   2h ago</span><br>
+                            <a href="home">What is the meaning of life</a><span class="time">   2h ago</span><br>
+                            <a href="home">Help me!</a><span class="time">   2h ago</span><br>
+                            <br>
+                            <hr>
+                            <a href="javascript:$.pageslide.close()">Close</a>
+                        </div>
+                        <script>
+                            $(".first").pageslide({ direction: "right", modal: true });
+                        </script>
+                    </c:if>
+                </c:if>
 
 
                 <div>
@@ -299,9 +303,9 @@
                                             <td>
                                                 <span id ="badgeTest">
                                                     <a href="Badges?id=${badge.getId()}" title="${badge.getDescription()}"class="badge">
-                                                
-                                                <span class="badge${badge.getColor()}"></span>&nbsp;${badge.getBadge()}
-                                                </a>
+
+                                                        <span class="badge${badge.getColor()}"></span>&nbsp;${badge.getBadge()}
+                                                    </a>
                                                 </span>
                                             </td>
                                             <c:if test="${(count.count-1)%2==1}">
@@ -406,12 +410,12 @@
         <jsp:include page = "footerShortcut.jsp" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="javascript/jquery.pageslide.min.js"></script>
-         <script>
-        /* Default pageslide, moves to the right */
-        $(".first").pageslide();
+        <script>
+            /* Default pageslide, moves to the right */
+            $(".first").pageslide();
         
-        /* Slide to the left, and make it model (you'll have to call $.pageslide.close() to close) */
-        $(".second").pageslide({ direction: "left", modal: true });
-    </script>
+            /* Slide to the left, and make it model (you'll have to call $.pageslide.close() to close) */
+            $(".second").pageslide({ direction: "left", modal: true });
+        </script>
     </body>
 </html>

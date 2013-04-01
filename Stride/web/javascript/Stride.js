@@ -38,27 +38,27 @@ function getFile(){
 }
 
 function silverClick(){
-    var gold = document.getElementById("GoldBadge");
-    var silver = document.getElementById("SilverBadge");
-    var bronze = document.getElementById("BronzeBadge");
+    var gold = document.getElementById("firstTab");
+    var silver = document.getElementById("secondTab");
+    var bronze = document.getElementById("thirdTab");
     
     silver.className = "youarehere";
     gold.className = "otherTab";
     bronze.className = "otherTab";
 }
 function goldClick(){
-    var gold = document.getElementById("GoldBadge");
-    var silver = document.getElementById("SilverBadge");
-    var bronze = document.getElementById("BronzeBadge");
+    var gold = document.getElementById("firstTab");
+    var silver = document.getElementById("secondTab");
+    var bronze = document.getElementById("thirdTab");
     
     silver.className = "otherTab";
     gold.className = "youarehere";
     bronze.className = "otherTab";
 }
 function bronzeClick(){
-    var gold = document.getElementById("GoldBadge");
-    var silver = document.getElementById("SilverBadge");
-    var bronze = document.getElementById("BronzeBadge");
+    var gold = document.getElementById("firstTab");
+    var silver = document.getElementById("secondTab");
+    var bronze = document.getElementById("thirdTab");
     
     silver.className = "otherTab";
     gold.className = "otherTab";

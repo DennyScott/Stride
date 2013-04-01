@@ -92,6 +92,14 @@
         <servlet-name>VoteDown</servlet-name>
         <servlet-class>Controllers.VoteDown</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchUser</servlet-name>
+        <servlet-class>Controllers.SearchUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchTag</servlet-name>
+        <servlet-class>Controllers.SearchTag</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mySQLServlet</servlet-name>
         <url-pattern>/mySQLServlet</url-pattern>
@@ -183,6 +191,14 @@
     <servlet-mapping>
         <servlet-name>About</servlet-name>
         <url-pattern>/About</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchUser</servlet-name>
+        <url-pattern>/SearchUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchTag</servlet-name>
+        <url-pattern>/SearchTag</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

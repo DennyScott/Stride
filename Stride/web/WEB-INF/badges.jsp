@@ -33,11 +33,11 @@
                     </h1>
                    
                     <div id="tabs">
-                        <a class="youarehere" href="Badges?color=1" id ="GoldBadge" title="You are here!">Gold</a>
-                        <a href="Badges?color=2" class="otherTab" id="SilverBadge" ">
+                        <a class="youarehere" href="Badges?color=1" id ="firstTab" title="You are here!">Gold</a>
+                        <a href="Badges?color=2" class="otherTab" id="secondTab">
                             Silver
                         </a>
-                        <a href="Badges?color=3" class="otherTab"id="BronzeBadge">Bronze</a>
+                        <a href="Badges?color=3" class="otherTab"id="thirdTab">Bronze</a>
                     </div>
                     <script type ="text/javascript">
                         var num = ${param.color};
@@ -47,6 +47,8 @@
                             silverClick();
                         }else if(num==3){
                             bronzeClick();
+                        }else{
+                            goldClick();
                         }
                     </script>
                     
