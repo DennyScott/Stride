@@ -37,7 +37,7 @@ response.setContentType("text/html;charset=UTF-8");
             if (request.getParameter("id") != null) {
                 if (request.getParameter("question")!=null) {
                     boolean question = request.getParameter("question").equals("true") ? true : false;
-                    int vote=100;
+                    int vote;
                     if(question){
                         vote = new VotingModel().questionVoteDownAndGet(Integer.parseInt(request.getParameter("id")),Integer.parseInt((String)request.getSession().getAttribute("id")));
                     }else{

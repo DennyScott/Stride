@@ -96,7 +96,7 @@ public class Users extends HttpServlet {
                                                     file.createNewFile();
 
                                                 }
-                                                System.out.println(file.getAbsolutePath());
+                                                
                                                 BufferedImage image = ImageIO.read(fileContent);
                                                 String extension = fileName.split("\\.")[1];
                                                 ImageIO.write(image, extension, file);

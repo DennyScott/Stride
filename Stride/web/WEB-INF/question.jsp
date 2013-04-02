@@ -376,7 +376,7 @@
                 <div class="form-submit cbt">
                     <input id="submit-button" type="submit" value="Post Your Answer!" tabindex="110">
                     <a href="#" class="discarded-answer dno">discard</a>
-                    <p class="privacy-policy-agreement">By posting your answer, you agree to the <a href="privacy policy" target="_blank">privacy policy</a> and <a href="terms of use" target="_blank">terms of use</a>.</p>
+                   
                     <input type="hidden" name="legalLinksShown" value="1">
                 </div>
                 </form>

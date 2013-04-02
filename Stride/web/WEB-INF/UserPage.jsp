@@ -165,7 +165,7 @@
                             <hr>
                             <h3>Your Open Bounties</h3><br>
                             <c:forEach items="${bean.getMyBounties()}" var="answer">
-                                <a href="home?id=${answer.getQuestionID()}">+${answer.getBounty()}  ${answer.getQuestion()}</a>
+                                <a href="home?id=${answer.getQuestionID()}">+${answer.getBounty()}  ${answer.getTitle()}</a>
 
                             </c:forEach>
                             <br>
@@ -179,7 +179,7 @@
                             <hr>
                             <h3>Recent Open Bounties</h3><br>
                             <c:forEach items="${bean.getOpenBounties()}" var="answer">
-                                <a href="home?id=${answer.getQuestionID()}">+${answer.getBounty()}  ${answer.getQuestion()}</a><br>
+                                <a href="home?id=${answer.getQuestionID()}">+${answer.getBounty()}  ${answer.getTitle()}</a><br>
 
                             </c:forEach>
 

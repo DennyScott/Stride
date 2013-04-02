@@ -77,7 +77,7 @@ public class SignUp extends HttpServlet {
                     beanForward("Thanks for signing up! <br> Now you can login!", "WEB-INF/login.jsp", response, request);
 
                 } else {
-                    //forward to error page
+                     beanForward("The username is already taken!", "WEB-INF/signUp.jsp", response, request);
                 }
             
 

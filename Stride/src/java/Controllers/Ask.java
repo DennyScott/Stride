@@ -73,6 +73,13 @@ public class Ask extends HttpServlet {
             question.setAnswers(0);
            String courseID = request.getParameter("courseSelection");
             question.setCourseID(Integer.parseInt(courseID));
+            if(request.getParameter("post-text").isEmpty() || request.getParameter("post-text")==null || request.getParameter("title").isEmpty() || request.getParameter("title")==null){
+                forwardBean(request,response,"WEB-INF/Ask");
+            }
+            
+            if(request.getParameter("title").length()>120){
+                forwardBean(request,response,"WEB-INF/Ask");
+            }
             question.setQuestion(request.getParameter("post-text"));
             question.setTitle(request.getParameter("title"));
             question.setVotes(0);

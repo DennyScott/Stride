@@ -55,16 +55,16 @@ public class Home extends HttpServlet {
 
                         //check if logged in
                         if (request.getSession().getAttribute("id") == null) {
-                            
-                            if(request.getParameter("jspUsername") == null || request.getParameter("jspPassword")==null){
-                                forwardBean(request,response,"WEB-INF/login.jsp");
+
+                            if (request.getParameter("jspUsername") == null || request.getParameter("jspPassword") == null) {
+                                forwardBean(request, response, "WEB-INF/login.jsp");
                             }
                             //Login and userName Lookup, to be used with a database
                             String loginUsername = request.getParameter("jspUsername").trim();
                             String loginPassword = request.getParameter("jspPassword").trim();
 
-                            
-                            
+
+
                             LoginModel loginModel = new LoginModel();
 
                             try {
@@ -88,7 +88,7 @@ public class Home extends HttpServlet {
                                 forwardBean(request, response, "WEB-INF/login.jsp");
                             }
                         }
-                        
+
                         ModelObjects.Answer answer = new ModelObjects.Answer();
                         answer.setAnswer(request.getParameter("post-text"));
                         answer.setQuestionID(Integer.parseInt((String) request.getParameter("id")));
@@ -97,7 +97,7 @@ public class Home extends HttpServlet {
                         AnswerModel ua = new AnswerModel();
                         ua.addAnswer(answer);
                         request.setAttribute("submitted", "true");
-                        
+
                         response.sendRedirect("home?id=" + answer.getQuestionID());
                     } else {
                         getQuestion(request, response);
@@ -121,16 +121,16 @@ public class Home extends HttpServlet {
             HomeModel frontPage = new HomeModel();
             ArrayList<Integer> values = getCookies(request);
             Front front;
-            if(request.getParameter("sort")!=null){
-                if(request.getParameter("sort").equals("unanswered")){
-                     front = frontPage.getUnansweredFront(values);
-                }else if (request.getParameter("sort").equals("bounty")){
+            if (request.getParameter("sort") != null) {
+                if (request.getParameter("sort").equals("unanswered")) {
+                    front = frontPage.getUnansweredFront(values);
+                } else if (request.getParameter("sort").equals("bounty")) {
                     front = frontPage.getBountyFront(values);
-                }else{
-                     front = frontPage.getFront(values);
+                } else {
+                    front = frontPage.getFront(values);
                 }
-            }else{
-                 front = frontPage.getFront(values);
+            } else {
+                front = frontPage.getFront(values);
             }
             //Add to read Cookies
             request.setAttribute("bean", front);
@@ -167,6 +167,9 @@ public class Home extends HttpServlet {
 
     public ArrayList<Integer> getCookies(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            cookies = new Cookie[0];
+        }
         ArrayList<Integer> values = new ArrayList<Integer>();
         int placement = 0;
         int IDOne = 0;
@@ -218,20 +221,27 @@ public class Home extends HttpServlet {
                 String comment = request.getParameter("qComment");
                 qc.setComment(comment);
                 qc.setComponentID(Integer.parseInt(questionID));
-                qc.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
+                if (request.getSession().getAttribute("id") != null) {
+                    qc.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
+                    CommentModel cm = new CommentModel();
+                    cm.addQuestionComment(qc);
+                    request.setAttribute("qCommentSubmitted", "true");
+                    response.sendRedirect("home?id=" + questionID);
+                    return;
+                }
+                else{
+                    getQuestion(request, response);
+                }
 
-                CommentModel cm = new CommentModel();
-                cm.addQuestionComment(qc);
-                request.setAttribute("qCommentSubmitted", "true");
-                response.sendRedirect("home?id=" + questionID);
-
+                } else {
+                    getQuestion(request, response);
+                }
             } else {
                 getQuestion(request, response);
             }
-        } else {
-            getQuestion(request, response);
         }
-    }
+
+    
 
     public void addAnswerComment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean answerComment = request.getParameter("answerComment").equals("true") ? true : false;
@@ -243,12 +253,18 @@ public class Home extends HttpServlet {
                 String comment = request.getParameter("aComment" + answerID);
                 qc.setComment(comment);
                 qc.setComponentID(Integer.parseInt(answerID));
-                qc.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
+                if (request.getSession().getAttribute("id") != null) {
+                    qc.setUserID(Integer.parseInt((String) request.getSession().getAttribute("id")));
+                    CommentModel cm = new CommentModel();
+                    cm.addAnswerComment(qc);
+                    request.setAttribute("aCommentSubmitted", "true");
+                    response.sendRedirect("home?id=" + request.getParameter("id"));
+                    return;
+                } else {
+                    getQuestion(request, response);
+                }
 
-                CommentModel cm = new CommentModel();
-                cm.addAnswerComment(qc);
-                request.setAttribute("aCommentSubmitted", "true");
-                response.sendRedirect("home?id="+request.getParameter("id"));
+
 
             } else {
                 getQuestion(request, response);

@@ -164,8 +164,8 @@ public class AnswerCommentDA {
             while (resultSet.next()) {
                 returnComment.setCommentID(Integer.parseInt(resultSet.getString(1)));
                 returnComment.setComment(resultSet.getString(2));
-                returnComment.setUserID(Integer.parseInt(resultSet.getString(3)));
-                returnComment.setComponentID(Integer.parseInt(resultSet.getString(4)));
+                returnComment.setUserID(Integer.parseInt(resultSet.getString(4)));
+                returnComment.setComponentID(Integer.parseInt(resultSet.getString(3)));
                 returnComment.setSubmitted(resultSet.getString(5));
                 returnComment.setLastUpdated(resultSet.getString(6));
             }
@@ -230,8 +230,8 @@ public class AnswerCommentDA {
                 AnswerComment returnComment = new AnswerComment();
                 returnComment.setCommentID(Integer.parseInt(resultSet.getString(1)));
                 returnComment.setComment(resultSet.getString(2));
-                returnComment.setUserID(Integer.parseInt(resultSet.getString(3)));
-                returnComment.setComponentID(Integer.parseInt(resultSet.getString(4)));
+                returnComment.setUserID(Integer.parseInt(resultSet.getString(4)));
+                returnComment.setComponentID(Integer.parseInt(resultSet.getString(3)));
                 returnComment.setSubmitted(resultSet.getString(5));
                 returnComment.setLastUpdated(resultSet.getString(6));
                 returnList.add(returnComment);

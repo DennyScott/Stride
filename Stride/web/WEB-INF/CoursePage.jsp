@@ -39,12 +39,8 @@
                             Course Questions
                         </h1>
                         <div id="tabs">
-                            <a class="youarehere" href="home" title="You are here!">Newest</a>
-                            <a href="home" class="otherTab">
-                                Active
-                            </a>
-                            <a href="home?hot=true" class="otherTab">Unanswered</a>
-                            <a href="home?hot=true" class="otherTab">Votes</a>
+                            <a class="youarehere" href="" title="You are here!">Newest</a>
+                           
                         </div>
                     </div>
                     <div class="question">

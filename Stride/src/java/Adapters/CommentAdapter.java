@@ -78,7 +78,7 @@ public class CommentAdapter {
         
         UserDA u = new UserDA();
         try {
-            c.setAuthor(u.query(c.getAuthorID()).getUsername());
+            c.setAuthor(u.query(qc.getUserID()).getUsername());
         } catch (IOException ex) {
             Logger.getLogger(CommentAdapter.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
