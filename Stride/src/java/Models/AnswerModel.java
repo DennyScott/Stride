@@ -5,7 +5,9 @@
 package Models;
 
 import DataAccessors.AnswerDA;
+import DataAccessors.BountyTransDA;
 import ModelObjects.Answer;
+import ModelObjects.BountyTrans;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -35,7 +37,7 @@ public class AnswerModel {
                 if (isJava) {
                     reputationGain += 50;
                     BadgeModel bm = new BadgeModel();
-                    bm.addCollected(answer.getUserID(), tm.getID("Java"));
+                    bm.addCollected(answer.getUserID(), 1);
                 }
                 um.increaseReputation(answer.getUserID(), reputationGain);
             }
@@ -84,7 +86,15 @@ public class AnswerModel {
             ad.chosen(answerID);
             QuestionModel qm = new QuestionModel();
             int bounty = qm.answerSelected(answer.getQuestionID());
+            int ownerID = qm.getCreator(answer.getQuestionID());
             UserModel um = new UserModel();
+            BountyTransDA btda = new BountyTransDA();
+            BountyTrans newB = new BountyTrans();
+            newB.setBounty(bounty);
+            newB.setOwnerID(ownerID);
+            newB.setUserID(answer.getUserID());
+            newB.setQuestionID(answer.getQuestionID());
+            btda.add(newB);
             int increaseAmount = 50 + bounty;
             um.increaseReputation(answer.getUserID(), increaseAmount);
         } catch (IOException ex) {

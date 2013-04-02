@@ -100,7 +100,7 @@
 
                                             <div class="tags">
                                                 <c:forEach items="${question.getTags()}" var="tags">
-                                                    <a href="tags?id=${tags.getID()}" class="post-tag" title="Title about ${tags.getTag()}" rel="tag">${tags.getTag()}</a>
+                                                    <a href="Tags?id=${tags.getID()}" class="post-tag" title="Title about ${tags.getTag()}" rel="tag">${tags.getTag()}</a>
                                                 </c:forEach>
                                             </div>
 

@@ -18,6 +18,15 @@ public class Front {
     private ArrayList<RecentBadges> badges;
     private ArrayList<KijAd> ad;
     private int cookieSize;
+    private int openBounties;
+
+    public int getOpenBounties() {
+        return openBounties;
+    }
+
+    public void setOpenBounties(int openBounties) {
+        this.openBounties = openBounties;
+    }
 
     public int getCookieSize() {
         return cookieSize;

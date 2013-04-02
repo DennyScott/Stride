@@ -16,7 +16,7 @@
 
         <title>User</title>
     </head>
-    <body class="users-page">
+    <body class="users-page" onload="setZoom()">
 
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />

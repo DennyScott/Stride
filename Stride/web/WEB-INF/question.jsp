@@ -18,8 +18,8 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="javascript/Stride.js"></script>
         <script type="text/javascript" src="javascript/Voting.js"></script>
-        <script type="text/javascript" src="javascript/wmd.js"></script>
         <script type="text/javascript" src="javascript/sonic.js"></script>
+        <script type="text/javascript" src="javascript/showdown.js"></script>
 
 
 
@@ -29,6 +29,8 @@
     </head>
     <body onload="collectData()">
 
+        <div id="in"></div>
+        <div id ="wholePage">
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />
 
@@ -443,5 +445,6 @@
         <script type="text/javascript" src="javascript/wmd.js"></script>
 
         <jsp:include page = "footerShortcut.jsp" />
+        </div>
     </body>
 </html>

@@ -55,10 +55,16 @@ public class Home extends HttpServlet {
 
                         //check if logged in
                         if (request.getSession().getAttribute("id") == null) {
+                            
+                            if(request.getParameter("jspUsername") == null || request.getParameter("jspPassword")==null){
+                                forwardBean(request,response,"WEB-INF/login.jsp");
+                            }
                             //Login and userName Lookup, to be used with a database
                             String loginUsername = request.getParameter("jspUsername").trim();
                             String loginPassword = request.getParameter("jspPassword").trim();
 
+                            
+                            
                             LoginModel loginModel = new LoginModel();
 
                             try {
@@ -91,7 +97,8 @@ public class Home extends HttpServlet {
                         AnswerModel ua = new AnswerModel();
                         ua.addAnswer(answer);
                         request.setAttribute("submitted", "true");
-                        forwardBean(request, response, "");
+                        
+                        response.sendRedirect("home?id=" + answer.getQuestionID());
                     } else {
                         getQuestion(request, response);
                     }
@@ -117,17 +124,14 @@ public class Home extends HttpServlet {
             if(request.getParameter("sort")!=null){
                 if(request.getParameter("sort").equals("unanswered")){
                      front = frontPage.getUnansweredFront(values);
+                }else if (request.getParameter("sort").equals("bounty")){
+                    front = frontPage.getBountyFront(values);
                 }else{
                      front = frontPage.getFront(values);
                 }
             }else{
                  front = frontPage.getFront(values);
             }
-            
-            
-            
-            
-
             //Add to read Cookies
             request.setAttribute("bean", front);
 
@@ -219,7 +223,7 @@ public class Home extends HttpServlet {
                 CommentModel cm = new CommentModel();
                 cm.addQuestionComment(qc);
                 request.setAttribute("qCommentSubmitted", "true");
-                forwardBean(request, response, "");
+                response.sendRedirect("home?id=" + questionID);
 
             } else {
                 getQuestion(request, response);
@@ -244,7 +248,7 @@ public class Home extends HttpServlet {
                 CommentModel cm = new CommentModel();
                 cm.addAnswerComment(qc);
                 request.setAttribute("aCommentSubmitted", "true");
-                forwardBean(request, response, "");
+                response.sendRedirect("home?id="+request.getParameter("id"));
 
             } else {
                 getQuestion(request, response);

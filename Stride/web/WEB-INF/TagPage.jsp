@@ -17,13 +17,12 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="javascript/1.2.6.js"></script>
         <script type="text/javascript" src="javascript/sonic.js"></script>
-
-        <script type="text/javascript" src="javascript/showdown.js"></script>
+        <script type="text/javascript" src="javascript/Stride.js"></script>
 
 
         <title>Newest ${bean.getTag().getTag()} Questions</title>
     </head>
-    <body>
+    <body onload="setZoom()">
         <div id="in"></div>
         <div id ="wholePage">
 

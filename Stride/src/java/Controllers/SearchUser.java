@@ -31,7 +31,7 @@ public class SearchUser extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getParameter("userSearch")!=null){
+        if(request.getParameter("userSearch").trim()!=null && (!request.getParameter("userSearch").trim().isEmpty())){
         UserPage page = new SearchCustomPageModel().getUserPage(request.getParameter("userSearch"));
         request.setAttribute("bean", page);
         forwardBean(request,response,"WEB-INF/Users.jsp");

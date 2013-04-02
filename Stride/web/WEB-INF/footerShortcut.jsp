@@ -10,13 +10,13 @@
 
         <div class="footWrapper">
             <div id="footer-menu">
-                <a href="/about">about</a>
+                <a href="About">about</a>
                 |
-                <a href="/faq">faq</a>
+<!--                <a href="/faq">faq</a>
                 |
                 <a href="privacy_policy">privacy policy</a>
                 |
-                <a href="contact">contact</a>
+                <a href="contact">contact</a>-->
             </div>
 
             <div id="footer-flair">

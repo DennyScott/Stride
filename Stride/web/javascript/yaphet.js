@@ -4,7 +4,7 @@ window.onload = init;
 function init(){
     var count = document.getElementsByClassName("mini-counts");
     var prefix = document.getElementsByClassName("prefix");
-    
+    setZoom();
 	
     for (var i = 0; i < count.length; i++) {
         if(count[i].innerHTML >= 1000)

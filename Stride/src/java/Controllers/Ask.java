@@ -114,7 +114,8 @@ public class Ask extends HttpServlet {
 
                 }
             }
-            forwardBean(request,response,"home?id="+questionId);
+            response.sendRedirect("home?id="+questionId);
+            return;
         }
         else{
             forwardBean(request,response,"Login");

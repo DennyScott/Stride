@@ -6,6 +6,7 @@ package Models;
 
 import DataAccessors.QuestionDA;
 import DataAccessors.RecentDA;
+import ModelObjects.Question;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -63,6 +64,23 @@ public class QuestionModel {
             Logger.getLogger(QuestionModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+        public int getCreator(int questionID) {
+        try {
+            QuestionDA qda = new QuestionDA();
+
+            ModelObjects.Question q = qda.query(questionID);
+            
+            return q.getUserID();
+        } catch (IOException ex) {
+            Logger.getLogger(QuestionModel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuestionModel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
     public int answerSelected(int questionID) {

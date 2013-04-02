@@ -54,10 +54,10 @@ the top of the page, if attribute is null the document places a link so a new me
                 </span>
                 
                 <span class="lsep">|</span>
-                <span class="links-nav">
+<!--                <span class="links-nav">
                     <a href="www.cnn.com">Contact</a>
                 </span>
-                <span class="lsep">|</span>
+                <span class="lsep">|</span>-->
 
             </div>
             <div id="search">

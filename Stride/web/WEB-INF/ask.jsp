@@ -16,6 +16,9 @@
         <script type="text/javascript" src="javascript/Stride.js"></script>
         <script type="text/javascript" src="javascript/sonic.js"></script>
         <script type="text/javascript" src="javascript/ask.js"></script>
+        <script type="text/javascript" src="javascript/wmd.js"></script>
+        <script type="text/javascript" src="javascript/showdown.js"></script>
+        
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
@@ -23,8 +26,9 @@
 
         <title>Ask a Question</title>
     </head>
-    <body>
-
+    <body onload="setZoom()">
+<div id="in"></div>
+        <div id ="wholePage">
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />
 
@@ -57,20 +61,6 @@
                         <div id="question-suggestions"></div>
                     </div>
 
-                    <%--    StackExchange.ready(function() {
-                                    initTagRenderer("".split(" "), "".split(" "));
-
-                            prepareEditor({
-                                heartbeatType: 'answer',
-                                bindNavPrevention: true,
-                                postfix: "",
-                                onDemand: true,
-                                discardSelector: ".discard-answer"
-                                ,immediatelyShowMarkdownHelp:true
-                            });
-
-
-                        });  --%>
                     <div id="post-editor" class="post-editor">
                         <div class="wmd-container">
                             <div id="wmd-button-bar" class="wmd-button-bar">
@@ -154,21 +144,7 @@
 
 
     <div id="askSideContent">
-        <div class="newUser" id="newUserBox">
-            <h4>
-                Welcome!
-            </h4>
-            <div>
-                <p>
-                    Stride is a website where students of Applied Computer Science can help one another by asking and answering questions.
-                </p>
-                <p class="ar">
-                    <a href="aboutus">about >></a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a href="faq">faq >></a>
-                </p>
-            </div>
-        </div>
+         <jsp:include page="newUserWelcome.jsp" />
 
 
         <%@include file="recentJobs.jsp" %>
@@ -178,12 +154,11 @@
 
     </div>
 
-
-
 </div>
 
 <script type="text/javascript" src="javascript/wmd.js"></script>
 
 <jsp:include page = "footerShortcut.jsp" />
+        </div>
 </body>
 </html>

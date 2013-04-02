@@ -10,18 +10,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+        <script type="text/javascript" src="javascript/Sonic.js"></script>
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
         <link href="css/about.css" rel="Stylesheet" type="text/css" />
-
+        <script type="text/javascript" src="javascript/Stride.js"></script>
         <script type="text/javascript" src="javascript/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="javascript/jquery-ui-1.10.2.custom.min.js"></script>
         <script src="javascript/waypoints.js"></script>
 
         <title>About</title>
     </head>
-    <body>
-
+    <body onload="setZoom()">
+<div id="in"></div>
+        <div id ="wholePage">
 
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />
@@ -35,7 +36,7 @@
                     <p>
 
                     </p><div class="wiki-ph" data-placeholder="WikiPlaceholder-AboutThisSite">
-                        <div class="wiki-ph-content"><p><strong>Stack Overflow</strong> is a question and answer site for professional and enthusiast programmers. It's built and run <em>by you</em> as part of the <a href="home">Stack Exchange</a> network of Q&amp;A sites. With your help, we're working together to build a library of detailed answers to every question about programming.</p>
+                        <div class="wiki-ph-content"><p><strong>Stride</strong> is a question and answer site for professional and enthusiast programmers. It's built and run <em>by you</em> as part of the <a href="home">Stride</a> network of Q&amp;A sites. With your help, we're working together to build a library of detailed answers to every question about programming.</p>
                         </div> 
 
 
@@ -52,7 +53,7 @@
                 <div class="about-qa">
                     <h2 id="top" class="about-title">Ask questions, get answers, no distractions</h2>
                     <div class="col-l">
-                        <p>Stack Overflow is all about <strong>getting answers</strong>. It's not a discussion forum. There's no chit-chat.</p>
+                        <p>Stride is all about <strong>getting answers</strong>. It's not a discussion forum. There's no chit-chat.</p>
 
                         <div class="just-qa" style="height: 275px;">
                             <div class="just-questions" style="position: relative; z-index: 100; top: 6.5px; left: 46px;"><p>Just questions...</p> <div id ="firstArrow" style="opacity: 1;"></div></div>
@@ -96,7 +97,7 @@
                                         </div> 
 
                                         <div class="post-taglist">
-                                            <a href="/questions/tagged/c%2b%2b" class="post-tag" title="show questions tagged 'c++'" rel="tag">c++</a> <a href="/questions/tagged/c" class="post-tag" title="show questions tagged 'c'" rel="tag">c</a> <a href="/questions/tagged/pointers" class="post-tag" title="show questions tagged 'pointers'" rel="tag">pointers</a> <a href="/questions/tagged/function-pointers" class="post-tag" title="" rel="tag">function-pointers</a> 
+                                            <a href="" onclick="return false;" class="post-tag" title="show questions tagged 'c++'" rel="tag">c++</a> <a href="" onclick="return false;" class="post-tag" title="show questions tagged 'c'" rel="tag">c</a> <a href="" onclick="return false;" class="post-tag" title="show questions tagged 'pointers'" rel="tag">pointers</a> <a href="" onclick="return false;" class="post-tag" title="" rel="tag">function-pointers</a> 
                                         </div>
 
                                         <div class="post-signature owner ">
@@ -136,7 +137,6 @@
                                             <p>Pointers to void are supposed to be able to accommodate a pointer to any kind of data -- but not necessarily a pointer to a function. Some systems have different requirements for pointers to functions than pointers to data (e.g, there are DSPs with different addressing for data vs. code, medium model on MS-DOS used 32-bit pointers for code but only 16-bit pointers for data).</p>
 
                                         </div>
-
 
                                         <div class="post-signature ">
                                             <div class="user-info ">
@@ -212,7 +212,7 @@
 
                 <div class="col-l">
                     <p>All questions are <strong>tagged</strong> with their subject areas. Each can have up to 5 tags, since a question might be related to several subjects.</p>
-                    <p><strong>Click any tag</strong> to see a list of questions with that tag, or go to the <a href="/tags">tag list</a> to browse for topics that interest you.</p>
+                    <p><strong>Click any tag</strong> to see a list of questions with that tag, or go to the <a href="Tags">tag list</a> to browse for topics that interest you.</p>
                     <div class="arrow2Marker" style="position: relative; z-index: 100; top: -35.5px; left: 116px; opacity: 1;"></div>
                 </div>
 
@@ -239,7 +239,7 @@
                                     </div> 
 
                                     <div class="post-taglist">
-                                        <a href="/questions/tagged/c%2b%2b" class="post-tag" title="show questions tagged 'c++'" rel="tag">c++</a> <a href="/questions/tagged/c" class="post-tag" title="show questions tagged 'c'" rel="tag">c</a> <a href="/questions/tagged/pointers" class="post-tag" title="show questions tagged 'pointers'" rel="tag">pointers</a> <a href="/questions/tagged/function-pointers" class="post-tag" title="" rel="tag">function-pointers</a> 
+                                        <a href="" onclick="return false;" class="post-tag" title="show questions tagged 'c++'" rel="tag">c++</a> <a href="" onclick="return false;"class="post-tag" title="show questions tagged 'c'" rel="tag">c</a> <a href="" onclick="return false;" class="post-tag" title="show questions tagged 'pointers'" rel="tag">pointers</a> <a href="" onclick="return false;" class="post-tag" title="" rel="tag">function-pointers</a> 
                                     </div>
 
                                     <div class="post-signature owner ">
@@ -317,7 +317,7 @@
 
 
                 <div class="about-rep-privs col-l">
-                    <p>As you earn reputation, you'll <a href="/privileges">unlock new privileges</a> like the ability to vote, comment, and even edit other people's posts.</p>
+                    <p>As you earn reputation, you'll <a href="" onclick="return false;">unlock new privileges</a> like the ability to vote, comment, and even edit other people's posts.</p>
                     <div class="arrow4Marker" style="position: relative; z-index: 100; top: -48.5px; left: 81px; opacity: 1;"></div>
                 </div>
 
@@ -347,9 +347,8 @@
                     </div>
                 </div>
 
-                <div class="about-rep-privs col-l">
-                    <p>As you earn reputation, you'll <a href="/privileges">unlock new privileges</a> like the ability to vote, comment, and even edit other people's posts.</p>
-                    <div class="arrow5Marker" style="position: relative; z-index: 100; top: -48.5px; left: 81px; opacity: 1;"></div>
+                <div class="about-rep-privs-2 col-l">
+<p>At the highest levels, you'll have access to special <strong>moderation tools</strong>. You'll be able to work alongside our <a href="" onclick="return false;">community moderators</a> to keep the site focused and helpful.</p>                    <div class="arrow5Marker" style="position: relative; z-index: 100; top: -48.5px; left: 81px; opacity: 1;"></div>
                 </div>
 
                 <div class="repArea3 repPrivTable2">
@@ -524,7 +523,7 @@
                         <table class="badges-page">
                             <tbody><tr>
                                     <td class="badge-cellAbout">
-                                        <a href="/badges/2600/informed" title="bronze badge: Read the entire about page" class="badge"><span class="badge3"></span>&nbsp;Informed</a>
+                                        <a href="" onclick="return false;" title="bronze badge: Read the entire about page" class="badge"><span class="badge3"></span>&nbsp;Informed</a>
 
                                     </td>
                                     <td>
@@ -543,7 +542,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="badge-cell">
-                                            <a href="/badges/2/student" title="bronze badge: Asked first question with score of 1 or more" class="badge"><span class="badge3"></span>&nbsp;Student</a>
+                                            <a href="" onclick="return false;" title="bronze badge: Asked first question with score of 1 or more" class="badge"><span class="badge3"></span>&nbsp;Student</a>
 
                                         </td>
                                         <td>
@@ -553,7 +552,7 @@
 
                                     <tr>
                                         <td class="badge-cell">
-                                            <a href="/badges/3/editor" title="bronze badge: First edit" class="badge"><span class="badge3"></span>&nbsp;Editor</a>
+                                            <a href="" onclick="return false;" title="bronze badge: First edit" class="badge"><span class="badge3"></span>&nbsp;Editor</a>
 
                                         </td>
                                         <td>
@@ -563,7 +562,7 @@
 
                                     <tr>
                                         <td class="badge-cell">
-                                            <a href="/badges/24/good-answer" title="silver badge: Answer score of 25 or more" class="badge"><span class="badge2"></span>&nbsp;Good Answer</a>
+                                            <a href="" onclick="return false;" title="silver badge: Answer score of 25 or more" class="badge"><span class="badge2"></span>&nbsp;Good Answer</a>
 
                                         </td>
                                         <td>
@@ -573,7 +572,7 @@
 
                                     <tr>
                                         <td class="badge-cell">
-                                            <a href="/badges/32/civic-duty" title="silver badge: Voted 300 or more times" class="badge"><span class="badge2"></span>&nbsp;Civic Duty</a>
+                                            <a href="" onclick="return false;" title="silver badge: Voted 300 or more times" class="badge"><span class="badge2"></span>&nbsp;Civic Duty</a>
 
                                         </td>
                                         <td>
@@ -583,7 +582,7 @@
 
                                     <tr>
                                         <td class="badge-cell">
-                                            <a href="/badges/28/famous-question" title="gold badge: Asked a question with 10,000 views" class="badge"><span class="badge1"></span>&nbsp;Famous Question</a>
+                                            <a href="" onclick="return false;" title="gold badge: Asked a question with 10,000 views" class="badge"><span class="badge1"></span>&nbsp;Famous Question</a>
 
                                         </td>
                                         <td>
@@ -594,7 +593,7 @@
                                 </tbody>
                             </table>
 
-                            <p><a href="/badges">see all badges</a></p>
+                            <p><a href="Badges">see all badges</a></p>
                         </div>
                     </div>
                 </div>
@@ -607,5 +606,6 @@
 
 
         <jsp:include page = "footerShortcut.jsp" />
+        </div>
     </body>
 </html>

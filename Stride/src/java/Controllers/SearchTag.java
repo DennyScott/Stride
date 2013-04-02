@@ -31,7 +31,7 @@ public class SearchTag extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getParameter("tagSearch")!=null){
+        if(request.getParameter("tagSearch").trim()!=null && (!request.getParameter("tagSearch").trim().isEmpty())){
         TagPage page = new SearchCustomPageModel().getTagPage(request.getParameter("tagSearch"));
         request.setAttribute("bean", page);
         forwardBean(request,response,"WEB-INF/Tags.jsp");

@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
+        <script type="text/javascript" src="javascript/Stride.js"></script>
         <script type="text/javascript" src="javascript/yaphet.js"></script>
         <script type="text/javascript">
             function init(){
@@ -21,48 +22,50 @@
         <title>Login</title>
     </head>
     <body onload="init()">
+        <div id="in"></div>
+        <div id ="wholePage">
+            <jsp:include page = "bannerShortcut.jsp" />
+            <jsp:include page = "headerShortcut.jsp" />
 
-        <jsp:include page = "bannerShortcut.jsp" />
-        <jsp:include page = "headerShortcut.jsp" />
+            <div id="content">
+                <div id="mainContent">
 
-        <div id="content">
-            <div id="mainContent">
+                    <div class="mainHeader">
+                        <h1 id="topQuestions">
+                            Login
+                        </h1>
+                    </div>
 
-                <div class="mainHeader">
-                    <h1 id="topQuestions">
-                        Login
-                    </h1>
-                </div>
+                    <h1><span style="color:red;">${error.getErrorMessage()}</span></h1>
+                    <p>
+                        function loginPage()<br>
+                        { 
+                        <br>
 
-                <h1><span style="color:red;">${error.getErrorMessage()}</span></h1>
-                <p>
-                    function loginPage()<br>
-                    { 
+                        //Welcome to Stride.com <br>
+                        //Please login to unleash the knowledge! <br><br>
+
+                        <&shy;form action ="/" method="post">
+
+                    </p>
                     <br>
 
-                    //Welcome to Stride.com <br>
-                    //Please login to unleash the knowledge! <br><br>
+                    <form id="login" action="Login" method="post" autocomplete="on">
+                        <&shy;input type="text" name="<span style="color:orangered; font-weight: bold;">UserName</span>" value="<input type="text" name="jspUsername" id="jspUsername" tabindex="1">"> <br>
+                        <&shy;input type="password" name="<span style="color:orangered; font-weight: bold;">Password</span>" value="<input type="password" name="jspPassword" maxlength="15" tabindex="2">"><br>
 
-                    <&shy;form action ="/" method="post">
+                        <&shy;input type="submit" value="<input type="submit" value="Login">"><br><br>
+                    </form>
 
-                </p>
-                <br>
-
-                <form id="login" action="Login" method="post" autocomplete="on">
-                    <&shy;input type="text" name="<span style="color:orangered; font-weight: bold;">UserName</span>" value="<input type="text" name="jspUsername" id="jspUsername" tabindex="1">"> <br>
-                    <&shy;input type="password" name="<span style="color:orangered; font-weight: bold;">Password</span>" value="<input type="password" name="jspPassword" maxlength="15" tabindex="2">"><br>
-
-                    <&shy;input type="submit" value="<input type="submit" value="Login">"><br><br>
-                </form>
-
-                <p><&shy;/form>; <br>
-                    }
-                </p>
-                <br>
-                <a href="SignUp">Not Yet a User?</a>
+                    <p><&shy;/form>; <br>
+                        }
+                    </p>
+                    <br>
+                    <a href="SignUp">Not Yet a User?</a>
+                </div>
             </div>
-        </div>
 
-        <jsp:include page = "footerShortcut.jsp" />
+            <jsp:include page = "footerShortcut.jsp" />
+        </div>
     </body>
 </html>

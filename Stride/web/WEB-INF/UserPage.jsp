@@ -15,12 +15,12 @@
         <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="javascript/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="javascript/jquery.pageslide.min.js"></script>
-
+        <script type="text/javascript" src="javascript/Stride.js"></script>
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
         <title>Profile</title>
     </head>
-    <body class="badges-page">
+    <body class="badges-page" onload="setZoom()">
 
         <jsp:include page = "bannerShortcut.jsp" />
         <jsp:include page = "headerShortcut.jsp" />

@@ -20,7 +20,7 @@
 
         <title>Profile</title>
     </head>
-    <body class="badges-page">
+    <body class="badges-page" onload="setZoom()">
         <div id="in"></div>
         <div id ="wholePage">
 

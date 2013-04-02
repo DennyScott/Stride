@@ -207,7 +207,8 @@ public class VotingModel {
                             qda.decrementVote(questionID);
                             qda.decrementVote(questionID);
                             UserModel um = new UserModel();
-                            um.increaseReputation(myQue.getUserID(), 10);
+                            um.decreaseReputation(myQue.getUserID(), 10);
+                            um.decreaseReputation(userID, 1);
                         }
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -229,7 +230,8 @@ public class VotingModel {
                         vda.add(oldVotes);
                         qda.decrementVote(questionID);
                         UserModel um = new UserModel();
-                        um.increaseReputation(myQue.getUserID(), 5);
+                        um.decreaseReputation(myQue.getUserID(), 5);
+                        um.decreaseReputation(userID, 1);
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
@@ -285,6 +287,7 @@ public class VotingModel {
                             qda.decrementVotes(answerID);
                             UserModel um = new UserModel();
                             um.decreaseReputation(myAns.getUserID(), 10);
+                            um.decreaseReputation(userID, 1);
                         }
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -307,6 +310,7 @@ public class VotingModel {
                         qda.decrementVotes(answerID);
                         UserModel um = new UserModel();
                         um.decreaseReputation(myAns.getUserID(), 5);
+                        um.decreaseReputation(userID, 1);
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
