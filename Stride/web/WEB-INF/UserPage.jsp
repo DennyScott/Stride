@@ -156,20 +156,33 @@
                         <div id="Bounty" style="display:none; font-size: 11px;">
                             <h2>Bounty</h2>
                             <hr>
-                            <h3>Your Bounties</h3><br>
-                            <a href="home">Denny has answered your Bounty!<span class="time">   2h ago</span></a><br>
-                            <a href="home">Nick has answered your Bounty!</a><span class="time">   2h ago</span><br>
-                            <a href="home">Travis has answered your Bounty!</a><span class="time">   2h ago</span><br>
+                            <h3>Answers to Your Bounties</h3><br>
+                            <c:forEach items="${bean.getBountyAnswers()}" var="answer">
+                                <a href="home?id=${answer.getQuestionID()}">A Potential Answer!</a>&nbsp;&nbsp;&nbsp;
+                                <span class="time">   ${answer.getSubmitted()}</span><br>
+                            </c:forEach>
+                            <br>
+                            <hr>
+                            <h3>Your Open Bounties</h3><br>
+                            <c:forEach items="${bean.getMyBounties()}" var="answer">
+                                <a href="home?id=${answer.getQuestionID()}">+${answer.getBounty()}  ${answer.getQuestion()}</a>
+
+                            </c:forEach>
+                            <br>
                             <br>
                             <hr>
                             <h3>Bounties Awarded</h3><br>
-                            <a href="home">You have been awarded a Bounty!</a><span class="time">   2h ago</span><br>
+                            <c:forEach items="${bean.getRecievedBounties()}" var="answer">
+                                <a href="home?id=${answer.getQuestionID()}">+${answer.getBounty()}  You have been awarded a Bounty!</a><br>
+                            </c:forEach>
                             <br>
                             <hr>
-                            <h3>Open Bounties</h3><br>
-                            <a href="home">How do I program</a><span class="time">   2h ago</span><br>
-                            <a href="home">What is the meaning of life</a><span class="time">   2h ago</span><br>
-                            <a href="home">Help me!</a><span class="time">   2h ago</span><br>
+                            <h3>Recent Open Bounties</h3><br>
+                            <c:forEach items="${bean.getOpenBounties()}" var="answer">
+                                <a href="home?id=${answer.getQuestionID()}">+${answer.getBounty()}  ${answer.getQuestion()}</a><br>
+
+                            </c:forEach>
+
                             <br>
                             <hr>
                             <a href="javascript:$.pageslide.close()">Close</a>

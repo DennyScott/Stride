@@ -4,6 +4,7 @@
  */
 package Controllers;
 
+import Beans.MyUserPage;
 import Beans.SingleUserPage;
 import Beans.UserPage;
 import Models.ProfilePage;
@@ -154,9 +155,22 @@ public class Users extends HttpServlet {
     }
 
     private void getUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SingleUserPage user = new ProfilePage().getPage(Integer.parseInt(request.getParameter("id")));
-        request.setAttribute("bean", user);
-        forwardBean(request, response, "WEB-INF/UserPage.jsp");
+        if (request.getSession().getAttribute("id") != null) {
+            if (Integer.parseInt((String) request.getSession().getAttribute("id")) == Integer.parseInt(request.getParameter("id"))) {
+                MyUserPage user = new ProfilePage().getMyPage(Integer.parseInt(request.getParameter("id")));
+                request.setAttribute("bean", user);
+                forwardBean(request, response, "WEB-INF/UserPage.jsp");
+            } else {
+                SingleUserPage user = new ProfilePage().getPage(Integer.parseInt(request.getParameter("id")));
+                request.setAttribute("bean", user);
+                forwardBean(request, response, "WEB-INF/UserPage.jsp");
+            }
+        } else {
+
+            SingleUserPage user = new ProfilePage().getPage(Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("bean", user);
+            forwardBean(request, response, "WEB-INF/UserPage.jsp");
+        }
     }
 
     private void getEditUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

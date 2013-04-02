@@ -5,6 +5,7 @@
 package DataAccessors;
 
 import ModelObjects.Badge;
+import ModelObjects.User;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -169,8 +170,8 @@ public class BadgeDA {
 
         return findBadge;
     }
-    
-    public ArrayList<Badge> collectAllColorBadge(int color,int startPosition, int totalAmount) throws IOException, ClassNotFoundException, SQLException {
+
+    public ArrayList<Badge> collectAllColorBadge(int color, int startPosition, int totalAmount) throws IOException, ClassNotFoundException, SQLException {
 
         ArrayList<Badge> returnList = new ArrayList<Badge>();
         String SQLString = "SELECT * FROM Badge WHERE Color = " + color + " ORDER BY Name DESC LIMIT " + (totalAmount + startPosition);
@@ -191,7 +192,7 @@ public class BadgeDA {
                 findBadge.setDescription(resultSet.getString(5));
                 returnList.add(findBadge);
             }
-            
+
             for (int i = startPosition - 1; i >= 0; i--) {
                 returnList.remove(i);
             }
@@ -232,6 +233,44 @@ public class BadgeDA {
             return false;
         }
 
+        return true;
+    }
+
+    public boolean incrementBadge(int badgeID) throws IOException, ClassNotFoundException, SQLException {
+
+        Badge me = query(badgeID);
+        String sqlString = "Update Badge set Count = \"" + (me.getCount() + 1) + "\"  where Badge_ID = " + badgeID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
+        return true;
+    }
+    
+     public boolean decrementBadge(int badgeID) throws IOException, ClassNotFoundException, SQLException {
+
+        Badge me = query(badgeID);
+        String sqlString = "Update Badge set Count = \"" + (me.getCount() - 1) + "\"  where Badge_ID = " + badgeID;
+
+        try {
+            Connection connection = connectDB();
+
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sqlString);
+            connection.close();
+
+        } catch (SQLException sqle) {
+            return false;
+        }
         return true;
     }
 }

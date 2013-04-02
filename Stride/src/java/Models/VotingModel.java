@@ -8,6 +8,8 @@ import DataAccessors.AnswerDA;
 import DataAccessors.AnswerVoteDA;
 import DataAccessors.QuestionDA;
 import DataAccessors.QuestionVoteDA;
+import ModelObjects.Answer;
+import ModelObjects.Question;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,7 +26,8 @@ public class VotingModel {
         boolean votes = false;
         QuestionDA qda = new QuestionDA();
         try {
-            if (!(qda.query(questionID).getUserID() == userID)) {
+            Question myQue = qda.query(questionID);
+            if (!(myQue.getUserID() == userID)) {
                 try {
                     votes = vda.exists(userID, questionID);
 
@@ -45,6 +48,8 @@ public class VotingModel {
 
                             qda.incrementVote(questionID);
                             qda.incrementVote(questionID);
+                            UserModel um = new UserModel();
+                            um.increaseReputation(myQue.getUserID(), 10);
                         }
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,6 +70,8 @@ public class VotingModel {
                     try {
                         vda.add(oldVotes);
                         qda.incrementVote(questionID);
+                        UserModel um = new UserModel();
+                        um.increaseReputation(myQue.getUserID(), 5);
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
@@ -97,8 +104,10 @@ public class VotingModel {
         AnswerVoteDA vda = new AnswerVoteDA();
         boolean votes = false;
         AnswerDA qda = new AnswerDA();
+
         try {
-            if (!(qda.query(answerID).getUserID() == userID)) {
+            Answer myAns = qda.query(answerID);
+            if (!(myAns.getUserID() == userID)) {
                 try {
 
                     votes = vda.exists(userID, answerID);
@@ -118,6 +127,8 @@ public class VotingModel {
                             vda.update(temp);
                             qda.incrementVotes(answerID);
                             qda.incrementVotes(answerID);
+                            UserModel um = new UserModel();
+                            um.increaseReputation(myAns.getUserID(), 10);
                         }
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -138,6 +149,8 @@ public class VotingModel {
                     try {
                         vda.add(oldVotes);
                         qda.incrementVotes(answerID);
+                        UserModel um = new UserModel();
+                        um.increaseReputation(myAns.getUserID(), 5);
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
@@ -171,7 +184,8 @@ public class VotingModel {
         boolean votes = false;
         QuestionDA qda = new QuestionDA();
         try {
-            if (!(qda.query(questionID).getUserID() == userID)) {
+            Question myQue = qda.query(questionID);
+            if (!(myQue.getUserID() == userID)) {
                 try {
                     votes = vda.exists(userID, questionID);
 
@@ -192,6 +206,8 @@ public class VotingModel {
 
                             qda.decrementVote(questionID);
                             qda.decrementVote(questionID);
+                            UserModel um = new UserModel();
+                            um.increaseReputation(myQue.getUserID(), 10);
                         }
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -212,6 +228,8 @@ public class VotingModel {
                     try {
                         vda.add(oldVotes);
                         qda.decrementVote(questionID);
+                        UserModel um = new UserModel();
+                        um.increaseReputation(myQue.getUserID(), 5);
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
@@ -245,7 +263,8 @@ public class VotingModel {
         boolean votes = false;
         AnswerDA qda = new AnswerDA();
         try {
-            if (!(qda.query(answerID).getUserID() == userID)) {
+            Answer myAns = qda.query(answerID);
+            if (!(myAns.getUserID() == userID)) {
                 try {
                     votes = vda.exists(userID, answerID);
                 } catch (IOException ex) {
@@ -264,6 +283,8 @@ public class VotingModel {
                             vda.update(temp);
                             qda.decrementVotes(answerID);
                             qda.decrementVotes(answerID);
+                            UserModel um = new UserModel();
+                            um.decreaseReputation(myAns.getUserID(), 10);
                         }
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -284,6 +305,8 @@ public class VotingModel {
                     try {
                         vda.add(oldVotes);
                         qda.decrementVotes(answerID);
+                        UserModel um = new UserModel();
+                        um.decreaseReputation(myAns.getUserID(), 5);
                     } catch (IOException ex) {
                         Logger.getLogger(VotingModel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {

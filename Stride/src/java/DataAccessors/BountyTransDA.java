@@ -86,51 +86,6 @@ public class BountyTransDA {
         return id;
     }
 
-    public ArrayList<Question> collectRecentUserQuestions(int userID, int startPosition, int totalAmount) {
-        String SQLString = "SELECT * FROM BountyTransaction WHERE User_ID = " + userID + " ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
-        ArrayList<Question> returnList = new ArrayList();
-
-        try {
-            Connection connection = connectDB();
-
-            Statement statement = connection.createStatement();
-
-            ResultSet resultSet = statement.executeQuery(SQLString);
-            ResultSetMetaData result = resultSet.getMetaData();
-            int cn = result.getColumnCount();
-            while (resultSet.next()) {
-                Question returnQuestion = new Question();
-                returnQuestion.setQuestionID(Integer.parseInt(resultSet.getString(1)));
-                returnQuestion.setQuestion(resultSet.getString(2));
-                returnQuestion.setUserID(Integer.parseInt(resultSet.getString(3)));
-                returnQuestion.setVotes(Integer.parseInt(resultSet.getString(4)));
-                returnQuestion.setSubmitted(resultSet.getString(5));
-                returnQuestion.setLastUpdated(resultSet.getString(6));
-                returnQuestion.setTitle(resultSet.getString(7));
-                returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
-                returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
-                returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 0 ? true : false);
-                returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
-                returnList.add(returnQuestion);
-            }
-
-            for (int i = startPosition - 1; i >= 0; i--) {
-                returnList.remove(i);
-            }
-            connection.close();
-
-        } catch (SQLException sqle) {
-            return null;
-        } catch (ClassNotFoundException cnf) {
-            return null;
-        } catch (IOException ioe) {
-            return null;
-        }
-
-        return returnList;
-    }
-
     /**
      * Queries the Database for the given Question
      *
@@ -201,7 +156,7 @@ public class BountyTransDA {
     }
 
     public ArrayList<BountyTrans> getUserRecentBounties(int userID, int startPosition, int totalAmount) {
-        String SQLString = "SELECT * FROM BountyTransaction WHERE User_ID = " + userID + " ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
+        String SQLString = "SELECT * FROM BountyTransaction WHERE User_ID = " + userID + " ORDER BY Time_Collected DESC LIMIT " + (totalAmount + startPosition);
         ArrayList<BountyTrans> returnList = new ArrayList();
 
         try {

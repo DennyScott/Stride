@@ -56,8 +56,7 @@
                                         <a class="vote-up-off" onclick="questionVoteUp(${bean.getQuestionID()})" title="This question shows research effort; it is useful and clear (click again to undo)">up vote</a>
                                         <span class="vote-count-post" id="questionVote">${bean.getVotes()}</span>
                                         <a class="vote-down-off" onclick ="questionVoteDown(${bean.getQuestionID()})"title="Thi question does not show any research effort; it is unclear or not useful (click again to undo">down vote</a>
-                                        <a class="star-off" href="#" title="This is a favourite question (click to undo"></a>
-
+                                       
                                     </div>
                                 </td>
 
@@ -298,7 +297,7 @@
                                                 <c:if test="${not empty id}">
                                                     <c:if test="${id == bean.getAuthorID()}">
                                                         <c:if test="${not bean.getQuestionSlot().isAnswered()}">
-                                                            <a href="home?id=${bean.getQuestionID()}&answer=${answer.getID()}">This answered my Question!</a>
+                                                            <a href="home?id=${bean.getQuestionID()}&answer=${answer.getID()}">Select as Answer!</a>
                                                         </c:if>
                                                     </c:if>
                                                 </c:if>

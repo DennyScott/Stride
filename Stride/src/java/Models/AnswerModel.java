@@ -21,14 +21,23 @@ public class AnswerModel {
 
         answer.setAnswer(UtilityModel.filter(answer.getAnswer()));
         AnswerDA ad = new AnswerDA();
+        int reputationGain = 35;
         try {
             ad.add(answer);
             QuestionModel qm = new QuestionModel();
             qm.incrementAnswers(answer.getQuestionID());
+            TagModel tm = new TagModel();
+            boolean isJava = tm.isJava(answer.getQuestionID());
+
             UserModel um = new UserModel();
             um.incrementAnswers(answer.getUserID());
             if (!qm.isCreator(answer.getUserID(), answer.getQuestionID())) {
-                um.increaseReputation(answer.getUserID(), 35);
+                if (isJava) {
+                    reputationGain += 50;
+                    BadgeModel bm = new BadgeModel();
+                    bm.addCollected(answer.getUserID(), tm.getID("Java"));
+                }
+                um.increaseReputation(answer.getUserID(), reputationGain);
             }
         } catch (IOException ex) {
             Logger.getLogger(AnswerModel.class.getName()).log(Level.SEVERE, null, ex);

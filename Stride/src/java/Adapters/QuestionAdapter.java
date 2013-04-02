@@ -7,7 +7,6 @@ package Adapters;
 import DataAccessors.CourseDA;
 import DataAccessors.QuestionDA;
 import DataAccessors.RecentDA;
-import DataAccessors.UserDA;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -114,7 +113,69 @@ public class QuestionAdapter {
         }
         return questions;
     }
+    
+    public ArrayList<Beans.Question> collectOpenBounties(int startPosition, int totalAmount){
+        ArrayList<Beans.Question> returnList = new ArrayList<Beans.Question>();
+        
+        QuestionDA qda = new QuestionDA();
+        ArrayList<ModelObjects.Question> questions = qda.collectOpenBounties(startPosition, totalAmount);
+        
+        for(ModelObjects.Question question:questions){
+            try {
+                returnList.add(adaptQuestion(question));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return returnList;
+    }
+    
+    public ArrayList<Beans.Question> collectRecentAnsweredBounties(int userID, int startPosition, int totalAmount){
+        ArrayList<Beans.Question> returnList = new ArrayList<Beans.Question>();
+        
+        QuestionDA qda = new QuestionDA();
+        ArrayList<ModelObjects.Question> questions = qda.collectRecentAnsweredBountyQuestion(userID, startPosition, totalAmount);
+        
+        for(ModelObjects.Question question:questions){
+            try {
+                returnList.add(adaptQuestion(question));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return returnList;
+    }
 
+    
+    public ArrayList<Beans.Question> collectOpenUserBounties(int userID, int startPosition, int totalAmount){
+        ArrayList<Beans.Question> returnList = new ArrayList<Beans.Question>();
+        
+        QuestionDA qda = new QuestionDA();
+        ArrayList<ModelObjects.Question> questions = qda.collectUserOpenBounties(userID, startPosition, totalAmount);
+        
+        for(ModelObjects.Question question:questions){
+            try {
+                returnList.add(adaptQuestion(question));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return returnList;
+    }
+
+    
     public ArrayList<Beans.Question> adaptQuestionList(ArrayList<ModelObjects.Question> question) {
         ArrayList<Beans.Question> returnQuestion = new ArrayList<Beans.Question>();
         for (ModelObjects.Question q : question) {
