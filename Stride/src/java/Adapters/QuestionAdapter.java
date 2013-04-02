@@ -41,6 +41,11 @@ public class QuestionAdapter {
         return returnList;
     }
     
+    public int getBountyCount(){
+        QuestionDA qda = new QuestionDA();
+        return qda.countOpenBounties();
+    }
+    
      public ArrayList<Beans.Question> collectUnansweredQuestions(int startPosition, int Amount) {
 
         QuestionDA qd = new QuestionDA();

@@ -38,7 +38,7 @@
                         <div id="tabs">
                             <a class="youarehere" href="home?sort=interesting" id="firstTab" title="You are here!">Interesting</a>
                             <a href="home?sort=bounty" id="secondTab" class="otherTab">
-                                <span class="quick-need">100</span>
+                                <span class="quick-need">${bean.getOpenBounties()}</span>
                                 Open Bounties
                             </a>
                             <a href="home?sort=unanswered" id="thirdTab" class="otherTab">Unanswered</a>

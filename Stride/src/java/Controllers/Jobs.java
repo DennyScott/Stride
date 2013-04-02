@@ -8,7 +8,6 @@ import Beans.BarePage;
 import Jobs.Download;
 import Jobs.KijAd;
 import Models.BarePageModel;
-import Models.QModel;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -52,7 +51,7 @@ public class Jobs extends HttpServlet {
         }
         if (request.getParameter("id") != null && request.getSession().getAttribute("jobs") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
-            Beans.JobPage job = QModel.getJob();
+            Beans.JobPage job = new Beans.JobPage();
             HttpSession session = request.getSession();
             KijAd ad = ((ArrayList<KijAd>) session.getAttribute("jobs")).get(id);
             job.setAd(ad);
@@ -61,13 +60,13 @@ public class Jobs extends HttpServlet {
             forwardBean(request, response, "WEB-INF/Ad.jsp");
         } else {
             if (request.getSession().getAttribute("jobs") != null) {
-                Beans.Jobs job = QModel.getJobs();
+                Beans.Jobs job = new Beans.Jobs();
                 HttpSession session = request.getSession();
                 job.setAd((ArrayList<KijAd>) session.getAttribute("jobs"));
                 request.setAttribute("bean", job);
                 forwardBean(request, response, "WEB-INF/Jobs.jsp");
             } else {
-                Beans.Jobs job = QModel.getJobs();
+                Beans.Jobs job = new Beans.Jobs();
                 request.setAttribute("bean", job);
                 forwardBean(request, response, "WEB-INF/Jobs.jsp");
             }

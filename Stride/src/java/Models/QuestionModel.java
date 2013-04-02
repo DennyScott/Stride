@@ -4,9 +4,9 @@
  */
 package Models;
 
+import Adapters.UserAdapter;
 import DataAccessors.QuestionDA;
 import DataAccessors.RecentDA;
-import ModelObjects.Question;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -22,8 +22,13 @@ public class QuestionModel {
         QuestionDA qm = new QuestionDA();
         RecentDA ra = new RecentDA();
         question.setQuestion(UtilityModel.filter(question.getQuestion()));
+        UserAdapter ua = new UserAdapter();
 
         try {
+            Beans.Users user = ua.getUser(question.getUserID());
+            if(user.getReputation()<question.getBounty()){
+                return 0;
+            }
             int id = qm.add(question);
             ra.add(id);
             UserModel um = new UserModel();

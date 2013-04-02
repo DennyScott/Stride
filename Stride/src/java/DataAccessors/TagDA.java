@@ -108,10 +108,7 @@ public class TagDA {
         int id = 0;
         if (exists(newTag.getTitle())) {
             Tag foundTag = this.queryTitle(newTag.getTitle());
-            int changeNum = foundTag.getCount();
-            changeNum++;
-            foundTag.setCount(changeNum);
-            update(foundTag);
+            this.incrementCount(foundTag.getTagID());
             return foundTag.getTagID();
         } else {
             String sqlString = "INSERT into Tag VALUES ";

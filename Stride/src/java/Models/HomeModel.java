@@ -69,6 +69,7 @@ public class HomeModel {
         ArrayList<KijAd> ad = d.getAds();
         front.setAd(ad);
 
+        front.setOpenBounties(qa.getBountyCount());
         front.setBadges(recent);
         front.setQuestions(questions);
         front.setRecent(tags);
@@ -127,6 +128,8 @@ public class HomeModel {
         Download d = new Download();
         ArrayList<KijAd> ad = d.getAds();
         front.setAd(ad);
+        
+        front.setOpenBounties(qa.getBountyCount());
 
         front.setBadges(recent);
         front.setQuestions(questions);
@@ -187,6 +190,7 @@ public class HomeModel {
         ArrayList<KijAd> ad = d.getAds();
         front.setAd(ad);
 
+        front.setOpenBounties(qa.getBountyCount());
         front.setBadges(recent);
         front.setQuestions(questions);
         front.setRecent(tags);

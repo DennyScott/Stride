@@ -98,6 +98,10 @@ public class Ask extends HttpServlet {
 
             QuestionModel qm = new QuestionModel();
             int questionId = qm.addQuestion(question);
+            if(questionId==0){
+                response.sendRedirect("Ask");
+                return;
+            }
             if (tags != null) {
 
                 String[] tokens = tags.split(",");

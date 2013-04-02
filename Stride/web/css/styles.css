@@ -579,6 +579,10 @@ body,html{
     white-space: nowrap;
 }
 
+.question-hyperlink{
+    font-size:75%;
+}
+
 .mainHeader{
     border-bottom:1px solid #cccccc;
     height:34px;
@@ -1802,6 +1806,7 @@ pre{
     border:2px dotted #ccc;
     font-size:107%;
     line-height:130%;
+    white-space: pre-wrap;
     width:660px;
 }
 
@@ -1988,6 +1993,12 @@ a.post-tag:hover,.post-text a.post-tag:hover,.wmd-preview a.post-tag:hover {
     border-top:3px solid #fff;
     border-left:3px solid #fff;
     background-color:#ddd;
+}
+
+.wmd-preview p{
+    clear:both;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .wmd-mini-button,.wmd-mini-button:visited {

@@ -189,9 +189,8 @@
                             <h2>${bean.getAnswers().size()} Answers</h2>
 
                             <div id="tabs">
-                                <a class="otherTab" href="http://stackoverflow.com/questions/9805407/float-value-to-byte-array?answertab=active#tab-top" title="Answers with the latest Activity first">active</a>
-                                <a class="otherTab" href="http://stackoverflow.com/questions/9805407/float-value-to-byte-array?answertab=oldest#tab-top" title="Answers with the oldest Activity first">oldest</a>
-                                <a class="youarehere" href="http://stackoverflow.com/questions/9805407/float-value-to-byte-array?answertab=votes#tab-top" title="Answers with the most votes first">votes</a>
+                                
+                                <a class="youarehere" href="" title="Answers with the most votes first">votes</a>
 
 
                             </div>

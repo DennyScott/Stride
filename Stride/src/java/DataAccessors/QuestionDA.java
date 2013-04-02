@@ -620,9 +620,9 @@ public class QuestionDA {
         return returnList;
     }
 
-    public ArrayList<Question> countOpenBounties(int startPosition, int totalAmount) {
-        String SQLString = "SELECT COUNT(*) FROM Question WHERE Bounty > 0 ORDER BY Last_Updated DESC LIMIT " + (totalAmount + startPosition);
-        ArrayList<Question> returnList = new ArrayList();
+    public int countOpenBounties() {
+        String SQLString = "SELECT COUNT(*) FROM Question WHERE Bounty > 0";
+        int count = 0;
 
         try {
             Connection connection = connectDB();
@@ -633,35 +633,20 @@ public class QuestionDA {
             ResultSetMetaData result = resultSet.getMetaData();
             int cn = result.getColumnCount();
             while (resultSet.next()) {
-                Question returnQuestion = new Question();
-                returnQuestion.setQuestionID(Integer.parseInt(resultSet.getString(1)));
-                returnQuestion.setQuestion(resultSet.getString(2));
-                returnQuestion.setUserID(Integer.parseInt(resultSet.getString(3)));
-                returnQuestion.setVotes(Integer.parseInt(resultSet.getString(4)));
-                returnQuestion.setSubmitted(resultSet.getString(5));
-                returnQuestion.setLastUpdated(resultSet.getString(6));
-                returnQuestion.setTitle(resultSet.getString(7));
-                returnQuestion.setVisits(Integer.parseInt(resultSet.getString(8)));
-                returnQuestion.setAnswers(Integer.parseInt(resultSet.getString(9)));
-                returnQuestion.setCourseID(Integer.parseInt(resultSet.getString(10)));
-                returnQuestion.setAnswered(Integer.parseInt(resultSet.getString(11)) == 1 ? true : false);
-                returnQuestion.setBounty(Integer.parseInt(resultSet.getString(12)));
-                returnList.add(returnQuestion);
+                count = Integer.parseInt(resultSet.getString(1));
             }
-            for (int i = startPosition - 1; i >= 0; i--) {
-                returnList.remove(i);
-            }
+            
             connection.close();
 
         } catch (SQLException sqle) {
-            return null;
+            return 0;
         } catch (ClassNotFoundException cnf) {
-            return null;
+            return 0;
         } catch (IOException ioe) {
-            return null;
+            return 0;
         }
 
-        return returnList;
+        return count;
     }
 
     public ArrayList<Question> collectUserOpenBounties(int userID, int startPosition, int totalAmount) {

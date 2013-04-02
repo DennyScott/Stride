@@ -517,21 +517,6 @@
                 <div class="col-l">
                     <p>Badges are special achievements you earn for participating on the site.  They come in three levels: bronze, silver, and gold.</p>
 
-                    <div class="informed-badge" style="opacity: 1;">
-                        <p>In fact, you can earn a badge just for reading this page:</p>
-
-                        <table class="badges-page">
-                            <tbody><tr>
-                                    <td class="badge-cellAbout">
-                                        <a href="" onclick="return false;" title="bronze badge: Read the entire about page" class="badge"><span class="badge3"></span>&nbsp;Informed</a>
-
-                                    </td>
-                                    <td>
-                                        Read the entire <a href="/about">about</a> page
-                                    </td>
-                                </tr>
-
-                            </tbody></table>
                     </div>
                 </div>
 
